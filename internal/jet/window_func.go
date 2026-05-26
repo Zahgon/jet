@@ -18,91 +18,46 @@ type windowImpl struct {
 	root Window
 }
 
-func newWindowImpl(root Window) *windowImpl {
-	newWindow := &windowImpl{}
-	if root == nil {
-		newWindow.root = newWindow
-	} else {
-		newWindow.root = root
-	}
-
-	return newWindow
-}
+func newWindowImpl(root Window) *windowImpl { _ = "STUB: not implemented"; return nil }
 
 func (w *windowImpl) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-	if !contains(options, NoWrap) {
-		out.WriteByte('(')
-	}
-
-	if w.partitionBy != nil {
-		out.WriteString("PARTITION BY")
-
-		serializeExpressionList(statement, w.partitionBy, ", ", out)
-	}
-	w.orderBy.SkipNewLine = true
-	w.orderBy.Serialize(statement, out, FallTrough(options)...)
-
-	if w.frameUnits != "" {
-		out.WriteString(w.frameUnits)
-
-		if w.end == nil {
-			w.start.serialize(statement, out)
-		} else {
-			out.WriteString("BETWEEN")
-			w.start.serialize(statement, out)
-			out.WriteString("AND")
-			w.end.serialize(statement, out)
-		}
-	}
-
-	if !contains(options, NoWrap) {
-		out.WriteByte(')')
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func (w *windowImpl) ORDER_BY(exprs ...OrderByClause) Window {
-	w.orderBy.List = exprs
-	return w.root
+	_ = "STUB: not implemented"
+	return *new(Window)
 }
 
 func (w *windowImpl) ROWS(start FrameExtent, end ...FrameExtent) Window {
-	w.frameUnits = "ROWS"
-	w.setFrameRange(start, end...)
-	return w.root
+	_ = "STUB: not implemented"
+	return *new(Window)
 }
 
 func (w *windowImpl) RANGE(start FrameExtent, end ...FrameExtent) Window {
-	w.frameUnits = "RANGE"
-	w.setFrameRange(start, end...)
-	return w.root
+	_ = "STUB: not implemented"
+	return *new(Window)
 }
 
 func (w *windowImpl) GROUPS(start FrameExtent, end ...FrameExtent) Window {
-	w.frameUnits = "GROUPS"
-	w.setFrameRange(start, end...)
-	return w.root
+	_ = "STUB: not implemented"
+	return *new(Window)
 }
 
 func (w *windowImpl) setFrameRange(start FrameExtent, end ...FrameExtent) {
-	w.start = start
-	if len(end) > 0 {
-		w.end = end[0]
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // PARTITION_BY window function constructor
 func PARTITION_BY(exp Expression, exprs ...Expression) Window {
-	funImpl := newWindowImpl(nil)
-	funImpl.partitionBy = append([]Expression{exp}, exprs...)
-	return funImpl
+	_ = "STUB: not implemented"
+	return *new(Window)
 }
 
 // ORDER_BY window function constructor
-func ORDER_BY(expr ...OrderByClause) Window {
-	funImpl := newWindowImpl(nil)
-	funImpl.orderBy.List = expr
-	return funImpl
-}
+func ORDER_BY(expr ...OrderByClause) Window { _ = "STUB: not implemented"; return *new(Window) }
 
 // -----------------------------------------------
 
@@ -113,39 +68,21 @@ type FrameExtent interface {
 }
 
 // PRECEDING window frame clause
-func PRECEDING(offset Serializer) FrameExtent {
-	return &frameExtentImpl{
-		preceding: true,
-		offset:    offset,
-	}
-}
+func PRECEDING(offset Serializer) FrameExtent { _ = "STUB: not implemented"; return *new(FrameExtent) }
 
 // FOLLOWING window frame clause
-func FOLLOWING(offset Serializer) FrameExtent {
-	return &frameExtentImpl{
-		preceding: false,
-		offset:    offset,
-	}
-}
+func FOLLOWING(offset Serializer) FrameExtent { _ = "STUB: not implemented"; return *new(FrameExtent) }
 
 type frameExtentImpl struct {
 	preceding bool
 	offset    Serializer
 }
 
-func (f *frameExtentImpl) isFrameExtent() {}
+func (f *frameExtentImpl) isFrameExtent() { _ = "STUB: not implemented"; return }
 
 func (f *frameExtentImpl) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-	if f == nil {
-		return
-	}
-	f.offset.serialize(statement, out, FallTrough(options)...)
-
-	if f.preceding {
-		out.WriteString("PRECEDING")
-	} else {
-		out.WriteString("FOLLOWING")
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // -----------------------------------------------
@@ -160,16 +97,15 @@ type frameExtentKeyword struct {
 	Keyword
 }
 
-func (f frameExtentKeyword) isFrameExtent() {}
+func (f frameExtentKeyword) isFrameExtent() {
+	_ = "STUB: not implemented"
 
-// -----------------------------------------------
+	// -----------------------------------------------
+	return
+}
 
 // WindowName is used to specify window reference from WINDOW clause
-func WindowName(name string) Window {
-	newWindow := &windowName{name: name}
-	newWindow.root = newWindow
-	return newWindow
-}
+func WindowName(name string) Window { _ = "STUB: not implemented"; return *new(Window) }
 
 type windowName struct {
 	windowImpl
@@ -177,10 +113,6 @@ type windowName struct {
 }
 
 func (w windowName) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-	out.WriteByte('(')
-
-	out.WriteString(w.name)
-	w.windowImpl.serialize(statement, out, NoWrap.WithFallTrough(options)...)
-
-	out.WriteByte(')')
+	_ = "STUB: not implemented"
+	return
 }

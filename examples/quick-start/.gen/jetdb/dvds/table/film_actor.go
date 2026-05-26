@@ -33,52 +33,34 @@ type FilmActorTable struct {
 }
 
 // AS creates new FilmActorTable with assigned alias
-func (a FilmActorTable) AS(alias string) *FilmActorTable {
-	return newFilmActorTable(a.SchemaName(), a.TableName(), alias)
-}
+func (a FilmActorTable) AS(alias string) *FilmActorTable { _ = "STUB: not implemented"; return nil }
 
 // Schema creates new FilmActorTable with assigned schema name
 func (a FilmActorTable) FromSchema(schemaName string) *FilmActorTable {
-	return newFilmActorTable(schemaName, a.TableName(), a.Alias())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // WithPrefix creates new FilmActorTable with assigned table prefix
 func (a FilmActorTable) WithPrefix(prefix string) *FilmActorTable {
-	return newFilmActorTable(a.SchemaName(), prefix+a.TableName(), a.TableName())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // WithSuffix creates new FilmActorTable with assigned table suffix
 func (a FilmActorTable) WithSuffix(suffix string) *FilmActorTable {
-	return newFilmActorTable(a.SchemaName(), a.TableName()+suffix, a.TableName())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func newFilmActorTable(schemaName, tableName, alias string) *FilmActorTable {
-	return &FilmActorTable{
-		filmActorTable: newFilmActorTableImpl(schemaName, tableName, alias),
-		EXCLUDED:       newFilmActorTableImpl("", "excluded", ""),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func newFilmActorTableImpl(schemaName, tableName, alias string) filmActorTable {
-	var (
-		ActorIDColumn    = postgres.IntegerColumn("actor_id")
-		FilmIDColumn     = postgres.IntegerColumn("film_id")
-		LastUpdateColumn = postgres.TimestampColumn("last_update")
-		allColumns       = postgres.ColumnList{ActorIDColumn, FilmIDColumn, LastUpdateColumn}
-		mutableColumns   = postgres.ColumnList{LastUpdateColumn}
-		defaultColumns   = postgres.ColumnList{LastUpdateColumn}
-	)
-
-	return filmActorTable{
-		Table: postgres.NewTable(schemaName, tableName, alias, allColumns...),
-
-		//Columns
-		ActorID:    ActorIDColumn,
-		FilmID:     FilmIDColumn,
-		LastUpdate: LastUpdateColumn,
-
-		AllColumns:     allColumns,
-		MutableColumns: mutableColumns,
-		DefaultColumns: defaultColumns,
-	}
+	_ = "STUB: not implemented"
+	return *new(filmActorTable)
 }
+
+//Columns

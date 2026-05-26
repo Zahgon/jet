@@ -8,29 +8,7 @@ type Table struct {
 }
 
 // MutableColumns returns list of mutable columns for table
-func (t Table) MutableColumns() []Column {
-	var ret []Column
-
-	for _, column := range t.Columns {
-		if column.IsPrimaryKey || column.IsGenerated {
-			continue
-		}
-
-		ret = append(ret, column)
-	}
-
-	return ret
-}
+func (t Table) MutableColumns() []Column { _ = "STUB: not implemented"; return nil }
 
 // DefaultColumns returns list of columns with default values set for table
-func (t Table) DefaultColumns() []Column {
-	var ret []Column
-
-	for _, column := range t.Columns {
-		if column.HasDefault {
-			ret = append(ret, column)
-		}
-	}
-
-	return ret
-}
+func (t Table) DefaultColumns() []Column { _ = "STUB: not implemented"; return nil }

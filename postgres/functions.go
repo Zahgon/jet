@@ -15,7 +15,8 @@ var (
 
 // ROW function is used to create a tuple value that consists of a set of expressions or column values.
 func ROW(expressions ...Expression) RowExpression {
-	return jet.ROW(Dialect, expressions...)
+	_ = "STUB: not implemented"
+	return *new(RowExpression)
 }
 
 // ------------------ Mathematical functions ---------------//
@@ -189,7 +190,8 @@ var CONCAT = func(expressions ...Expression) StringExpression {
 
 // CONCAT_WS adds two or more expressions together with a separator.
 func CONCAT_WS(separator Expression, expressions ...Expression) StringExpression {
-	return jet.CONCAT_WS(separator, expressions...)
+	_ = "STUB: not implemented"
+	return *new(StringExpression)
 }
 
 // Character encodings for CONVERT, CONVERT_FROM and CONVERT_TO functions
@@ -211,7 +213,8 @@ var (
 // CONVERT converts string to dest_encoding. The original encoding is
 // specified by src_encoding. The string must be valid in this encoding.
 func CONVERT(str ByteaExpression, srcEncoding StringExpression, destEncoding StringExpression) ByteaExpression {
-	return jet.CONVERT(str, srcEncoding, destEncoding)
+	_ = "STUB: not implemented"
+	return *new(ByteaExpression)
 }
 
 // CONVERT_FROM converts string to the database encoding. The original
@@ -239,7 +242,8 @@ var DECODE = jet.DECODE
 
 // FORMAT formats the arguments according to a format string. This function is similar to the C function sprintf.
 func FORMAT(formatStr StringExpression, formatArgs ...Expression) StringExpression {
-	return jet.FORMAT(formatStr, formatArgs...)
+	_ = "STUB: not implemented"
+	return *new(StringExpression)
 }
 
 // INITCAP converts the first letter of each word to upper case
@@ -272,42 +276,50 @@ var BIT_COUNT = jet.BIT_COUNT
 
 // GET_BIT extracts n'th bit from binary string.
 func GET_BIT(bytes ByteaExpression, n IntegerExpression) IntegerExpression {
-	return IntExp(Func("GET_BIT", bytes, n))
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }
 
 // GET_BYTE extracts n'th byte from binary string.
 func GET_BYTE(bytes ByteaExpression, n IntegerExpression) IntegerExpression {
-	return IntExp(Func("GET_BYTE", bytes, n))
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }
 
 // SET_BIT sets n'th bit in binary string to newvalue.
 func SET_BIT(bytes ByteaExpression, n IntegerExpression, newValue IntegerExpression) ByteaExpression {
-	return ByteaExp(Func("SET_BIT", bytes, n, newValue))
+	_ = "STUB: not implemented"
+	return *new(ByteaExpression)
 }
 
 // SET_BYTE sets n'th byte in binary string to newvalue.
 func SET_BYTE(bytes ByteaExpression, n IntegerExpression, newValue IntegerExpression) ByteaExpression {
-	return ByteaExp(Func("SET_BYTE", bytes, n, newValue))
+	_ = "STUB: not implemented"
+	return *new(ByteaExpression)
 }
 
 // SHA224 computes the SHA-224 hash of the binary string.
 func SHA224(bytes ByteaExpression) ByteaExpression {
-	return ByteaExp(Func("SHA224", bytes))
+	_ = "STUB: not implemented"
+	return *new(ByteaExpression)
 }
 
 // SHA256 computes the SHA-256 hash of the binary string.
 func SHA256(bytes ByteaExpression) ByteaExpression {
-	return ByteaExp(Func("SHA256", bytes))
+	_ = "STUB: not implemented"
+	return *new(ByteaExpression)
 }
 
 // SHA384 computes the SHA-384 hash of the binary string.
 func SHA384(bytes ByteaExpression) ByteaExpression {
-	return ByteaExp(Func("SHA384", bytes))
+	_ = "STUB: not implemented"
+	return *new(ByteaExpression)
 }
 
 // SHA512 computes the SHA-512 hash of the binary string.
 func SHA512(bytes ByteaExpression) ByteaExpression {
-	return ByteaExp(Func("SHA512", bytes))
+	_ = "STUB: not implemented"
+	return *new(ByteaExpression)
 }
 
 // MD5 calculates the MD5 hash of string, returning the result in hexadecimal
@@ -339,55 +351,56 @@ var TO_HEX = jet.TO_HEX
 
 // LOWER_BOUND returns range expressions lower bound
 func LOWER_BOUND[T Expression](expression jet.Range[T]) T {
-	return jet.LOWER_BOUND[T](expression)
+	_ = "STUB: not implemented"
+	return *new(T)
 }
 
 // UPPER_BOUND returns range expressions upper bound
 func UPPER_BOUND[T Expression](expression jet.Range[T]) T {
-	return jet.UPPER_BOUND[T](expression)
+	_ = "STUB: not implemented"
+	return *new(T)
 }
 
 // ---------- Array Functions ----------------------//
 
 // ANY should be used in combination with a boolean operator. The result of ANY is "true" if any true result is obtained
-func ANY[E Expression](arr Array[E]) E {
-	return jet.CastToArrayElemType(arr, Func("ANY", arr))
-}
+func ANY[E Expression](arr Array[E]) E { _ = "STUB: not implemented"; return *new(E) }
 
 // ALL should be used in combination with a boolean operator. The result of ALL is “true” if all comparisons yield true
-func ALL[E Expression](arr Array[E]) E {
-	return jet.CastToArrayElemType(arr, Func("ALL", arr))
-}
+func ALL[E Expression](arr Array[E]) E { _ = "STUB: not implemented"; return *new(E) }
 
 // ARRAY_APPEND appends an element to the end of an array
 func ARRAY_APPEND[E Expression](arr Array[E], elem E) Array[E] {
-	return ArrayExp[E](Func("ARRAY_APPEND", arr, elem))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ARRAY_CAT concatenates two arrays
-func ARRAY_CAT[E Expression](arr1, arr2 Array[E]) Array[E] {
-	return ArrayExp[E](Func("ARRAY_CAT", arr1, arr2))
-}
+func ARRAY_CAT[E Expression](arr1, arr2 Array[E]) Array[E] { _ = "STUB: not implemented"; return nil }
 
 // ARRAY_DIMS returns a text representation of the array's dimensions.
 func ARRAY_DIMS[E Expression](arr Array[E]) StringExpression {
-	return StringExp(Func("ARRAY_DIMS", arr))
+	_ = "STUB: not implemented"
+	return *new(StringExpression)
 }
 
 // ARRAY_LENGTH returns the length of the requested array dimension.
 // Produces NULL instead of 0 for empty or missing array dimensions.
 func ARRAY_LENGTH[E Expression](arr Array[E], elem IntegerExpression) IntegerExpression {
-	return IntExp(Func("ARRAY_LENGTH", arr, elem))
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }
 
 // ARRAY_LOWER returns the lower bound of the requested array dimension.
 func ARRAY_LOWER[E Expression](arr Array[E]) IntegerExpression {
-	return IntExp(Func("ARRAY_LOWER", arr))
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }
 
 // ARRAY_NDIMS returns the number of dimensions of the array.
 func ARRAY_NDIMS[E Expression](arr Array[E]) IntegerExpression {
-	return IntExp(Func("ARRAY_NDIMS", arr))
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }
 
 // ARRAY_POSITION returns the subscript of the first occurrence of the second argument in the array, or NULL if it's not present.
@@ -395,7 +408,8 @@ func ARRAY_NDIMS[E Expression](arr Array[E]) IntegerExpression {
 // The array must be one-dimensional.
 // Comparisons are done using IS NOT DISTINCT FROM semantics, so it is possible to search for NULL.
 func ARRAY_POSITION[E Expression](arr Array[E], elem E, start ...IntegerExpression) IntegerExpression {
-	return IntExp(Func("ARRAY_POSITION", optionalAppend([]Expression{arr, elem}, start)...))
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }
 
 // ARRAY_POSITIONS returns an array of the subscripts of all occurrences of the second argument in the array given as first argument.
@@ -403,41 +417,42 @@ func ARRAY_POSITION[E Expression](arr Array[E], elem E, start ...IntegerExpressi
 // Comparisons are done using IS NOT DISTINCT FROM semantics, so it is possible to search for NULL.
 // NULL is returned only if the array is NULL; if the value is not found in the array, an empty array is returned.
 func ARRAY_POSITIONS[E Expression](arr Array[E], elem E) Array[IntegerExpression] {
-	return ArrayExp[IntegerExpression](Func("ARRAY_POSITIONS", arr, elem))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ARRAY_PREPEND prepends an element to the beginning of an array
 func ARRAY_PREPEND[E Expression](el E, arr Array[E]) Array[E] {
-	return ArrayExp[E](Func("ARRAY_PREPEND", el, arr))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ARRAY_REMOVE removes all elements equal to the given value from the array. The array must be one-dimensional.
 // Comparisons are done using IS NOT DISTINCT FROM semantics, so it is possible to remove NULLs.
 func ARRAY_REMOVE[E Expression](arr Array[E], elem Expression) IntegerExpression {
-	return IntExp(Func("ARRAY_REMOVE", arr, elem))
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }
 
 // ARRAY_REPLACE replaces each array element equal to the second argument with the third argument.
 func ARRAY_REPLACE[E Expression](arr Array[E], existing E, new E) Array[E] {
-	return ArrayExp[E](Func("ARRAY_REPLACE", arr, existing, new))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ARRAY_REVERSE reverses the first dimension of the array.
-func ARRAY_REVERSE[E Expression](arr Array[E]) Array[E] {
-	return ArrayExp[E](Func("ARRAY_REVERSE", arr))
-}
+func ARRAY_REVERSE[E Expression](arr Array[E]) Array[E] { _ = "STUB: not implemented"; return nil }
 
 // ARRAY_SAMPLE returns an array of n items randomly selected from array.
 // n may not exceed the length of array's first dimension.
 // If array is multi-dimensional, an “item” is a slice having a given first subscript.
 func ARRAY_SAMPLE[E Expression](arr Array[E], n IntegerExpression) Array[E] {
-	return ArrayExp[E](Func("ARRAY_SAMPLE", arr, n))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ARRAY_SHUFFLE randomly shuffles the first dimension of the array.
-func ARRAY_SHUFFLE[E Expression](arr Array[E]) Array[E] {
-	return ArrayExp[E](Func("ARRAY_SHUFFLE", arr))
-}
+func ARRAY_SHUFFLE[E Expression](arr Array[E]) Array[E] { _ = "STUB: not implemented"; return nil }
 
 // ARRAY_SORT sorts the first dimension of the array.
 // The sort order is determined by the default sort ordering of the array's element type; however, if the element type is collatable, the collation to use can be specified by adding a COLLATE clause to the array argument.
@@ -447,41 +462,41 @@ func ARRAY_SHUFFLE[E Expression](arr Array[E]) Array[E] {
 // If nulls_first is true then nulls appear before non-null values, otherwise nulls appear after non-null values.
 // If omitted, nulls_first is taken to have the same value as descending.
 func ARRAY_SORT[E Expression](arr Array[E], desc BoolExpression, nullFirst ...BoolExpression) Array[E] {
-	return ArrayExp[E](Func("ARRAY_SORT", optionalAppend([]Expression{arr, desc}, nullFirst)...))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ARRAY_TO_STRING Converts each array element to its text representation, and concatenates those separated by the delimiter string.
 // If null_string is given and is not NULL, then NULL array entries are represented by that string; otherwise, they are omitted.
 func ARRAY_TO_STRING[T Expression](arr Array[T], delim StringExpression) StringExpression {
-	return StringExp(Func("ARRAY_TO_STRING", arr, delim))
+	_ = "STUB: not implemented"
+	return *new(StringExpression)
 }
 
 // ARRAY_UPPER returns the upper bound of the requested array dimension.
 func ARRAY_UPPER[E Expression](arr Array[E], dim IntegerExpression) IntegerExpression {
-	return IntExp(Func("ARRAY_UPPER", arr, dim))
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }
 
 // CARDINALITY returns the total number of elements in the array, or 0 if the array is empty.
 func CARDINALITY[E Expression](arr Array[E]) IntegerExpression {
-	return IntExp(Func("CARDINALITY", arr))
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }
 
 // TRIM_ARRAY trims an array by removing the last n elements. If the array is multidimensional, only the first dimension is trimmed.
 func TRIM_ARRAY[E Expression](arr Array[E], n IntegerExpression) Array[E] {
-	return ArrayExp[E](Func("TRIM_ARRAY", arr, n))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ARRAY constructor is an expression that builds an array value using values for its member elements.
-func ARRAY[T Expression](elems ...T) Array[T] {
-	return jet.ARRAY[T](elems...)
-}
+func ARRAY[T Expression](elems ...T) Array[T] { _ = "STUB: not implemented"; return nil }
 
 func optionalAppend[O Expression](elem []Expression, optional []O) []Expression {
-	if len(optional) == 0 {
-		return elem
-	}
-
-	return append(elem, optional[0])
+	_ = "STUB: not implemented"
+	return nil
 }
 
 //---------- Data Type Formatting Functions ----------------------//
@@ -518,7 +533,8 @@ const (
 //
 //	EXTRACT(DAY, User.CreatedAt)
 func EXTRACT(field unit, from Expression) FloatExpression {
-	return FloatExp(jet.EXTRACT(unitToString(field), from))
+	_ = "STUB: not implemented"
+	return *new(FloatExpression)
 }
 
 // CURRENT_DATE returns current date
@@ -542,20 +558,14 @@ var NOW = jet.NOW
 // DATE_TRUNC returns the truncated date and time using optional time zone.
 // Use TimestampzExp if you need timestamp with time zone and IntervalExp if you need interval.
 func DATE_TRUNC(field unit, source Expression, timezone ...string) TimestampExpression {
-	if len(timezone) > 0 {
-		return jet.NewTimestampFunc("DATE_TRUNC", jet.FixedLiteral(unitToString(field)), source, jet.FixedLiteral(timezone[0]))
-	}
-
-	return jet.NewTimestampFunc("DATE_TRUNC", jet.FixedLiteral(unitToString(field)), source)
+	_ = "STUB: not implemented"
+	return *new(TimestampExpression)
 }
 
 // GENERATE_SERIES generates a series of values from start to stop, with a step size of step.
 func GENERATE_SERIES(start Expression, stop Expression, step ...Expression) Expression {
-	if len(step) > 0 {
-		return Func("GENERATE_SERIES", start, stop, step[0])
-	}
-
-	return Func("GENERATE_SERIES", start, stop)
+	_ = "STUB: not implemented"
+	return *new(Expression)
 }
 
 // --------------- Conditional Expressions Functions -------------//
@@ -584,13 +594,15 @@ var MODE = jet.MODE
 // PERCENTILE_CONT computes a value corresponding to the specified fraction within the ordered set of
 // aggregated argument values. This will interpolate between adjacent input items if needed.
 func PERCENTILE_CONT(fraction FloatExpression) *jet.OrderSetAggregateFunc {
-	return jet.PERCENTILE_CONT(fraction)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // PERCENTILE_DISC computes  the first value within the ordered set of aggregated argument values whose position
 // in the ordering equals or exceeds the specified fraction. The aggregated argument must be of a sortable type.
 func PERCENTILE_DISC(fraction FloatExpression) *jet.OrderSetAggregateFunc {
-	return jet.PERCENTILE_DISC(fraction)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ----------------- Group By operators --------------------------//
@@ -609,7 +621,8 @@ var GROUPING_SETS = jet.GROUPING_SETS
 // The construct (a, b) is normally recognized in expressions as a row constructor. WRAP and ROW methods behave exactly the same,
 // except when used in GROUPING_SETS and VALUES. In these contexts, WRAP must be used instead of ROW.
 func WRAP(expressions ...Expression) RowExpression {
-	return jet.WRAP(Dialect, expressions...)
+	_ = "STUB: not implemented"
+	return *new(RowExpression)
 }
 
 // ROLLUP operator is used with the GROUP BY clause to generate all prefixes of a group of columns including the empty list.

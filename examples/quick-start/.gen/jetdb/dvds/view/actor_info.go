@@ -34,54 +34,34 @@ type ActorInfoTable struct {
 }
 
 // AS creates new ActorInfoTable with assigned alias
-func (a ActorInfoTable) AS(alias string) *ActorInfoTable {
-	return newActorInfoTable(a.SchemaName(), a.TableName(), alias)
-}
+func (a ActorInfoTable) AS(alias string) *ActorInfoTable { _ = "STUB: not implemented"; return nil }
 
 // Schema creates new ActorInfoTable with assigned schema name
 func (a ActorInfoTable) FromSchema(schemaName string) *ActorInfoTable {
-	return newActorInfoTable(schemaName, a.TableName(), a.Alias())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // WithPrefix creates new ActorInfoTable with assigned table prefix
 func (a ActorInfoTable) WithPrefix(prefix string) *ActorInfoTable {
-	return newActorInfoTable(a.SchemaName(), prefix+a.TableName(), a.TableName())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // WithSuffix creates new ActorInfoTable with assigned table suffix
 func (a ActorInfoTable) WithSuffix(suffix string) *ActorInfoTable {
-	return newActorInfoTable(a.SchemaName(), a.TableName()+suffix, a.TableName())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func newActorInfoTable(schemaName, tableName, alias string) *ActorInfoTable {
-	return &ActorInfoTable{
-		actorInfoTable: newActorInfoTableImpl(schemaName, tableName, alias),
-		EXCLUDED:       newActorInfoTableImpl("", "excluded", ""),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func newActorInfoTableImpl(schemaName, tableName, alias string) actorInfoTable {
-	var (
-		ActorIDColumn   = postgres.IntegerColumn("actor_id")
-		FirstNameColumn = postgres.StringColumn("first_name")
-		LastNameColumn  = postgres.StringColumn("last_name")
-		FilmInfoColumn  = postgres.StringColumn("film_info")
-		allColumns      = postgres.ColumnList{ActorIDColumn, FirstNameColumn, LastNameColumn, FilmInfoColumn}
-		mutableColumns  = postgres.ColumnList{ActorIDColumn, FirstNameColumn, LastNameColumn, FilmInfoColumn}
-		defaultColumns  = postgres.ColumnList{}
-	)
-
-	return actorInfoTable{
-		Table: postgres.NewTable(schemaName, tableName, alias, allColumns...),
-
-		//Columns
-		ActorID:   ActorIDColumn,
-		FirstName: FirstNameColumn,
-		LastName:  LastNameColumn,
-		FilmInfo:  FilmInfoColumn,
-
-		AllColumns:     allColumns,
-		MutableColumns: mutableColumns,
-		DefaultColumns: defaultColumns,
-	}
+	_ = "STUB: not implemented"
+	return *new(actorInfoTable)
 }
+
+//Columns

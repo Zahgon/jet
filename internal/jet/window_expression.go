@@ -5,20 +5,11 @@ type commonWindowImpl struct {
 	window     Window
 }
 
-func (w *commonWindowImpl) over(window ...Window) {
-	if len(window) > 0 {
-		w.window = window[0]
-	} else {
-		w.window = newWindowImpl(nil)
-	}
-}
+func (w *commonWindowImpl) over(window ...Window) { _ = "STUB: not implemented"; return }
 
 func (w *commonWindowImpl) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-	w.expression.serialize(statement, out)
-	if w.window != nil {
-		out.WriteString("OVER")
-		w.window.serialize(statement, out, FallTrough(options)...)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // --------------------------------------
@@ -29,14 +20,8 @@ type windowExpression interface {
 }
 
 func newWindowExpression(exp Expression) windowExpression {
-	newExp := &windowExpressionImpl{
-		Expression: exp,
-	}
-
-	newExp.commonWindowImpl.expression = exp
-	exp.setRoot(newExp)
-
-	return newExp
+	_ = "STUB: not implemented"
+	return *new(windowExpression)
 }
 
 type windowExpressionImpl struct {
@@ -45,12 +30,13 @@ type windowExpressionImpl struct {
 }
 
 func (f *windowExpressionImpl) OVER(window ...Window) Expression {
-	f.commonWindowImpl.over(window...)
-	return f
+	_ = "STUB: not implemented"
+	return *new(Expression)
 }
 
 func (f *windowExpressionImpl) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-	f.commonWindowImpl.serialize(statement, out, FallTrough(options)...)
+	_ = "STUB: not implemented"
+	return
 }
 
 // -----------------------------------------------------
@@ -61,14 +47,8 @@ type floatWindowExpression interface {
 }
 
 func newFloatWindowExpression(floatExp FloatExpression) floatWindowExpression {
-	newExp := &floatWindowExpressionImpl{
-		FloatExpression: floatExp,
-	}
-
-	newExp.commonWindowImpl.expression = floatExp
-	floatExp.setRoot(newExp)
-
-	return newExp
+	_ = "STUB: not implemented"
+	return *new(floatWindowExpression)
 }
 
 type floatWindowExpressionImpl struct {
@@ -77,12 +57,13 @@ type floatWindowExpressionImpl struct {
 }
 
 func (f *floatWindowExpressionImpl) OVER(window ...Window) FloatExpression {
-	f.commonWindowImpl.over(window...)
-	return f
+	_ = "STUB: not implemented"
+	return *new(FloatExpression)
 }
 
 func (f *floatWindowExpressionImpl) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-	f.commonWindowImpl.serialize(statement, out, FallTrough(options)...)
+	_ = "STUB: not implemented"
+	return
 }
 
 // ------------------------------------------------
@@ -93,14 +74,8 @@ type integerWindowExpression interface {
 }
 
 func newIntegerWindowExpression(intExp IntegerExpression) integerWindowExpression {
-	newExp := &integerWindowExpressionImpl{
-		IntegerExpression: intExp,
-	}
-
-	newExp.commonWindowImpl.expression = intExp
-	intExp.setRoot(newExp)
-
-	return newExp
+	_ = "STUB: not implemented"
+	return *new(integerWindowExpression)
 }
 
 type integerWindowExpressionImpl struct {
@@ -109,12 +84,13 @@ type integerWindowExpressionImpl struct {
 }
 
 func (f *integerWindowExpressionImpl) OVER(window ...Window) IntegerExpression {
-	f.commonWindowImpl.over(window...)
-	return f
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }
 
 func (f *integerWindowExpressionImpl) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-	f.commonWindowImpl.serialize(statement, out, FallTrough(options)...)
+	_ = "STUB: not implemented"
+	return
 }
 
 // ------------------------------------------------
@@ -125,14 +101,8 @@ type boolWindowExpression interface {
 }
 
 func newBoolWindowExpression(boolExp BoolExpression) boolWindowExpression {
-	newExp := &boolWindowExpressionImpl{
-		BoolExpression: boolExp,
-	}
-
-	newExp.commonWindowImpl.expression = boolExp
-	boolExp.setRoot(newExp)
-
-	return newExp
+	_ = "STUB: not implemented"
+	return *new(boolWindowExpression)
 }
 
 type boolWindowExpressionImpl struct {
@@ -141,10 +111,11 @@ type boolWindowExpressionImpl struct {
 }
 
 func (f *boolWindowExpressionImpl) OVER(window ...Window) BoolExpression {
-	f.commonWindowImpl.over(window...)
-	return f
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (f *boolWindowExpressionImpl) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-	f.commonWindowImpl.serialize(statement, out, FallTrough(options)...)
+	_ = "STUB: not implemented"
+	return
 }

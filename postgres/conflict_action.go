@@ -9,11 +9,8 @@ type conflictAction interface {
 
 // SET creates conflict action for ON_CONFLICT clause
 func SET(assigments ...ColumnAssigment) conflictAction {
-	conflictAction := updateConflictActionImpl{}
-	conflictAction.doUpdate = jet.KeywordClause{Keyword: "DO UPDATE"}
-	conflictAction.Serializer = jet.NewSerializerClauseImpl(&conflictAction.doUpdate, &conflictAction.set, &conflictAction.where)
-	conflictAction.set = assigments
-	return &conflictAction
+	_ = "STUB: not implemented"
+	return *new(conflictAction)
 }
 
 type updateConflictActionImpl struct {
@@ -25,6 +22,6 @@ type updateConflictActionImpl struct {
 }
 
 func (u *updateConflictActionImpl) WHERE(condition BoolExpression) conflictAction {
-	u.where.Condition = condition
-	return u
+	_ = "STUB: not implemented"
+	return *new(conflictAction)
 }

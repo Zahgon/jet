@@ -3,8 +3,9 @@ package jet
 import (
 	"context"
 	"database/sql"
-	"github.com/go-jet/jet/v2/qrm"
 	"time"
+
+	"github.com/go-jet/jet/v2/qrm"
 )
 
 // Statement is a common interface for all SQL statements, including SELECT, SELECT_JSON_ARR, SELECT_JSON_OBJ, INSERT,
@@ -51,9 +52,7 @@ type Rows struct {
 }
 
 // Scan will map the Row values into struct destination
-func (r *Rows) Scan(destination interface{}) error {
-	return qrm.ScanOneRowToDest(r.scanContext, r.Rows, destination)
-}
+func (r *Rows) Scan(destination interface{}) error { _ = "STUB: not implemented"; return nil }
 
 // SerializerStatement interface
 type SerializerStatement interface {
@@ -81,136 +80,46 @@ type statementInterfaceImpl struct {
 }
 
 func (s *statementInterfaceImpl) Sql() (query string, args []interface{}) {
-
-	queryData := &SQLBuilder{Dialect: s.dialect}
-
-	s.root.serialize(s.statementType, queryData, NoWrap)
-
-	query, args = queryData.finalize()
-	return
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
-func (s *statementInterfaceImpl) DebugSql() (query string) {
-	sqlBuilder := &SQLBuilder{Dialect: s.dialect, Debug: true}
-
-	s.root.serialize(s.statementType, sqlBuilder, NoWrap)
-
-	query, _ = sqlBuilder.finalize()
-	return
-}
+func (s *statementInterfaceImpl) DebugSql() (query string) { _ = "STUB: not implemented"; return "" }
 
 func (s *statementInterfaceImpl) Query(db qrm.Queryable, destination interface{}) error {
-	return s.QueryContext(context.Background(), db, destination)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (s *statementInterfaceImpl) QueryContext(ctx context.Context, db qrm.Queryable, destination interface{}) error {
-	return s.query(ctx, func(query string, args []interface{}) (int64, error) {
-		switch s.statementType {
-		case SelectJsonObjStatementType:
-			return qrm.QueryJsonObj(ctx, db, query, args, destination)
-		case SelectJsonArrStatementType:
-			return qrm.QueryJsonArr(ctx, db, query, args, destination)
-		default:
-			return qrm.Query(ctx, db, query, args, destination)
-		}
-	})
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (s *statementInterfaceImpl) query(
 	ctx context.Context,
 	queryFunc func(query string, args []interface{}) (int64, error),
 ) error {
-	query, args := s.Sql()
-
-	callLogger(ctx, s)
-
-	var rowsProcessed int64
-	var err error
-
-	duration := duration(func() {
-		rowsProcessed, err = queryFunc(query, args)
-	})
-
-	callQueryLoggerFunc(ctx, QueryInfo{
-		Statement:     s,
-		RowsProcessed: rowsProcessed,
-		Duration:      duration,
-		Err:           err,
-	})
-
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (s *statementInterfaceImpl) Exec(db qrm.Executable) (res sql.Result, err error) {
-	return s.ExecContext(context.Background(), db)
+	_ = "STUB: not implemented"
+	return *new(sql.Result), nil
 }
 
 func (s *statementInterfaceImpl) ExecContext(ctx context.Context, db qrm.Executable) (res sql.Result, err error) {
-	query, args := s.Sql()
-
-	callLogger(ctx, s)
-
-	duration := duration(func() {
-		res, err = db.ExecContext(ctx, query, args...)
-	})
-
-	var rowsAffected int64
-
-	if err == nil {
-		rowsAffected, _ = res.RowsAffected()
-	}
-
-	callQueryLoggerFunc(ctx, QueryInfo{
-		Statement:     s,
-		RowsProcessed: rowsAffected,
-		Duration:      duration,
-		Err:           err,
-	})
-
-	return res, err
+	_ = "STUB: not implemented"
+	return *new(sql.Result), nil
 }
 
 func (s *statementInterfaceImpl) Rows(ctx context.Context, db qrm.Queryable) (*Rows, error) {
-	query, args := s.Sql()
-
-	callLogger(ctx, s)
-
-	var rows *sql.Rows
-	var err error
-
-	duration := duration(func() {
-		rows, err = db.QueryContext(ctx, query, args...)
-	})
-
-	callQueryLoggerFunc(ctx, QueryInfo{
-		Statement: s,
-		Duration:  duration,
-		Err:       err,
-	})
-
-	if err != nil {
-		return nil, err
-	}
-
-	scanContext, err := qrm.NewScanContext(rows)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return &Rows{
-		Rows:        rows,
-		scanContext: scanContext,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func duration(f func()) time.Duration {
-	start := time.Now()
-
-	f()
-
-	return time.Since(start)
-}
+func duration(f func()) time.Duration { _ = "STUB: not implemented"; return *new(time.Duration) }
 
 // ExpressionStatement interfacess
 type ExpressionStatement interface {
@@ -224,18 +133,8 @@ func NewExpressionStatementImpl(Dialect Dialect,
 	statementType StatementType,
 	root ExpressionStatement,
 	clauses ...Clause) ExpressionStatement {
-
-	return &expressionStatementImpl{
-		ExpressionInterfaceImpl{Root: root},
-		statementImpl{
-			statementInterfaceImpl: statementInterfaceImpl{
-				root:          root,
-				dialect:       Dialect,
-				statementType: statementType,
-			},
-			Clauses: clauses,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ExpressionStatement)
 }
 
 type expressionStatementImpl struct {
@@ -244,23 +143,19 @@ type expressionStatementImpl struct {
 }
 
 func (s *expressionStatementImpl) serializeForProjection(statement StatementType, out *SQLBuilder) {
-	s.serialize(statement, out)
+	_ = "STUB: not implemented"
+	return
 }
 
 func (e *expressionStatementImpl) serializeForRowToJsonProjection(statement StatementType, out *SQLBuilder) {
-	panic("jet: SELECT JSON statements need to be aliased when used as a projection.")
+	_ = "STUB: not implemented"
+	return
 }
 
 // NewStatementImpl creates new statementImpl
 func NewStatementImpl(Dialect Dialect, statementType StatementType, root SerializerStatement, clauses ...Clause) SerializerStatement {
-	return &statementImpl{
-		statementInterfaceImpl: statementInterfaceImpl{
-			root:          root,
-			dialect:       Dialect,
-			statementType: statementType,
-		},
-		Clauses: clauses,
-	}
+	_ = "STUB: not implemented"
+	return *new(SerializerStatement)
 }
 
 type statementImpl struct {
@@ -270,37 +165,11 @@ type statementImpl struct {
 }
 
 func (s *statementImpl) projections() ProjectionList {
-	for _, clause := range s.Clauses {
-		if selectClause, ok := clause.(ClauseWithProjections); ok {
-			return selectClause.Projections()
-		}
-	}
-
-	return nil
+	_ = "STUB: not implemented"
+	return *new(ProjectionList)
 }
 
 func (s *statementImpl) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-	if !contains(options, NoWrap) {
-		out.WriteString("(")
-		out.IncreaseIdent()
-	}
-
-	if contains(options, Ident) {
-		out.IncreaseIdent()
-	}
-
-	for _, clause := range s.Clauses {
-		clause.Serialize(s.statementType, out, FallTrough(options)...)
-	}
-
-	if contains(options, Ident) {
-		out.DecreaseIdent()
-		out.NewLine()
-	}
-
-	if !contains(options, NoWrap) {
-		out.DecreaseIdent()
-		out.NewLine()
-		out.WriteString(")")
-	}
+	_ = "STUB: not implemented"
+	return
 }

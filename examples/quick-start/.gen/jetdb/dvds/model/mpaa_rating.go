@@ -7,8 +7,6 @@
 
 package model
 
-import "errors"
-
 type MpaaRating string
 
 const (
@@ -27,35 +25,6 @@ var MpaaRatingAllValues = []MpaaRating{
 	MpaaRating_Nc17,
 }
 
-func (e *MpaaRating) Scan(value interface{}) error {
-	var enumValue string
-	switch val := value.(type) {
-	case string:
-		enumValue = val
-	case []byte:
-		enumValue = string(val)
-	default:
-		return errors.New("jet: Invalid scan value for AllTypesEnum enum. Enum value has to be of type string or []byte")
-	}
+func (e *MpaaRating) Scan(value interface{}) error { _ = "STUB: not implemented"; return nil }
 
-	switch enumValue {
-	case "G":
-		*e = MpaaRating_G
-	case "PG":
-		*e = MpaaRating_Pg
-	case "PG-13":
-		*e = MpaaRating_Pg13
-	case "R":
-		*e = MpaaRating_R
-	case "NC-17":
-		*e = MpaaRating_Nc17
-	default:
-		return errors.New("jet: Invalid scan value '" + enumValue + "' for MpaaRating enum")
-	}
-
-	return nil
-}
-
-func (e MpaaRating) String() string {
-	return string(e)
-}
+func (e MpaaRating) String() string { _ = "STUB: not implemented"; return "" }

@@ -24,18 +24,8 @@ type InsertStatement interface {
 }
 
 func newInsertStatement(table Table, columns []jet.Column) InsertStatement {
-	newInsert := &insertStatementImpl{}
-	newInsert.SerializerStatement = jet.NewStatementImpl(Dialect, jet.InsertStatementType, newInsert,
-		&newInsert.Insert,
-		&newInsert.ValuesQuery,
-		&newInsert.OnDuplicateKey,
-		&newInsert.Returning,
-	)
-
-	newInsert.Insert.Table = table
-	newInsert.Insert.Columns = columns
-
-	return newInsert
+	_ = "STUB: not implemented"
+	return *new(InsertStatement)
 }
 
 type insertStatementImpl struct {
@@ -48,64 +38,49 @@ type insertStatementImpl struct {
 }
 
 func (is *insertStatementImpl) OPTIMIZER_HINTS(hints ...OptimizerHint) InsertStatement {
-	is.Insert.OptimizerHints = hints
-	return is
+	_ = "STUB: not implemented"
+	return *new(InsertStatement)
 }
 
 func (is *insertStatementImpl) VALUES(value interface{}, values ...interface{}) InsertStatement {
-	is.ValuesQuery.Rows = append(is.ValuesQuery.Rows, jet.UnwindRowFromValues(value, values))
-	return is
+	_ = "STUB: not implemented"
+	return *new(InsertStatement)
 }
 
 func (is *insertStatementImpl) MODEL(data interface{}) InsertStatement {
-	is.ValuesQuery.Rows = append(is.ValuesQuery.Rows, jet.UnwindRowFromModel(is.Insert.GetColumns(), data))
-	return is
+	_ = "STUB: not implemented"
+	return *new(InsertStatement)
 }
 
 func (is *insertStatementImpl) MODELS(data interface{}) InsertStatement {
-	is.ValuesQuery.Rows = append(is.ValuesQuery.Rows, jet.UnwindRowsFromModels(is.Insert.GetColumns(), data)...)
-	return is
+	_ = "STUB: not implemented"
+	return *new(InsertStatement)
 }
 
 func (i *insertStatementImpl) RETURNING(projections ...jet.Projection) InsertStatement {
-	i.Returning.ProjectionList = projections
-	return i
+	_ = "STUB: not implemented"
+	return *new(InsertStatement)
 }
 
 func (is *insertStatementImpl) AS_NEW() InsertStatement {
-	is.ValuesQuery.As = "new"
-	return is
+	_ = "STUB: not implemented"
+	return *new(InsertStatement)
 }
 
 func (is *insertStatementImpl) ON_DUPLICATE_KEY_UPDATE(assigments ...ColumnAssigment) InsertStatement {
-	is.OnDuplicateKey = assigments
-	return is
+	_ = "STUB: not implemented"
+	return *new(InsertStatement)
 }
 
 func (is *insertStatementImpl) QUERY(selectStatement SelectStatement) InsertStatement {
-	is.ValuesQuery.Query = selectStatement
-	return is
+	_ = "STUB: not implemented"
+	return *new(InsertStatement)
 }
 
 type onDuplicateKeyUpdateClause []jet.ColumnAssigment
 
 // Serialize for SetClause
 func (s onDuplicateKeyUpdateClause) Serialize(statementType jet.StatementType, out *jet.SQLBuilder, options ...jet.SerializeOption) {
-	if len(s) == 0 {
-		return
-	}
-	out.NewLine()
-	out.WriteString("ON DUPLICATE KEY UPDATE")
-	out.IncreaseIdent(24)
-
-	for i, assigment := range s {
-		if i > 0 {
-			out.WriteString(",")
-			out.NewLine()
-		}
-
-		jet.Serialize(assigment, statementType, out, jet.FallTrough(options)...)
-	}
-
-	out.DecreaseIdent(24)
+	_ = "STUB: not implemented"
+	return
 }

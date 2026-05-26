@@ -2,7 +2,6 @@ package sqlite
 
 import (
 	"github.com/go-jet/jet/v2/internal/jet"
-	"github.com/go-jet/jet/v2/internal/utils/is"
 )
 
 type onConflict interface {
@@ -23,38 +22,23 @@ type onConflictClause struct {
 }
 
 func (o *onConflictClause) WHERE(indexPredicate BoolExpression) conflictTarget {
-	o.whereClause.Condition = indexPredicate
-	return o
+	_ = "STUB: not implemented"
+	return *new(conflictTarget)
 }
 
 func (o *onConflictClause) DO_NOTHING() InsertStatement {
-	o.do = jet.Keyword("DO NOTHING")
-	return o.insertStatement
+	_ = "STUB: not implemented"
+	return *new(InsertStatement)
 }
 
 func (o *onConflictClause) DO_UPDATE(action conflictAction) InsertStatement {
-	o.do = action
-	return o.insertStatement
+	_ = "STUB: not implemented"
+	return *new(InsertStatement)
 }
 
 func (o *onConflictClause) Serialize(statementType jet.StatementType, out *jet.SQLBuilder, options ...jet.SerializeOption) {
-	if is.Nil(o.do) {
-		return
-	}
-
-	out.NewLine()
-	out.WriteString("ON CONFLICT")
-	if len(o.indexExpressions) > 0 {
-		out.WriteString("(")
-		jet.SerializeColumnExpressions(o.indexExpressions, statementType, out, jet.ShortName)
-		out.WriteString(")")
-	}
-
-	o.whereClause.Serialize(statementType, out, jet.SkipNewLine, jet.ShortName)
-
-	out.IncreaseIdent(7)
-	jet.Serialize(o.do, statementType, out)
-	out.DecreaseIdent(7)
+	_ = "STUB: not implemented"
+	return
 }
 
 type conflictAction interface {
@@ -64,11 +48,8 @@ type conflictAction interface {
 
 // SET creates conflict action for ON_CONFLICT clause
 func SET(assigments ...ColumnAssigment) conflictAction {
-	conflictAction := updateConflictActionImpl{}
-	conflictAction.doUpdate = jet.KeywordClause{Keyword: "DO UPDATE"}
-	conflictAction.Serializer = jet.NewSerializerClauseImpl(&conflictAction.doUpdate, &conflictAction.set, &conflictAction.where)
-	conflictAction.set = assigments
-	return &conflictAction
+	_ = "STUB: not implemented"
+	return *new(conflictAction)
 }
 
 type updateConflictActionImpl struct {
@@ -80,6 +61,6 @@ type updateConflictActionImpl struct {
 }
 
 func (u *updateConflictActionImpl) WHERE(condition BoolExpression) conflictAction {
-	u.where.Condition = condition
-	return u
+	_ = "STUB: not implemented"
+	return *new(conflictAction)
 }

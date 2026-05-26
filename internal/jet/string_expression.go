@@ -30,75 +30,81 @@ type stringInterfaceImpl struct {
 	root StringExpression
 }
 
-func (s *stringInterfaceImpl) isStringOrBlob() {}
+func (s *stringInterfaceImpl) isStringOrBlob() { _ = "STUB: not implemented"; return }
 
 func (s *stringInterfaceImpl) EQ(rhs StringExpression) BoolExpression {
-	return Eq(s.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (s *stringInterfaceImpl) NOT_EQ(rhs StringExpression) BoolExpression {
-	return NotEq(s.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (s *stringInterfaceImpl) IS_DISTINCT_FROM(rhs StringExpression) BoolExpression {
-	return IsDistinctFrom(s.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (s *stringInterfaceImpl) IS_NOT_DISTINCT_FROM(rhs StringExpression) BoolExpression {
-	return IsNotDistinctFrom(s.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (s *stringInterfaceImpl) GT(rhs StringExpression) BoolExpression {
-	return Gt(s.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (s *stringInterfaceImpl) GT_EQ(rhs StringExpression) BoolExpression {
-	return GtEq(s.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (s *stringInterfaceImpl) LT(rhs StringExpression) BoolExpression {
-	return Lt(s.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (s *stringInterfaceImpl) LT_EQ(rhs StringExpression) BoolExpression {
-	return LtEq(s.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (s *stringInterfaceImpl) BETWEEN(min, max StringExpression) BoolExpression {
-	return NewBetweenOperatorExpression(s.root, min, max, false)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (s *stringInterfaceImpl) NOT_BETWEEN(min, max StringExpression) BoolExpression {
-	return NewBetweenOperatorExpression(s.root, min, max, true)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (s *stringInterfaceImpl) CONCAT(rhs Expression) StringExpression {
-	return newBinaryStringOperatorExpression(s.root, rhs, StringConcatOperator)
+	_ = "STUB: not implemented"
+	return *new(StringExpression)
 }
 
 func (s *stringInterfaceImpl) LIKE(pattern StringExpression) BoolExpression {
-	return newBinaryBoolOperatorExpression(s.root, pattern, "LIKE")
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (s *stringInterfaceImpl) NOT_LIKE(pattern StringExpression) BoolExpression {
-	return newBinaryBoolOperatorExpression(s.root, pattern, "NOT LIKE")
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (s *stringInterfaceImpl) REGEXP_LIKE(pattern StringExpression, caseSensitive ...bool) BoolExpression {
-	return BoolExp(newExpression(&regexpLikeSerializer{
-		str:           s.root,
-		pattern:       pattern,
-		caseSensitive: len(caseSensitive) > 0 && caseSensitive[0],
-	}))
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (s *stringInterfaceImpl) NOT_REGEXP_LIKE(pattern StringExpression, caseSensitive ...bool) BoolExpression {
-	return BoolExp(newExpression(&regexpLikeSerializer{
-		not:           true,
-		str:           s.root,
-		pattern:       pattern,
-		caseSensitive: len(caseSensitive) > 0 && caseSensitive[0],
-	}))
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 type regexpLikeSerializer struct {
@@ -109,14 +115,14 @@ type regexpLikeSerializer struct {
 }
 
 func (r *regexpLikeSerializer) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-	optionalWrap(out, options, func(out *SQLBuilder, options []SerializeOption) {
-		out.Dialect.RegexpLike(r.str, r.not, r.pattern, r.caseSensitive)(statement, out, options...)
-	})
+	_ = "STUB: not implemented"
+	return
 }
 
 // ---------------------------------------------------//
 func newBinaryStringOperatorExpression(lhs, rhs Expression, operator string) StringExpression {
-	return StringExp(NewBinaryOperatorExpression(lhs, rhs, operator))
+	_ = "STUB: not implemented"
+	return *new(StringExpression)
 }
 
 //---------------------------------------------------//
@@ -127,15 +133,14 @@ type stringExpressionWrapper struct {
 }
 
 func newStringExpressionWrap(expression Expression) StringExpression {
-	stringExpressionWrap := &stringExpressionWrapper{Expression: expression}
-	stringExpressionWrap.stringInterfaceImpl.root = stringExpressionWrap
-	expression.setRoot(stringExpressionWrap)
-	return stringExpressionWrap
+	_ = "STUB: not implemented"
+	return *new(StringExpression)
 }
 
 // StringExp is string expression wrapper around arbitrary expression.
 // Allows go compiler to see any expression as string expression.
 // Does not add sql cast to generated sql builder output.
 func StringExp(expression Expression) StringExpression {
-	return newStringExpressionWrap(expression)
+	_ = "STUB: not implemented"
+	return *new(StringExpression)
 }

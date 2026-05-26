@@ -10,28 +10,26 @@ type Projection interface {
 
 // SerializeForProjection is helper function for serializing projection outside of jet package
 func SerializeForProjection(projection Projection, statementType StatementType, out *SQLBuilder) {
-	projection.serializeForProjection(statementType, out)
+	_ = "STUB: not implemented"
+	return
 }
 
 // ProjectionList is a redefined type, so that ProjectionList can be used as a Projection.
 type ProjectionList []Projection
 
 func (pl ProjectionList) fromImpl(subQuery SelectTable) Projection {
-	newProjectionList := ProjectionList{}
-
-	for _, projection := range pl {
-		newProjectionList = append(newProjectionList, projection.fromImpl(subQuery))
-	}
-
-	return newProjectionList
+	_ = "STUB: not implemented"
+	return *new(Projection)
 }
 
 func (pl ProjectionList) serializeForProjection(statement StatementType, out *SQLBuilder) {
-	SerializeProjectionList(statement, pl, out)
+	_ = "STUB: not implemented"
+	return
 }
 
 func (pl ProjectionList) serializeForJsonObjEntry(statement StatementType, out *SQLBuilder) {
-	SerializeProjectionListJsonObj(statement, pl, out)
+	_ = "STUB: not implemented"
+	return
 }
 
 // As will create new projection list where each column is wrapped with a new table alias.
@@ -39,64 +37,25 @@ func (pl ProjectionList) serializeForJsonObjEntry(statement StatementType, out *
 // For instance: If projection list has a column 'Artist.Name', and tableAlias is 'Musician.*', returned projection list will
 // have a column wrapped in alias 'Musician.Name'. If tableAlias is empty string, it removes existing table alias ('Artist.Name' becomes 'Name').
 func (pl ProjectionList) As(tableAlias string) ProjectionList {
-	newProjectionList := ProjectionList{}
-
-	for _, projection := range pl {
-		switch p := projection.(type) {
-		case ProjectionList:
-			newProjectionList = append(newProjectionList, p.As(tableAlias))
-		case ColumnList:
-			newProjectionList = append(newProjectionList, p.As(tableAlias))
-		case ColumnExpression:
-			newProjectionList = append(newProjectionList, newAlias(p, joinAlias(tableAlias, p.Name())))
-		case *alias:
-			newAlias := *p
-			_, columnName := extractTableAndColumnName(newAlias.alias)
-			newAlias.alias = joinAlias(tableAlias, columnName)
-			newProjectionList = append(newProjectionList, &newAlias)
-		}
-	}
-
-	return newProjectionList
+	_ = "STUB: not implemented"
+	return *new(ProjectionList)
 }
 
 // Except will create new projection list in which columns contained in excluded column names are removed
 func (pl ProjectionList) Except(toExclude ...Column) ProjectionList {
-	excludedColumnList := UnwidColumnList(toExclude)
-	excludedColumnNames := map[string]bool{}
-
-	for _, excludedColumn := range excludedColumnList {
-		excludedColumnNames[excludedColumn.Name()] = true
-	}
-
-	var ret ProjectionList
-
-	for _, projection := range pl {
-		switch p := projection.(type) {
-		case ProjectionList:
-			ret = append(ret, p.Except(toExclude...))
-		case ColumnExpression:
-			if excludedColumnNames[p.Name()] {
-				continue
-			}
-			ret = append(ret, p)
-		}
-	}
-
-	return ret
+	_ = "STUB: not implemented"
+	return *new(ProjectionList)
 }
 
 func (pl ProjectionList) serializeForRowToJsonProjection(statement StatementType, out *SQLBuilder) {
-	out.WriteRowToJsonProjections(statement, pl)
+	_ = "STUB: not implemented"
+	return
 }
 
 // JsonObjProjectionList redefines []Projection so projections can be serialized as json object key/values
 type JsonObjProjectionList []Projection
 
 func (j JsonObjProjectionList) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-	out.IncreaseIdent()
-	out.NewLine()
-	SerializeProjectionListJsonObj(statement, j, out)
-	out.DecreaseIdent()
-	out.NewLine()
+	_ = "STUB: not implemented"
+	return
 }

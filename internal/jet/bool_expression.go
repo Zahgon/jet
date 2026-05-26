@@ -37,63 +37,78 @@ type boolInterfaceImpl struct {
 }
 
 func (b *boolInterfaceImpl) EQ(expression BoolExpression) BoolExpression {
-	return Eq(b.root, expression)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (b *boolInterfaceImpl) NOT_EQ(expression BoolExpression) BoolExpression {
-	return NotEq(b.root, expression)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (b *boolInterfaceImpl) IS_DISTINCT_FROM(rhs BoolExpression) BoolExpression {
-	return IsDistinctFrom(b.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (b *boolInterfaceImpl) IS_NOT_DISTINCT_FROM(rhs BoolExpression) BoolExpression {
-	return IsNotDistinctFrom(b.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (b *boolInterfaceImpl) AND(expression BoolExpression) BoolExpression {
-	return newBinaryBoolOperatorExpression(b.root, expression, "AND")
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (b *boolInterfaceImpl) OR(expression BoolExpression) BoolExpression {
-	return newBinaryBoolOperatorExpression(b.root, expression, "OR")
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (b *boolInterfaceImpl) IS_TRUE() BoolExpression {
-	return newPostfixBoolOperatorExpression(b.root, "IS TRUE")
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (b *boolInterfaceImpl) IS_NOT_TRUE() BoolExpression {
-	return newPostfixBoolOperatorExpression(b.root, "IS NOT TRUE")
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (b *boolInterfaceImpl) IS_FALSE() BoolExpression {
-	return newPostfixBoolOperatorExpression(b.root, "IS FALSE")
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (b *boolInterfaceImpl) IS_NOT_FALSE() BoolExpression {
-	return newPostfixBoolOperatorExpression(b.root, "IS NOT FALSE")
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (b *boolInterfaceImpl) IS_UNKNOWN() BoolExpression {
-	return newPostfixBoolOperatorExpression(b.root, "IS UNKNOWN")
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (b *boolInterfaceImpl) IS_NOT_UNKNOWN() BoolExpression {
-	return newPostfixBoolOperatorExpression(b.root, "IS NOT UNKNOWN")
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func newBinaryBoolOperatorExpression(lhs, rhs Expression, operator string, additionalParams ...Expression) BoolExpression {
-	return BoolExp(NewBinaryOperatorExpression(lhs, rhs, operator, additionalParams...))
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func newPrefixBoolOperatorExpression(expression Expression, operator string) BoolExpression {
-	return BoolExp(newPrefixOperatorExpression(expression, operator))
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func newPostfixBoolOperatorExpression(expression Expression, operator string) BoolExpression {
-	return BoolExp(newPostfixOperatorExpression(expression, operator))
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 type boolExpressionWrapper struct {
@@ -102,15 +117,14 @@ type boolExpressionWrapper struct {
 }
 
 func newBoolExpressionWrap(expression Expression) BoolExpression {
-	boolExpressionWrap := &boolExpressionWrapper{Expression: expression}
-	boolExpressionWrap.boolInterfaceImpl.root = boolExpressionWrap
-	expression.setRoot(boolExpressionWrap)
-	return boolExpressionWrap
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 // BoolExp is bool expression wrapper around arbitrary expression.
 // Allows go compiler to see any expression as bool expression.
 // Does not add sql cast to generated sql builder output.
 func BoolExp(expression Expression) BoolExpression {
-	return newBoolExpressionWrap(expression)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }

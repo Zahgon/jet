@@ -2,7 +2,6 @@ package sqlite
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/go-jet/jet/v2/internal/jet"
 )
@@ -18,7 +17,8 @@ var (
 
 // ROW function is used to create a tuple value that consists of a set of expressions or column values.
 func ROW(expressions ...Expression) RowExpression {
-	return jet.WRAP(Dialect, expressions...)
+	_ = "STUB: not implemented"
+	return *new(RowExpression)
 }
 
 // ------------------ Mathematical functions ---------------//
@@ -40,7 +40,8 @@ var SQRT = jet.SQRT
 
 // CBRT calculates cube root of numeric expression
 func CBRT(number jet.NumericExpression) jet.FloatExpression {
-	return POWER(number, Float(1.0).DIV(Float(3.0)))
+	_ = "STUB: not implemented"
+	return *new(jet.FloatExpression)
 }
 
 // CEIL calculates ceil of float expression
@@ -207,10 +208,13 @@ var UNHEX = jet.UNHEX
 
 // LENGTH returns number of characters in string with a given encoding
 func LENGTH(str jet.StringOrBlobExpression) jet.IntegerExpression {
-	return jet.LENGTH(str)
+	_ = "STUB: not implemented"
+	return *
+
+	// OCTET_LENGTH returns number of bytes in string expression
+	new(jet.IntegerExpression)
 }
 
-// OCTET_LENGTH returns number of bytes in string expression
 var OCTET_LENGTH = jet.OCTET_LENGTH
 
 // LPAD fills up the string to length length by prepending the characters
@@ -250,13 +254,12 @@ var REGEXP_LIKE = jet.REGEXP_LIKE
 var CURRENT_DATE = jet.CURRENT_DATE
 
 // CURRENT_TIME returns current time with time zone
-func CURRENT_TIME() TimeExpression {
-	return TimeExp(jet.CURRENT_TIME())
-}
+func CURRENT_TIME() TimeExpression { _ = "STUB: not implemented"; return *new(TimeExpression) }
 
 // CURRENT_TIMESTAMP returns current timestamp with time zone
 func CURRENT_TIMESTAMP() TimestampExpression {
-	return TimestampExp(jet.CURRENT_TIMESTAMP())
+	_ = "STUB: not implemented"
+	return *new(TimestampExpression)
 }
 
 //// NOW returns current datetime
@@ -289,69 +292,60 @@ var (
 )
 
 func modifier(modifierName string) func(value float64) Expression {
-	return func(value float64) Expression {
-		return String(fmt.Sprintf("%g %s", value, modifierName))
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // DATE function creates new date from time-value and zero or more time modifiers
 func DATE(timeValue interface{}, modifiers ...Expression) DateExpression {
-	exprList := getFuncExprList(timeValue, modifiers...)
-
-	return DateExp(Func("DATE", exprList...))
+	_ = "STUB: not implemented"
+	return *new(DateExpression)
 }
 
 // TIME function creates new time from time-value and zero or more time modifiers
 func TIME(timeValue interface{}, modifiers ...Expression) TimeExpression {
-	exprList := getFuncExprList(timeValue, modifiers...)
-
-	return jet.NewTimeFunc("TIME", exprList...)
+	_ = "STUB: not implemented"
+	return *new(TimeExpression)
 }
 
 // DATETIME function creates new DateTime from time-value and zero or more time modifiers
 func DATETIME(timeValue interface{}, modifiers ...Expression) DateTimeExpression {
-	exprList := getFuncExprList(timeValue, modifiers...)
-
-	return jet.NewTimestampFunc("DATETIME", exprList...)
+	_ = "STUB: not implemented"
+	return *new(DateTimeExpression)
 }
 
 // JULIANDAY returns the number of days since noon in Greenwich on November 24, 4714 B.C
 func JULIANDAY(timeValue interface{}, modifiers ...Expression) FloatExpression {
-	exprList := getFuncExprList(timeValue, modifiers...)
-	return jet.NewFloatFunc("JULIANDAY", exprList...)
+	_ = "STUB: not implemented"
+	return *new(FloatExpression)
 }
 
 // STRFTIME routine returns the date formatted according to the format string specified as the first argument.
 func STRFTIME(format StringExpression, timeValue interface{}, modifiers ...Expression) StringExpression {
-	exprList := append([]Expression{format}, getFuncExprList(timeValue, modifiers...)...)
-	return jet.NewStringFunc("strftime", exprList...)
+	_ = "STUB: not implemented"
+	return *new(StringExpression)
 }
 
 func getFuncExprList(timeValue interface{}, modifiers ...Expression) []Expression {
-	return append([]Expression{getTimeValueExpression(timeValue)}, modifiers...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func getTimeValueExpression(timeValue interface{}) Expression {
-	switch t := timeValue.(type) {
-	case string:
-		return String(t)
-	case Expression:
-		return t
-	case time.Time, int64:
-		return jet.Literal(t)
-	}
-
-	panic(fmt.Sprintf("jet: Invalid time value %T(%q)", timeValue, timeValue))
+	_ = "STUB: not implemented"
+	return *new(Expression)
 }
 
 // TIMESTAMP return a datetime value based on the arguments:
 func TIMESTAMP(str StringExpression) TimestampExpression {
-	return jet.NewTimestampFunc("TIMESTAMP", str)
+	_ = "STUB: not implemented"
+	return *new(TimestampExpression)
 }
 
 // UNIX_TIMESTAMP returns unix timestamp
 func UNIX_TIMESTAMP(str StringExpression) TimestampExpression {
-	return jet.NewTimestampFunc("UNIX_TIMESTAMP", str)
+	_ = "STUB: not implemented"
+	return *new(TimestampExpression)
 }
 
 // --------------- Conditional Expressions Functions -------------//

@@ -28,55 +28,33 @@ type updateStatementImpl struct {
 }
 
 func newUpdateStatement(table WritableTable, columns []jet.Column) UpdateStatement {
-	update := &updateStatementImpl{}
-	update.SerializerStatement = jet.NewStatementImpl(Dialect, jet.UpdateStatementType, update,
-		&update.Update,
-		&update.Set,
-		&update.SetNew,
-		&update.From,
-		&update.Where,
-		&update.Returning)
-
-	update.Update.Table = table
-	update.Set.Columns = columns
-	update.Where.Mandatory = true
-
-	return update
+	_ = "STUB: not implemented"
+	return *new(UpdateStatement)
 }
 
 func (u *updateStatementImpl) SET(value interface{}, values ...interface{}) UpdateStatement {
-	columnAssigment, isColumnAssigment := value.(ColumnAssigment)
-
-	if isColumnAssigment {
-		u.SetNew = []ColumnAssigment{columnAssigment}
-		for _, value := range values {
-			u.SetNew = append(u.SetNew, value.(ColumnAssigment))
-		}
-	} else {
-		u.Set.Values = jet.UnwindRowFromValues(value, values)
-	}
-
-	return u
+	_ = "STUB: not implemented"
+	return *new(UpdateStatement)
 }
 
 func (u *updateStatementImpl) MODEL(data interface{}) UpdateStatement {
-	u.Set.Values = jet.UnwindRowFromModel(u.Set.Columns, data)
-	return u
+	_ = "STUB: not implemented"
+	return *new(UpdateStatement)
 }
 
 func (u *updateStatementImpl) FROM(tables ...ReadableTable) UpdateStatement {
-	u.From.Tables = readableTablesToSerializerList(tables)
-	return u
+	_ = "STUB: not implemented"
+	return *new(UpdateStatement)
 }
 
 func (u *updateStatementImpl) WHERE(expression BoolExpression) UpdateStatement {
-	u.Where.Condition = expression
-	return u
+	_ = "STUB: not implemented"
+	return *new(UpdateStatement)
 }
 
 func (u *updateStatementImpl) RETURNING(projections ...jet.Projection) UpdateStatement {
-	u.Returning.ProjectionList = projections
-	return u
+	_ = "STUB: not implemented"
+	return *new(UpdateStatement)
 }
 
 type clauseSet struct {
@@ -85,35 +63,6 @@ type clauseSet struct {
 }
 
 func (s *clauseSet) Serialize(statementType jet.StatementType, out *jet.SQLBuilder, options ...jet.SerializeOption) {
-	if len(s.Values) == 0 {
-		return
-	}
-	out.NewLine()
-	out.WriteString("SET")
-
-	if len(s.Columns) == 0 {
-		panic("jet: no columns selected")
-	}
-
-	if len(s.Columns) > 1 {
-		out.WriteString("(")
-	}
-
-	jet.SerializeColumnNames(s.Columns, out)
-
-	if len(s.Columns) > 1 {
-		out.WriteString(")")
-	}
-
-	out.WriteString("=")
-
-	if len(s.Values) > 1 {
-		out.WriteString("(")
-	}
-
-	jet.SerializeClauseList(statementType, s.Values, out)
-
-	if len(s.Values) > 1 {
-		out.WriteString(")")
-	}
+	_ = "STUB: not implemented"
+	return
 }

@@ -13,7 +13,8 @@ var (
 
 // ROW function is used to create a tuple value that consists of a set of expressions or column values.
 func ROW(expressions ...Expression) RowExpression {
-	return jet.ROW(Dialect, expressions...)
+	_ = "STUB: not implemented"
+	return *new(RowExpression)
 }
 
 // ------------------ Mathematical functions ---------------//
@@ -35,7 +36,8 @@ var SQRT = jet.SQRT
 
 // CBRT calculates cube root of numeric expression
 func CBRT(number jet.NumericExpression) jet.FloatExpression {
-	return POWER(number, Float(1.0).DIV(Float(3.0)))
+	_ = "STUB: not implemented"
+	return *new(jet.FloatExpression)
 }
 
 // CEIL calculates ceil of float expression
@@ -168,18 +170,14 @@ var OCTET_LENGTH = jet.OCTET_LENGTH
 // ELT returns the Nth element of the list of strings: str1 if N = 1, str2 if N = 2, and so on.
 // Returns NULL if N is less than 1, greater than the number of arguments, or NULL.
 func ELT(n IntegerExpression, list ...StringExpression) StringExpression {
-	args := []Expression{n}
-	args = append(args, jet.ToExpressionList(list)...)
-
-	return StringExp(Func("ELT", args...))
+	_ = "STUB: not implemented"
+	return *new(StringExpression)
 }
 
 // FIELD returns the index (position) of str in the str1, str2, str3, ... list. Returns 0 if str is not found.
 func FIELD(str StringExpression, list ...StringExpression) StringExpression {
-	args := []Expression{str}
-	args = append(args, jet.ToExpressionList(list)...)
-
-	return StringExp(Func("FIELD", args...))
+	_ = "STUB: not implemented"
+	return *new(StringExpression)
 }
 
 // LOWER returns string expression in lower case
@@ -204,33 +202,34 @@ var CONCAT_WS = jet.CONCAT_WS
 
 // FORMAT formats a number to a format like "#,###,###.##", rounded to a specified number of decimal places, then it returns the result as a string.
 func FORMAT(number jet.NumericExpression, decimals IntegerExpression, optionalLocale ...StringExpression) StringExpression {
-	if len(optionalLocale) > 0 {
-		return StringExp(Func("FORMAT", number, decimals, optionalLocale[0]))
-	}
-
-	return StringExp(Func("FORMAT", number, decimals))
+	_ = "STUB: not implemented"
+	return *new(StringExpression)
 }
 
 // TO_BASE64 converts the string argument to base-64 encoded form and returns the
 // result as a character string with the connection character set and collation.
 func TO_BASE64(data jet.StringOrBlobExpression) StringExpression {
-	return StringExp(Func("TO_BASE64", data))
+	_ = "STUB: not implemented"
+	return *new(StringExpression)
 }
 
 // FROM_BASE64 takes a string encoded with the base-64 encoded rules used by TO_BASE64()
 // and returns the decoded result as a binary string.
 func FROM_BASE64(data StringExpression) BlobExpression {
-	return BlobExp(Func("FROM_BASE64", data))
+	_ = "STUB: not implemented"
+	return *new(BlobExpression)
 }
 
 // CHARSET returns the character set of the string argument, or NULL if the argument is NULL.
 func CHARSET(exp Expression) StringExpression {
-	return StringExp(Func("CHARSET", exp))
+	_ = "STUB: not implemented"
+	return *new(StringExpression)
 }
 
 // COLLATION returns the collation of the string argument.
 func COLLATION(exp Expression) StringExpression {
-	return StringExp(Func("COLLATION ", exp))
+	_ = "STUB: not implemented"
+	return *new(StringExpression)
 }
 
 // LEFT returns first n characters in the string.
@@ -243,20 +242,25 @@ var RIGHT = jet.RIGHT
 
 // LENGTH returns number of characters in string with a given encoding
 func LENGTH(str jet.StringOrBlobExpression) jet.IntegerExpression {
-	return jet.LENGTH(str)
+	_ = "STUB: not implemented"
+	return *
+
+	// LPAD fills up the string to length length by prepending the characters
+	// fill (a space by default). If the string is already longer than length
+	// then it is truncated (on the right).
+	new(jet.IntegerExpression)
 }
 
-// LPAD fills up the string to length length by prepending the characters
-// fill (a space by default). If the string is already longer than length
-// then it is truncated (on the right).
 func LPAD(str jet.StringExpression, length jet.IntegerExpression, text jet.StringExpression) jet.StringExpression {
-	return jet.LPAD(str, length, text)
+	_ = "STUB: not implemented"
+	return *new(jet.StringExpression)
 }
 
 // RPAD fills up the string to length length by appending the characters
 // fill (a space by default). If the string is already longer than length then it is truncated.
 func RPAD(str jet.StringExpression, length jet.IntegerExpression, text jet.StringExpression) jet.StringExpression {
-	return jet.RPAD(str, length, text)
+	_ = "STUB: not implemented"
+	return *new(jet.StringExpression)
 }
 
 // MD5 calculates the MD5 hash of string, returning the result in hexadecimal
@@ -279,8 +283,8 @@ var REGEXP_LIKE = jet.REGEXP_LIKE
 
 // UUID_TO_BIN is a helper function that calls "uuid_to_bin" function on the passed value.
 func UUID_TO_BIN(str StringExpression) StringExpression {
-	fn := Func("uuid_to_bin", str)
-	return StringExp(fn)
+	_ = "STUB: not implemented"
+	return *new(StringExpression)
 }
 
 //----------------- Date/Time Functions and Operators ------------//
@@ -289,7 +293,8 @@ func UUID_TO_BIN(str StringExpression) StringExpression {
 //
 //	EXTRACT(DAY, User.CreatedAt)
 func EXTRACT(field unitType, from Expression) IntegerExpression {
-	return IntExp(jet.EXTRACT(string(field), from))
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }
 
 // CURRENT_DATE returns current date
@@ -297,30 +302,29 @@ var CURRENT_DATE = jet.CURRENT_DATE
 
 // CURRENT_TIME returns current time with time zone
 func CURRENT_TIME(precision ...int) TimeExpression {
-	return TimeExp(jet.CURRENT_TIME(precision...))
+	_ = "STUB: not implemented"
+	return *new(TimeExpression)
 }
 
 // CURRENT_TIMESTAMP returns current timestamp with time zone
 func CURRENT_TIMESTAMP(precision ...int) TimestampExpression {
-	return TimestampExp(jet.CURRENT_TIMESTAMP(precision...))
+	_ = "STUB: not implemented"
+	return *new(TimestampExpression)
 }
 
 // NOW returns current datetime
-func NOW(fsp ...int) DateTimeExpression {
-	if len(fsp) > 0 {
-		return jet.NewTimestampFunc("NOW", jet.FixedLiteral(int64(fsp[0])))
-	}
-	return jet.NewTimestampFunc("NOW")
-}
+func NOW(fsp ...int) DateTimeExpression { _ = "STUB: not implemented"; return *new(DateTimeExpression) }
 
 // TIMESTAMP return a datetime value based on the arguments:
 func TIMESTAMP(str StringExpression) TimestampExpression {
-	return jet.NewTimestampFunc("TIMESTAMP", str)
+	_ = "STUB: not implemented"
+	return *new(TimestampExpression)
 }
 
 // UNIX_TIMESTAMP returns unix timestamp
 func UNIX_TIMESTAMP(str StringExpression) TimestampExpression {
-	return jet.NewTimestampFunc("UNIX_TIMESTAMP", str)
+	_ = "STUB: not implemented"
+	return *new(TimestampExpression)
 }
 
 // --------------- Conditional Expressions Functions -------------//

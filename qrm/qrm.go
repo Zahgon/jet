@@ -5,10 +5,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"reflect"
-
-	"github.com/go-jet/jet/v2/internal/utils/must"
 )
 
 // Config holds the configuration settings for QRM scanning behavior.
@@ -66,12 +63,8 @@ var ErrNoRows = errors.New("qrm: no rows in result set")
 //	rowsProcessed - The number of rows processed by the query execution.
 //	err           - An error if query execution or unmarshaling fails.
 func QueryJsonObj(ctx context.Context, db Queryable, query string, args []interface{}, destPtr interface{}) (rowsProcessed int64, err error) {
-	must.BeInitializedPtr(destPtr, "jet: destination is nil")
-	must.BeTypeKind(destPtr, reflect.Ptr, jsonDestObjErr)
-	destType := reflect.TypeOf(destPtr).Elem()
-	must.BeTrue(destType.Kind() == reflect.Struct || destType.Kind() == reflect.Map, jsonDestObjErr)
-
-	return queryJson(ctx, db, query, args, destPtr)
+	_ = "STUB: not implemented"
+	return 0, nil
 }
 
 // QueryJsonArr executes a SQL query that returns a JSON array, unmarshals the result into the provided destination,
@@ -93,62 +86,16 @@ func QueryJsonObj(ctx context.Context, db Queryable, query string, args []interf
 //	rowsProcessed - The number of rows processed by the query execution.
 //	err           - An error if query execution or unmarshaling fails.
 func QueryJsonArr(ctx context.Context, db Queryable, query string, args []interface{}, destPtr interface{}) (rowsProcessed int64, err error) {
-	must.BeInitializedPtr(destPtr, "jet: destination is nil")
-	must.BeTypeKind(destPtr, reflect.Ptr, jsonDestArrErr)
-	destType := reflect.TypeOf(destPtr).Elem()
-	must.BeTrue(destType.Kind() == reflect.Slice, jsonDestArrErr)
-
-	return queryJson(ctx, db, query, args, destPtr)
+	_ = "STUB: not implemented"
+	return 0, nil
 }
 
 var jsonDestObjErr = "jet: SELECT_JSON_OBJ destination has to be a pointer to struct or pointer to map[string]any"
 var jsonDestArrErr = "jet: SELECT_JSON_ARR destination has to be a pointer to slice of struct or pointer to []map[string]any"
 
 func queryJson(ctx context.Context, db Queryable, query string, args []interface{}, destPtr interface{}) (rowsProcessed int64, err error) {
-	must.BeInitializedPtr(db, "jet: db is nil")
-
-	var rows *sql.Rows
-	rows, err = db.QueryContext(ctx, query, args...)
-
-	if err != nil {
-		return 0, err
-	}
-
-	defer rows.Close()
-
-	if !rows.Next() {
-		err = rows.Err()
-		if err != nil {
-			return 0, err
-		}
-		return 0, ErrNoRows
-	}
-
-	var jsonData []byte
-	err = rows.Scan(&jsonData)
-
-	if err != nil {
-		return 1, err
-	}
-
-	if jsonData != nil {
-		err = GlobalConfig.JsonUnmarshalFunc(jsonData, &destPtr)
-
-		if err != nil {
-			return 1, fmt.Errorf("jet: invalid json, %w", err)
-		}
-	}
-
-	if rows.Next() {
-		return 1, fmt.Errorf("jet: query returned more then one row")
-	}
-
-	err = rows.Close()
-	if err != nil {
-		return 1, err
-	}
-
-	return 1, nil
+	_ = "STUB: not implemented"
+	return 0, nil
 }
 
 // Query executes a Query Result Mapping (QRM) of the provided SQL `query` with a list of parameterized arguments `args`
@@ -170,132 +117,21 @@ func queryJson(ctx context.Context, db Queryable, query string, args []interface
 //	rowsProcessed - The number of rows processed by the query execution.
 //	err           - An error if query execution or result mapping fails, or if no rows are found when a struct is expected.
 func Query(ctx context.Context, db Queryable, query string, args []interface{}, destPtr interface{}) (rowsProcessed int64, err error) {
-
-	must.BeInitializedPtr(db, "jet: db is nil")
-	must.BeInitializedPtr(destPtr, "jet: destination is nil")
-	must.BeTypeKind(destPtr, reflect.Ptr, "jet: destination has to be a pointer to slice or pointer to struct")
-
-	destinationPtrType := reflect.TypeOf(destPtr)
-
-	if destinationPtrType.Elem().Kind() == reflect.Slice {
-		rowsProcessed, err := queryToSlice(ctx, db, query, args, destPtr)
-		if err != nil {
-			return rowsProcessed, fmt.Errorf("jet: %w", err)
-		}
-		return rowsProcessed, nil
-	} else if destinationPtrType.Elem().Kind() == reflect.Struct {
-		tempSlicePtrValue := reflect.New(reflect.SliceOf(destinationPtrType))
-		tempSliceValue := tempSlicePtrValue.Elem()
-
-		rowsProcessed, err := queryToSlice(ctx, db, query, args, tempSlicePtrValue.Interface())
-
-		if err != nil {
-			return rowsProcessed, fmt.Errorf("jet: %w", err)
-		}
-
-		if rowsProcessed == 0 {
-			return 0, ErrNoRows
-		}
-
-		// edge case when row result set contains only NULLs.
-		if tempSliceValue.Len() == 0 {
-			return rowsProcessed, nil
-		}
-
-		structValue := reflect.ValueOf(destPtr).Elem()
-		firstTempStruct := tempSliceValue.Index(0).Elem()
-
-		if structValue.Type().AssignableTo(firstTempStruct.Type()) {
-			structValue.Set(tempSliceValue.Index(0).Elem())
-		}
-		return rowsProcessed, nil
-	} else {
-		panic("jet: destination has to be a pointer to slice or pointer to struct")
-	}
+	_ = "STUB: not implemented"
+	return 0, nil
 }
+
+// edge case when row result set contains only NULLs.
 
 // ScanOneRowToDest will scan one row into struct destination
 func ScanOneRowToDest(scanContext *ScanContext, rows *sql.Rows, destPtr interface{}) error {
-	must.BeInitializedPtr(destPtr, "jet: destination is nil")
-	must.BeTypeKind(destPtr, reflect.Ptr, "jet: destination has to be a pointer to slice or pointer to struct")
-
-	if len(scanContext.row) == 0 {
-		return errors.New("empty row slice")
-	}
-
-	err := rows.Scan(scanContext.row...)
-
-	if err != nil {
-		return fmt.Errorf("jet: rows scan error, %w", err)
-	}
-
-	destValuePtr := reflect.ValueOf(destPtr)
-
-	scanContext.rowNum++
-
-	_, err = mapRowToStruct(scanContext, "", destValuePtr, nil)
-
-	if err != nil {
-		return fmt.Errorf("jet: failed to scan a row into destination, %w", err)
-	}
-
-	if scanContext.rowNum == 1 {
-		scanContext.ensureStrictness()
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func queryToSlice(ctx context.Context, db Queryable, query string, args []interface{}, slicePtr interface{}) (rowsProcessed int64, err error) {
-	if ctx == nil {
-		ctx = context.Background()
-	}
-
-	rows, err := db.QueryContext(ctx, query, args...)
-
-	if err != nil {
-		return
-	}
-	defer rows.Close()
-
-	scanContext, err := NewScanContext(rows)
-
-	if err != nil {
-		return
-	}
-
-	if len(scanContext.row) == 0 {
-		return
-	}
-
-	slicePtrValue := reflect.ValueOf(slicePtr)
-
-	for rows.Next() {
-		err = rows.Scan(scanContext.row...)
-
-		if err != nil {
-			return scanContext.rowNum, err
-		}
-
-		scanContext.rowNum++
-
-		_, err = mapRowToSlice(scanContext, "", slicePtrValue, nil)
-
-		if err != nil {
-			return scanContext.rowNum, err
-		}
-
-		if scanContext.rowNum == 1 {
-			scanContext.ensureStrictness()
-		}
-	}
-
-	err = rows.Close()
-	if err != nil {
-		return scanContext.rowNum, err
-	}
-
-	return scanContext.rowNum, rows.Err()
+	_ = "STUB: not implemented"
+	return 0, nil
 }
 
 func mapRowToSlice(
@@ -303,67 +139,13 @@ func mapRowToSlice(
 	groupKey string,
 	slicePtrValue reflect.Value,
 	field *reflect.StructField) (updated bool, err error) {
-
-	sliceElemType := getSliceElemType(slicePtrValue)
-
-	if isSimpleModelType(sliceElemType) {
-		updated, err = mapRowToBaseTypeSlice(scanContext, slicePtrValue, field)
-		return
-	}
-
-	must.TypeBeOfKind(sliceElemType, reflect.Struct, "jet: unsupported slice element type"+fieldToString(field))
-
-	structGroupKey := scanContext.getGroupKey(sliceElemType, field)
-
-	groupKey = concat(groupKey, ",", structGroupKey)
-
-	index, ok := scanContext.uniqueDestObjectsMap[groupKey]
-
-	if ok {
-		structPtrValue := getSliceElemPtrAt(slicePtrValue, index)
-
-		return mapRowToStruct(scanContext, groupKey, structPtrValue, field, true)
-	}
-
-	destinationStructPtr := newElemPtrValueForSlice(slicePtrValue)
-
-	updated, err = mapRowToStruct(scanContext, groupKey, destinationStructPtr, field)
-
-	if err != nil {
-		return
-	}
-
-	if updated {
-		scanContext.uniqueDestObjectsMap[groupKey] = slicePtrValue.Elem().Len()
-		err = appendElemToSlice(slicePtrValue, destinationStructPtr)
-
-		if err != nil {
-			return
-		}
-	}
-
-	return
+	_ = "STUB: not implemented"
+	return false, nil
 }
 
 func mapRowToBaseTypeSlice(scanContext *ScanContext, slicePtrValue reflect.Value, field *reflect.StructField) (updated bool, err error) {
-	index := 0
-	if field != nil {
-		typeName, columnName, _ := getTypeAndFieldName("", *field)
-		if index = scanContext.typeToColumnIndex(typeName, columnName); index < 0 {
-			return
-		}
-	}
-	rowElemPtr := scanContext.rowElemValueClonePtr(index)
-
-	if rowElemPtr.IsValid() && !rowElemPtr.IsNil() {
-		updated = true
-		err = appendElemToSlice(slicePtrValue, rowElemPtr)
-		if err != nil {
-			return
-		}
-	}
-
-	return
+	_ = "STUB: not implemented"
+	return false, nil
 }
 
 func mapRowToStruct(
@@ -373,100 +155,19 @@ func mapRowToStruct(
 	parentField *reflect.StructField,
 	onlySlices ...bool, // small optimization, not to assign to already assigned struct fields
 ) (updated bool, err error) {
-
-	mapOnlySlices := len(onlySlices) > 0
-	structType := structPtrValue.Type().Elem()
-
-	if scanContext.typesVisited.contains(&structType) {
-		return false, nil
-	}
-
-	scanContext.typesVisited.push(&structType)
-	defer scanContext.typesVisited.pop()
-
-	typeInf := scanContext.getTypeInfo(structType, parentField)
-
-	structValue := structPtrValue.Elem()
-
-	for i := 0; i < structValue.NumField(); i++ {
-		field := structType.Field(i)
-		fieldValue := structValue.Field(i)
-
-		if !fieldValue.CanSet() { // private field
-			continue
-		}
-
-		fieldMappingInfo := typeInf.fieldMappings[i]
-
-		switch fieldMappingInfo.Type {
-
-		case complexType:
-			var changed bool
-			changed, err = mapRowToDestinationValue(scanContext, concat(groupKey, ":", field.Name), fieldValue, &field)
-
-			if err != nil {
-				return
-			}
-
-			if changed {
-				updated = true
-			}
-		default:
-			if mapOnlySlices || fieldMappingInfo.rowIndex == -1 {
-				continue
-			}
-
-			scannedValue := scanContext.rowElemValue(fieldMappingInfo.rowIndex)
-
-			if !scannedValue.IsValid() {
-				setZeroValue(fieldValue) // scannedValue is nil, destination should be set to zero value
-				continue
-			}
-
-			updated = true
-
-			switch fieldMappingInfo.Type {
-			case implementsScanner:
-				initializeValueIfNilPtr(fieldValue)
-				fieldScanner := getScanner(fieldValue)
-
-				value := scannedValue.Interface()
-
-				err := fieldScanner.Scan(value)
-
-				if err != nil {
-					return updated, qrmAssignError(scannedValue, field, err)
-				}
-			case jsonUnmarshal:
-				value, ok := scannedValue.Interface().([]byte)
-
-				if !ok {
-					return updated, qrmAssignError(scannedValue, field, fmt.Errorf("value not convertable to []byte"))
-				}
-
-				fieldInterface := fieldValue.Addr().Interface()
-
-				err := json.Unmarshal(value, fieldInterface)
-
-				if err != nil {
-					return updated, qrmAssignError(scannedValue, field, fmt.Errorf("invalid json, %w", err))
-				}
-			default: // simple type
-				err := assign(scannedValue, fieldValue)
-
-				if err != nil {
-					return updated, qrmAssignError(scannedValue, field, err)
-				}
-			}
-		}
-	}
-
-	return
+	_ = "STUB: not implemented"
+	return false, nil
 }
 
+// private field
+
+// scannedValue is nil, destination should be set to zero value
+
+// simple type
+
 func qrmAssignError(scannedValue reflect.Value, field reflect.StructField, err error) error {
-	return fmt.Errorf(`can't assign %T(%q) to '%s %s': %w`, scannedValue.Interface(), scannedValue.Interface(),
-		field.Name, field.Type.String(), err)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func mapRowToDestinationValue(
@@ -474,30 +175,8 @@ func mapRowToDestinationValue(
 	groupKey string,
 	dest reflect.Value,
 	structField *reflect.StructField) (updated bool, err error) {
-
-	var destPtrValue reflect.Value
-
-	if dest.Kind() != reflect.Ptr {
-		destPtrValue = dest.Addr()
-	} else {
-		if dest.IsNil() {
-			destPtrValue = reflect.New(dest.Type().Elem())
-		} else {
-			destPtrValue = dest
-		}
-	}
-
-	updated, err = mapRowToDestinationPtr(scanContext, groupKey, destPtrValue, structField)
-
-	if err != nil {
-		return
-	}
-
-	if dest.Kind() == reflect.Ptr && dest.IsNil() && updated {
-		dest.Set(destPtrValue)
-	}
-
-	return
+	_ = "STUB: not implemented"
+	return false, nil
 }
 
 func mapRowToDestinationPtr(
@@ -505,16 +184,6 @@ func mapRowToDestinationPtr(
 	groupKey string,
 	destPtrValue reflect.Value,
 	structField *reflect.StructField) (updated bool, err error) {
-
-	must.ValueBeOfTypeKind(destPtrValue, reflect.Ptr, "jet: internal error. Destination is not pointer.")
-
-	destValueKind := destPtrValue.Elem().Kind()
-
-	if destValueKind == reflect.Struct {
-		return mapRowToStruct(scanContext, groupKey, destPtrValue, structField)
-	} else if destValueKind == reflect.Slice {
-		return mapRowToSlice(scanContext, groupKey, destPtrValue, structField)
-	} else {
-		panic("jet: unsupported dest type: " + structField.Name + " " + structField.Type.String())
-	}
+	_ = "STUB: not implemented"
+	return false, nil
 }

@@ -1,14 +1,7 @@
 package template
 
 import (
-	"fmt"
-	"path/filepath"
-	"slices"
-	"strings"
-	"unicode"
-
 	"github.com/go-jet/jet/v2/generator/metadata"
-	"github.com/go-jet/jet/v2/internal/utils/dbidentifier"
 )
 
 // SQLBuilder is template for generating sql builder files
@@ -21,43 +14,36 @@ type SQLBuilder struct {
 }
 
 // DefaultSQLBuilder returns default SQLBuilder implementation
-func DefaultSQLBuilder() SQLBuilder {
-	return SQLBuilder{
-		Path:  "",
-		Table: DefaultTableSQLBuilder,
-		View:  DefaultViewSQLBuilder,
-		Enum:  DefaultEnumSQLBuilder,
-	}
-}
+func DefaultSQLBuilder() SQLBuilder { _ = "STUB: not implemented"; return *new(SQLBuilder) }
 
 // UsePath returns new SQLBuilder with new relative path set
 func (sb SQLBuilder) UsePath(path string) SQLBuilder {
-	sb.Path = path
-	return sb
+	_ = "STUB: not implemented"
+	return *new(SQLBuilder)
 }
 
 // UseTable returns new SQLBuilder with new TableSQLBuilder template function set
 func (sb SQLBuilder) UseTable(tableFunc func(table metadata.Table) TableSQLBuilder) SQLBuilder {
-	sb.Table = tableFunc
-	return sb
+	_ = "STUB: not implemented"
+	return *new(SQLBuilder)
 }
 
 // UseView returns new SQLBuilder with new ViewSQLBuilder template function set
 func (sb SQLBuilder) UseView(viewFunc func(table metadata.Table) ViewSQLBuilder) SQLBuilder {
-	sb.View = viewFunc
-	return sb
+	_ = "STUB: not implemented"
+	return *new(SQLBuilder)
 }
 
 // UseEnum returns new SQLBuilder with new EnumSQLBuilder template function set
 func (sb SQLBuilder) UseEnum(enumFunc func(enum metadata.Enum) EnumSQLBuilder) SQLBuilder {
-	sb.Enum = enumFunc
-	return sb
+	_ = "STUB: not implemented"
+	return *new(SQLBuilder)
 }
 
 // ShouldSkip returns new SQLBuilder with new skip flag set
 func (sb SQLBuilder) ShouldSkip(skip bool) SQLBuilder {
-	sb.Skip = skip
-	return sb
+	_ = "STUB: not implemented"
+	return *new(SQLBuilder)
 }
 
 // TableSQLBuilder is template for generating table SQLBuilder files
@@ -76,64 +62,53 @@ type ViewSQLBuilder = TableSQLBuilder
 
 // DefaultTableSQLBuilder returns default implementation for TableSQLBuilder
 func DefaultTableSQLBuilder(tableMetaData metadata.Table) TableSQLBuilder {
-	tableNameGoIdentifier := dbidentifier.ToGoIdentifier(tableMetaData.Name)
-
-	return TableSQLBuilder{
-		Path:         "/table",
-		FileName:     dbidentifier.ToGoFileName(tableMetaData.Name),
-		InstanceName: tableNameGoIdentifier,
-		TypeName:     tableNameGoIdentifier + "Table",
-		DefaultAlias: "",
-		Column:       DefaultTableSQLBuilderColumn,
-	}
+	_ = "STUB: not implemented"
+	return *new(TableSQLBuilder)
 }
 
 // DefaultViewSQLBuilder returns default implementation for ViewSQLBuilder
 func DefaultViewSQLBuilder(viewMetaData metadata.Table) ViewSQLBuilder {
-	tableSQLBuilder := DefaultTableSQLBuilder(viewMetaData)
-	tableSQLBuilder.Path = "/view"
-	return tableSQLBuilder
+	_ = "STUB: not implemented"
+	return *new(ViewSQLBuilder)
 }
 
 // PackageName returns package name of table sql builder types
-func (tb TableSQLBuilder) PackageName() string {
-	return filepath.Base(tb.Path)
-}
+func (tb TableSQLBuilder) PackageName() string { _ = "STUB: not implemented"; return "" }
 
 // UsePath returns new TableSQLBuilder with new relative path set
 func (tb TableSQLBuilder) UsePath(path string) TableSQLBuilder {
-	tb.Path = path
-	return tb
+	_ = "STUB: not implemented"
+	return *new(TableSQLBuilder)
 }
 
 // UseFileName returns new TableSQLBuilder with new file name set
 func (tb TableSQLBuilder) UseFileName(name string) TableSQLBuilder {
-	tb.FileName = name
-	return tb
+	_ = "STUB: not implemented"
+	return *new(TableSQLBuilder)
 }
 
 // UseInstanceName returns new TableSQLBuilder with new instance name set
 func (tb TableSQLBuilder) UseInstanceName(name string) TableSQLBuilder {
-	tb.InstanceName = name
-	return tb
+	_ = "STUB: not implemented"
+	return *new(TableSQLBuilder)
 }
 
 // UseTypeName returns new TableSQLBuilder with new type name set
 func (tb TableSQLBuilder) UseTypeName(name string) TableSQLBuilder {
-	tb.TypeName = name
-	return tb
+	_ = "STUB: not implemented"
+	return *new(TableSQLBuilder)
 }
 
 // UseDefaultAlias returns new TableSQLBuilder with new default alias set
 func (tb TableSQLBuilder) UseDefaultAlias(defaultAlias string) TableSQLBuilder {
-	tb.DefaultAlias = defaultAlias
-	return tb
+	_ = "STUB: not implemented"
+	return *new(TableSQLBuilder)
 }
 
 // UseColumn returns new TableSQLBuilder with new column template function set
 func (tb TableSQLBuilder) UseColumn(columnsFunc func(column metadata.Column) TableSQLBuilderColumn) TableSQLBuilder {
-	tb.Column = columnsFunc
-	return tb
+	_ = "STUB: not implemented"
+	return *new(TableSQLBuilder)
 }
 
 // TableSQLBuilderColumn is template for table sql builder column
@@ -145,98 +120,37 @@ type TableSQLBuilderColumn struct {
 
 var reservedKeywords = []string{"TableName", "Table", "SchemaName", "Alias", "AllColumns", "MutableColumns", "DefaultColumns"}
 
-func renameIfReserved(name string) string {
-	if slices.Contains(reservedKeywords, name) {
-		return name + "_"
-	}
-	return name
-}
+func renameIfReserved(name string) string { _ = "STUB: not implemented"; return "" }
 
 // DefaultTableSQLBuilderColumn returns default implementation of TableSQLBuilderColumn
 func DefaultTableSQLBuilderColumn(columnMetaData metadata.Column) TableSQLBuilderColumn {
-	return TableSQLBuilderColumn{
-		Name: renameIfReserved(dbidentifier.ToGoIdentifier(columnMetaData.Name)),
-		Type: getSqlBuilderColumnType(columnMetaData),
-	}
+	_ = "STUB: not implemented"
+	return *new(TableSQLBuilderColumn)
 }
 
 // getSqlBuilderColumnType returns type of jet sql builder column
 func getSqlBuilderColumnType(columnMetaData metadata.Column) string {
-	switch columnMetaData.DataType.Kind {
-	case metadata.EnumType, metadata.UserDefinedType:
-		if columnMetaData.DataType.IsArray() {
-			return "StringArray"
-		}
-		return "String"
-	}
-
-	columnType := sqlToColumnType(columnMetaData)
-
-	if columnMetaData.DataType.IsArray() {
-		if columnMetaData.DataType.Dimensions > 1 {
-			fmt.Println("- [SQL Builder] Unsupported sql array with multiple dimensions column '" +
-				columnMetaData.Name + " " + columnMetaData.DataType.Name + "', using StringColumn instead.")
-			return "String"
-		}
-
-		columnType = columnType + "Array"
-	}
-
-	return columnType
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // sqlToColumnType maps the type of a SQL column type to a go jet sql builder column. The second return value returns
 // whether the given type is supported.
-func sqlToColumnType(columnMetaData metadata.Column) string {
-	switch strings.ToLower(columnMetaData.DataType.Name) {
-	case "boolean", "bool":
-		return "Bool"
-	case "smallint", "integer", "bigint", "int2", "int4", "int8",
-		"tinyint", "mediumint", "int", "year": //MySQL
-		return "Integer"
-	case "date":
-		return "Date"
-	case "timestamp without time zone",
-		"timestamp", "datetime": //MySQL:
-		return "Timestamp"
-	case "timestamp with time zone", "timestamptz":
-		return "Timestampz"
-	case "time without time zone",
-		"time": //MySQL
-		return "Time"
-	case "time with time zone", "timetz":
-		return "Timez"
-	case "interval":
-		return "Interval"
-	case "user-defined", "enum", "text", "character", "character varying", "uuid",
-		"tsvector", "bit", "bit varying", "money", "json", "jsonb", "xml", "point", "line", "ARRAY",
-		"char", "varchar", "nvarchar", "bpchar", "varbit",
-		"tinytext", "mediumtext", "longtext": // MySQL
-		return "String"
-	case "bytea": // postgres
-		return "Bytea"
-	case "binary", "varbinary", "tinyblob", "mediumblob", "longblob", "blob": // mysql and sqlite
-		return "Blob"
-	case "real", "numeric", "decimal", "double precision", "float", "float4", "float8",
-		"double": // MySQL
-		return "Float"
-	case "daterange":
-		return "DateRange"
-	case "tsrange":
-		return "TimestampRange"
-	case "tstzrange":
-		return "TimestampzRange"
-	case "int4range":
-		return "Int4Range"
-	case "int8range":
-		return "Int8Range"
-	case "numrange":
-		return "NumericRange"
-	default:
-		fmt.Println("- [SQL Builder] Unsupported sql column '" + columnMetaData.Name + " " + columnMetaData.DataType.Name + "', using StringColumn instead.")
-		return "String"
-	}
-}
+func sqlToColumnType(columnMetaData metadata.Column) string { _ = "STUB: not implemented"; return "" }
+
+//MySQL
+
+//MySQL:
+
+//MySQL
+
+// MySQL
+
+// postgres
+
+// mysql and sqlite
+
+// MySQL
 
 // EnumSQLBuilder is template for generating enum SQLBuilder files
 type EnumSQLBuilder struct {
@@ -249,44 +163,31 @@ type EnumSQLBuilder struct {
 
 // DefaultEnumSQLBuilder returns default implementation of EnumSQLBuilder
 func DefaultEnumSQLBuilder(enumMetaData metadata.Enum) EnumSQLBuilder {
-	return EnumSQLBuilder{
-		Path:         "/enum",
-		FileName:     dbidentifier.ToGoFileName(enumMetaData.Name),
-		InstanceName: dbidentifier.ToGoIdentifier(enumMetaData.Name),
-		ValueName: func(enumValue string) string {
-			return defaultEnumValueName(enumMetaData.Name, enumValue)
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(EnumSQLBuilder)
 }
 
 // PackageName returns enum sql builder package name
-func (e EnumSQLBuilder) PackageName() string {
-	return filepath.Base(e.Path)
-}
+func (e EnumSQLBuilder) PackageName() string { _ = "STUB: not implemented"; return "" }
 
 // UsePath returns new EnumSQLBuilder with new path set
 func (e EnumSQLBuilder) UsePath(path string) EnumSQLBuilder {
-	e.Path = path
-	return e
+	_ = "STUB: not implemented"
+	return *
+
+	// UseFileName returns new EnumSQLBuilder with new file name set
+	new(EnumSQLBuilder)
 }
 
-// UseFileName returns new EnumSQLBuilder with new file name set
 func (e EnumSQLBuilder) UseFileName(name string) EnumSQLBuilder {
-	e.FileName = name
-	return e
+	_ = "STUB: not implemented"
+	return *new(EnumSQLBuilder)
 }
 
 // UseInstanceName returns new EnumSQLBuilder with instance name set
 func (e EnumSQLBuilder) UseInstanceName(name string) EnumSQLBuilder {
-	e.InstanceName = name
-	return e
+	_ = "STUB: not implemented"
+	return *new(EnumSQLBuilder)
 }
 
-func defaultEnumValueName(enumName, enumValue string) string {
-	enumValueName := dbidentifier.ToGoIdentifier(enumValue)
-	if !unicode.IsLetter([]rune(enumValueName)[0]) {
-		return dbidentifier.ToGoIdentifier(enumName) + enumValueName
-	}
-
-	return enumValueName
-}
+func defaultEnumValueName(enumName, enumValue string) string { _ = "STUB: not implemented"; return "" }

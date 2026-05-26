@@ -1,7 +1,5 @@
 package jet
 
-import "slices"
-
 // SerializeOption type
 type SerializeOption int
 
@@ -18,7 +16,8 @@ const (
 
 // WithFallTrough extends existing serialize options with additional
 func (s SerializeOption) WithFallTrough(options []SerializeOption) []SerializeOption {
-	return append(FallTrough(options), s)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // StatementType is type of the SQL statement
@@ -45,40 +44,26 @@ type Serializer interface {
 
 // Serialize func
 func Serialize(exp Serializer, statementType StatementType, out *SQLBuilder, options ...SerializeOption) {
-	exp.serialize(statementType, out, options...)
+	_ = "STUB: not implemented"
+	return
 }
 
 func SerializeForOrderBy(exp Expression, statementType StatementType, out *SQLBuilder) {
-	exp.serializeForOrderBy(statementType, out)
+	_ = "STUB: not implemented"
+	return
 }
 
 func contains(options []SerializeOption, option SerializeOption) bool {
-	for _, opt := range options {
-		if opt == option {
-			return true
-		}
-	}
-
+	_ = "STUB: not implemented"
 	return false
 }
 
 // FallTrough filters fall-trough options from the list
-func FallTrough(options []SerializeOption) []SerializeOption {
-	var ret []SerializeOption
-
-	for _, option := range options {
-		if option > fallTroughOptions {
-			ret = append(ret, option)
-		}
-	}
-
-	return ret
-}
+func FallTrough(options []SerializeOption) []SerializeOption { _ = "STUB: not implemented"; return nil }
 
 func without(options []SerializeOption, option SerializeOption) []SerializeOption {
-	return slices.DeleteFunc(options, func(elem SerializeOption) bool {
-		return elem == option
-	})
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ListSerializer serializes list of serializers with separator
@@ -88,17 +73,14 @@ type ListSerializer struct {
 }
 
 func (s ListSerializer) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-	for i, ser := range s.Serializers {
-		if i > 0 {
-			out.WriteString(s.Separator)
-		}
-		ser.serialize(statement, out, FallTrough(options)...)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // NewSerializerClauseImpl is constructor for Seralizer with list of clauses
 func NewSerializerClauseImpl(clauses ...Clause) Serializer {
-	return &serializerImpl{Clauses: clauses}
+	_ = "STUB: not implemented"
+	return *new(Serializer)
 }
 
 type serializerImpl struct {
@@ -106,32 +88,29 @@ type serializerImpl struct {
 }
 
 func (s serializerImpl) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-	for _, clause := range s.Clauses {
-		clause.Serialize(statement, out, FallTrough(options)...)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Token can be used to construct complex custom expressions
 type Token string
 
 func (t Token) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-	out.WriteString(string(t))
+	_ = "STUB: not implemented"
+	return
 }
 
 // CustomExpression creates new custom expression. When serialized may require parentheses
 // depending on context.
 func CustomExpression(parts ...Serializer) Expression {
-	return newExpression(&customSerializer{
-		parts: parts,
-	})
+	_ = "STUB: not implemented"
+	return *new(Expression)
 }
 
 // AtomicCustomExpression creates new custom expression. When serialized does not require parentheses.
 func AtomicCustomExpression(parts ...Serializer) Expression {
-	return newExpression(&customSerializer{
-		parts:  parts,
-		atomic: true,
-	})
+	_ = "STUB: not implemented"
+	return *new(Expression)
 }
 
 type customSerializer struct {
@@ -140,31 +119,13 @@ type customSerializer struct {
 }
 
 func (c *customSerializer) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-	if c.atomic {
-		for _, expr := range c.parts {
-			expr.serialize(statement, out, without(options, NoWrap)...)
-		}
-	} else {
-		optionalWrap(out, options, func(out *SQLBuilder, options []SerializeOption) {
-			for _, expr := range c.parts {
-				expr.serialize(statement, out, options...)
-			}
-		})
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func optionalWrap(out *SQLBuilder, options []SerializeOption, ser func(out *SQLBuilder, options []SerializeOption)) {
-	if !contains(options, NoWrap) {
-		out.WriteString("(")
-	}
-
-	ser(out, without(options, NoWrap))
-
-	if !contains(options, NoWrap) {
-		out.WriteString(")")
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
-func wrap(expressions ...Expression) Expression {
-	return newFunc("", expressions)
-}
+func wrap(expressions ...Expression) Expression { _ = "STUB: not implemented"; return *new(Expression) }

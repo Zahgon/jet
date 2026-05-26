@@ -2,8 +2,6 @@ package jet
 
 import (
 	"context"
-	"runtime"
-	"strings"
 	"time"
 )
 
@@ -19,15 +17,9 @@ type LoggerFunc func(ctx context.Context, statement PrintableStatement)
 var logger LoggerFunc
 
 // SetLoggerFunc sets automatic statement logging
-func SetLoggerFunc(loggerFunc LoggerFunc) {
-	logger = loggerFunc
-}
+func SetLoggerFunc(loggerFunc LoggerFunc) { _ = "STUB: not implemented"; return }
 
-func callLogger(ctx context.Context, statement Statement) {
-	if logger != nil {
-		logger(ctx, statement)
-	}
-}
+func callLogger(ctx context.Context, statement Statement) { _ = "STUB: not implemented"; return }
 
 // QueryInfo contains information about executed query
 type QueryInfo struct {
@@ -47,35 +39,14 @@ type QueryLoggerFunc func(ctx context.Context, info QueryInfo)
 var queryLoggerFunc QueryLoggerFunc
 
 // SetQueryLogger sets automatic query logging function.
-func SetQueryLogger(loggerFunc QueryLoggerFunc) {
-	queryLoggerFunc = loggerFunc
-}
+func SetQueryLogger(loggerFunc QueryLoggerFunc) { _ = "STUB: not implemented"; return }
 
-func callQueryLoggerFunc(ctx context.Context, info QueryInfo) {
-	if queryLoggerFunc != nil {
-		queryLoggerFunc(ctx, info)
-	}
-}
+func callQueryLoggerFunc(ctx context.Context, info QueryInfo) { _ = "STUB: not implemented"; return }
 
 // Caller returns information about statement caller
 func (q QueryInfo) Caller() (file string, line int, function string) {
-	skip := 4
+	_ = "STUB: not implemented"
+
 	// depending on execution type (Query, QueryContext, Exec, ...) looped once or twice
-	for {
-		var pc uintptr
-		var ok bool
-
-		pc, file, line, ok = runtime.Caller(skip)
-		if !ok {
-			return
-		}
-
-		funcDetails := runtime.FuncForPC(pc)
-		if !strings.Contains(funcDetails.Name(), "github.com/go-jet/jet/v2/internal") {
-			function = funcDetails.Name()
-			return
-		}
-
-		skip++
-	}
+	return "", 0, ""
 }

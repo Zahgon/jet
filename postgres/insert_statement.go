@@ -20,18 +20,8 @@ type InsertStatement interface {
 }
 
 func newInsertStatement(table WritableTable, columns []jet.Column) InsertStatement {
-	newInsert := &insertStatementImpl{}
-	newInsert.SerializerStatement = jet.NewStatementImpl(Dialect, jet.InsertStatementType, newInsert,
-		&newInsert.Insert,
-		&newInsert.ValuesQuery,
-		&newInsert.OnConflict,
-		&newInsert.Returning,
-	)
-
-	newInsert.Insert.Table = table
-	newInsert.Insert.Columns = columns
-
-	return newInsert
+	_ = "STUB: not implemented"
+	return *new(InsertStatement)
 }
 
 type insertStatementImpl struct {
@@ -44,34 +34,31 @@ type insertStatementImpl struct {
 }
 
 func (i *insertStatementImpl) VALUES(value interface{}, values ...interface{}) InsertStatement {
-	i.ValuesQuery.Rows = append(i.ValuesQuery.Rows, jet.UnwindRowFromValues(value, values))
-	return i
+	_ = "STUB: not implemented"
+	return *new(InsertStatement)
 }
 
 func (i *insertStatementImpl) MODEL(data interface{}) InsertStatement {
-	i.ValuesQuery.Rows = append(i.ValuesQuery.Rows, jet.UnwindRowFromModel(i.Insert.GetColumns(), data))
-	return i
+	_ = "STUB: not implemented"
+	return *new(InsertStatement)
 }
 
 func (i *insertStatementImpl) MODELS(data interface{}) InsertStatement {
-	i.ValuesQuery.Rows = append(i.ValuesQuery.Rows, jet.UnwindRowsFromModels(i.Insert.GetColumns(), data)...)
-	return i
+	_ = "STUB: not implemented"
+	return *new(InsertStatement)
 }
 
 func (i *insertStatementImpl) RETURNING(projections ...jet.Projection) InsertStatement {
-	i.Returning.ProjectionList = projections
-	return i
+	_ = "STUB: not implemented"
+	return *new(InsertStatement)
 }
 
 func (i *insertStatementImpl) QUERY(selectStatement SelectStatement) InsertStatement {
-	i.ValuesQuery.Query = selectStatement
-	return i
+	_ = "STUB: not implemented"
+	return *new(InsertStatement)
 }
 
 func (i *insertStatementImpl) ON_CONFLICT(indexExpressions ...jet.ColumnExpression) onConflict {
-	i.OnConflict = onConflictClause{
-		insertStatement:  i,
-		indexExpressions: indexExpressions,
-	}
-	return &i.OnConflict
+	_ = "STUB: not implemented"
+	return *new(onConflict)
 }

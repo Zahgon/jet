@@ -12,4 +12,4 @@ type numericExpression interface {
 
 type numericExpressionImpl struct{}
 
-func (n *numericExpressionImpl) isNumericExpression() {}
+func (n *numericExpressionImpl) isNumericExpression() { _ = "STUB: not implemented"; return }

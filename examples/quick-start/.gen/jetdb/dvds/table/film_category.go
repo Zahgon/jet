@@ -34,51 +34,36 @@ type FilmCategoryTable struct {
 
 // AS creates new FilmCategoryTable with assigned alias
 func (a FilmCategoryTable) AS(alias string) *FilmCategoryTable {
-	return newFilmCategoryTable(a.SchemaName(), a.TableName(), alias)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Schema creates new FilmCategoryTable with assigned schema name
 func (a FilmCategoryTable) FromSchema(schemaName string) *FilmCategoryTable {
-	return newFilmCategoryTable(schemaName, a.TableName(), a.Alias())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // WithPrefix creates new FilmCategoryTable with assigned table prefix
 func (a FilmCategoryTable) WithPrefix(prefix string) *FilmCategoryTable {
-	return newFilmCategoryTable(a.SchemaName(), prefix+a.TableName(), a.TableName())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // WithSuffix creates new FilmCategoryTable with assigned table suffix
 func (a FilmCategoryTable) WithSuffix(suffix string) *FilmCategoryTable {
-	return newFilmCategoryTable(a.SchemaName(), a.TableName()+suffix, a.TableName())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func newFilmCategoryTable(schemaName, tableName, alias string) *FilmCategoryTable {
-	return &FilmCategoryTable{
-		filmCategoryTable: newFilmCategoryTableImpl(schemaName, tableName, alias),
-		EXCLUDED:          newFilmCategoryTableImpl("", "excluded", ""),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func newFilmCategoryTableImpl(schemaName, tableName, alias string) filmCategoryTable {
-	var (
-		FilmIDColumn     = postgres.IntegerColumn("film_id")
-		CategoryIDColumn = postgres.IntegerColumn("category_id")
-		LastUpdateColumn = postgres.TimestampColumn("last_update")
-		allColumns       = postgres.ColumnList{FilmIDColumn, CategoryIDColumn, LastUpdateColumn}
-		mutableColumns   = postgres.ColumnList{LastUpdateColumn}
-		defaultColumns   = postgres.ColumnList{LastUpdateColumn}
-	)
-
-	return filmCategoryTable{
-		Table: postgres.NewTable(schemaName, tableName, alias, allColumns...),
-
-		//Columns
-		FilmID:     FilmIDColumn,
-		CategoryID: CategoryIDColumn,
-		LastUpdate: LastUpdateColumn,
-
-		AllColumns:     allColumns,
-		MutableColumns: mutableColumns,
-		DefaultColumns: defaultColumns,
-	}
+	_ = "STUB: not implemented"
+	return *new(filmCategoryTable)
 }
+
+//Columns

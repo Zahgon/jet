@@ -25,51 +25,63 @@ type dateInterfaceImpl struct {
 }
 
 func (d *dateInterfaceImpl) EQ(rhs DateExpression) BoolExpression {
-	return Eq(d.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (d *dateInterfaceImpl) NOT_EQ(rhs DateExpression) BoolExpression {
-	return NotEq(d.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (d *dateInterfaceImpl) IS_DISTINCT_FROM(rhs DateExpression) BoolExpression {
-	return IsDistinctFrom(d.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (d *dateInterfaceImpl) IS_NOT_DISTINCT_FROM(rhs DateExpression) BoolExpression {
-	return IsNotDistinctFrom(d.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (d *dateInterfaceImpl) LT(rhs DateExpression) BoolExpression {
-	return Lt(d.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (d *dateInterfaceImpl) LT_EQ(rhs DateExpression) BoolExpression {
-	return LtEq(d.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (d *dateInterfaceImpl) GT(rhs DateExpression) BoolExpression {
-	return Gt(d.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (d *dateInterfaceImpl) GT_EQ(rhs DateExpression) BoolExpression {
-	return GtEq(d.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (d *dateInterfaceImpl) BETWEEN(min, max DateExpression) BoolExpression {
-	return NewBetweenOperatorExpression(d.root, min, max, false)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (d *dateInterfaceImpl) NOT_BETWEEN(min, max DateExpression) BoolExpression {
-	return NewBetweenOperatorExpression(d.root, min, max, true)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (d *dateInterfaceImpl) ADD(rhs Interval) TimestampExpression {
-	return TimestampExp(Add(d.root, rhs))
+	_ = "STUB: not implemented"
+	return *new(TimestampExpression)
 }
 
 func (d *dateInterfaceImpl) SUB(rhs Interval) TimestampExpression {
-	return TimestampExp(Sub(d.root, rhs))
+	_ = "STUB: not implemented"
+	return *new(TimestampExpression)
 }
 
 //---------------------------------------------------//
@@ -80,15 +92,14 @@ type dateExpressionWrapper struct {
 }
 
 func newDateExpressionWrap(expression Expression) DateExpression {
-	dateExpressionWrap := &dateExpressionWrapper{Expression: expression}
-	dateExpressionWrap.dateInterfaceImpl.root = dateExpressionWrap
-	expression.setRoot(dateExpressionWrap)
-	return dateExpressionWrap
+	_ = "STUB: not implemented"
+	return *new(DateExpression)
 }
 
 // DateExp is date expression wrapper around arbitrary expression.
 // Allows go compiler to see any expression as date expression.
 // Does not add sql cast to generated sql builder output.
 func DateExp(expression Expression) DateExpression {
-	return newDateExpressionWrap(expression)
+	_ = "STUB: not implemented"
+	return *new(DateExpression)
 }

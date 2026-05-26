@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"os"
 	"slices"
-	"strings"
 
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/lib/pq"
@@ -18,10 +17,8 @@ import (
 	postgresgen "github.com/go-jet/jet/v2/generator/postgres"
 	sqlitegen "github.com/go-jet/jet/v2/generator/sqlite"
 	"github.com/go-jet/jet/v2/generator/template"
-	"github.com/go-jet/jet/v2/internal/3rdparty/snaker"
 	"github.com/go-jet/jet/v2/internal/jet"
 	"github.com/go-jet/jet/v2/internal/utils/errfmt"
-	"github.com/go-jet/jet/v2/internal/utils/strslice"
 	"github.com/go-jet/jet/v2/mysql"
 	postgres2 "github.com/go-jet/jet/v2/postgres"
 	"github.com/go-jet/jet/v2/sqlite"
@@ -196,181 +193,39 @@ func main() {
 	}
 }
 
-func usage() {
-	fmt.Println("Jet generator", version)
-	fmt.Println()
-	fmt.Println("Usage:")
+func usage() { _ = "STUB: not implemented"; return }
 
-	order := []string{
-		"source", "dsn", "host", "port", "user", "password", "dbname", "schema", "params", "sslmode",
-		"path",
-		"ignore-tables", "ignore-views", "ignore-enums",
-		"skip-model", "skip-sql-builder",
-		"rel-model-path", "rel-table-path", "rel-view-path", "rel-enum-path", "tables", "views",
-		"enums",
-	}
+func printErrorAndExit(error string) { _ = "STUB: not implemented"; return }
 
-	for _, name := range order {
-		flagEntry := flag.CommandLine.Lookup(name)
-		fmt.Printf("  -%s\n", flagEntry.Name)
-		fmt.Printf("\t%s\n", flagEntry.Usage)
-	}
+func getSource() string { _ = "STUB: not implemented"; return "" }
 
-	fmt.Println()
-	fmt.Println(`Example commands:
+func detectSchema(dsn string) string { _ = "STUB: not implemented"; return "" }
 
-	$ jet -dsn=postgresql://jet:jet@localhost:5432/jetdb?sslmode=disable -schema=dvds -path=./gen
-	$ jet -dsn=postgres://jet:jet@localhost:26257/jetdb?sslmode=disable -schema=dvds -path=./gen   #cockroachdb
-	$ jet -source=postgres -dsn="user=jet password=jet host=localhost port=5432 dbname=jetdb" -schema=dvds -path=./gen
-	$ jet -source=mysql -host=localhost -port=3306 -user=jet -password=jet -dbname=jetdb -path=./gen
-	$ jet -source=sqlite -dsn="file://path/to/sqlite/database/file" -path=./gen
-	$ jet -source=sqlite -dsn="file://path/to/sqlite/database/file" -path=./gen -rel-model-path=./entity
-	`)
-}
+// not found
 
-func printErrorAndExit(error string) {
-	fmt.Println("\n", error)
-	fmt.Println()
-	flag.Usage()
-	os.Exit(1)
-}
-
-func getSource() string {
-	if source != "" {
-		return strings.TrimSpace(strings.ToLower(source))
-	}
-
-	return detectSchema(dsn)
-}
-
-func detectSchema(dsn string) string {
-	match := strings.SplitN(dsn, "://", 2)
-	if len(match) < 2 { // not found
-		return ""
-	}
-
-	protocol := match[0]
-
-	if protocol == "file" {
-		return "sqlite"
-	}
-
-	return strings.ToLower(match[0])
-}
-
-func parseList(list string) []string {
-	ret := strings.Split(list, ",")
-
-	for i := 0; i < len(ret); i++ {
-		ret[i] = strings.ToLower(strings.TrimSpace(ret[i]))
-	}
-
-	return ret
-}
+func parseList(list string) []string { _ = "STUB: not implemented"; return nil }
 
 func genTemplate(dialect jet.Dialect, tablesFilter, viewsFilter, enumsFilter templateFilter) template.Template {
-	return template.Default(dialect).
-		UseSchema(func(schemaMetaData metadata.Schema) template.Schema {
-			return template.DefaultSchema(schemaMetaData).
-				UseModel(template.DefaultModel().ShouldSkip(skipModel).UsePath(modelPkg).
-					UseTable(func(table metadata.Table) template.TableModel {
-						if shouldSkipTable(table, tablesFilter) {
-							return template.TableModel{Skip: true}
-						}
-						return template.DefaultTableModel(table).
-							UseField(func(columnMetaData metadata.Column) template.TableModelField {
-								defaultTableModelField := template.DefaultTableModelField(columnMetaData)
-								tags := createModelTags(columnMetaData)
-								return defaultTableModelField.UseTags(tags...)
-							})
-					}).
-					UseView(func(view metadata.Table) template.ViewModel {
-						if shouldSkipTable(view, viewsFilter) {
-							return template.ViewModel{Skip: true}
-						}
-						return template.DefaultViewModel(view).
-							UseField(func(columnMetaData metadata.Column) template.TableModelField {
-								defaultTableModelField := template.DefaultTableModelField(columnMetaData)
-								tags := createModelTags(columnMetaData)
-								return defaultTableModelField.UseTags(tags...)
-							})
-					}).
-					UseEnum(func(enum metadata.Enum) template.EnumModel {
-						if shouldSkipEnum(enum, enumsFilter) {
-							return template.EnumModel{Skip: true}
-						}
-						return template.DefaultEnumModel(enum)
-					}),
-				).
-				UseSQLBuilder(template.DefaultSQLBuilder().ShouldSkip(skipSQLBuilder).
-					UseTable(func(table metadata.Table) template.TableSQLBuilder {
-						if shouldSkipTable(table, tablesFilter) {
-							return template.TableSQLBuilder{Skip: true}
-						}
-
-						return template.DefaultTableSQLBuilder(table).UsePath(tablePkg)
-					}).
-					UseView(func(table metadata.Table) template.ViewSQLBuilder {
-						if shouldSkipTable(table, viewsFilter) {
-							return template.ViewSQLBuilder{Skip: true}
-						}
-
-						return template.DefaultViewSQLBuilder(table).UsePath(viewPkg)
-					}).
-					UseEnum(func(enum metadata.Enum) template.EnumSQLBuilder {
-						if shouldSkipEnum(enum, enumsFilter) {
-							return template.EnumSQLBuilder{Skip: true}
-						}
-
-						return template.DefaultEnumSQLBuilder(enum).UsePath(enumPkg)
-					}),
-				)
-		})
+	_ = "STUB: not implemented"
+	return *new(template.Template)
 }
 
 func createTemplateFilter(ignoreList, allowList, filterType string) templateFilter {
-	if ignoreList != "" && allowList != "" {
-		printErrorAndExit(fmt.Sprintf("ERROR: cannot use both -%s and -ignore-%s flags simultaneously. Please specify only one option.", filterType, filterType))
-	}
-
-	if allowList != "" {
-		return templateFilter{
-			names:  parseList(allowList),
-			ignore: false,
-		}
-	}
-
-	return templateFilter{
-		names:  parseList(ignoreList),
-		ignore: true,
-	}
+	_ = "STUB: not implemented"
+	return *new(templateFilter)
 }
 
 func shouldSkipTable(table metadata.Table, filter templateFilter) bool {
-	if filter.ignore {
-		return strslice.Contains(filter.names, strings.ToLower(table.Name))
-	}
-
-	return !strslice.Contains(filter.names, strings.ToLower(table.Name))
+	_ = "STUB: not implemented"
+	return false
 }
 
 func shouldSkipEnum(enum metadata.Enum, filter templateFilter) bool {
-	if filter.ignore {
-		return strslice.Contains(filter.names, strings.ToLower(enum.Name))
-	}
-
-	return !strslice.Contains(filter.names, strings.ToLower(enum.Name))
+	_ = "STUB: not implemented"
+	return false
 }
 
 func createModelTags(columnMetaData metadata.Column) []string {
-	var tags []string
-	switch modelJsonTag {
-	case "snake-case":
-		tags = append(tags, fmt.Sprintf(`json:"%s"`, snaker.CamelToSnake(columnMetaData.Name)))
-	case "camel-case":
-		tags = append(tags, fmt.Sprintf(`json:"%s"`, snaker.SnakeToCamel(columnMetaData.Name, false)))
-	case "pascal-case":
-		tags = append(tags, fmt.Sprintf(`json:"%s"`, snaker.SnakeToCamel(columnMetaData.Name, true)))
-	}
-	return tags
+	_ = "STUB: not implemented"
+	return nil
 }

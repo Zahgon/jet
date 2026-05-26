@@ -1,20 +1,20 @@
 package jet
 
 // MODE computes the most frequent value of the aggregated argument
-func MODE() *OrderSetAggregateFunc {
-	return newOrderSetAggregateFunction("MODE", nil)
-}
+func MODE() *OrderSetAggregateFunc { _ = "STUB: not implemented"; return nil }
 
 // PERCENTILE_CONT computes a value corresponding to the specified fraction within the ordered set of
 // aggregated argument values. This will interpolate between adjacent input items if needed.
 func PERCENTILE_CONT(fraction FloatExpression) *OrderSetAggregateFunc {
-	return newOrderSetAggregateFunction("PERCENTILE_CONT", fraction)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // PERCENTILE_DISC computes  the first value within the ordered set of aggregated argument values whose position
 // in the ordering equals or exceeds the specified fraction. The aggregated argument must be of a sortable type.
 func PERCENTILE_DISC(fraction FloatExpression) *OrderSetAggregateFunc {
-	return newOrderSetAggregateFunction("PERCENTILE_DISC", fraction)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // OrderSetAggregateFunc implementation of order set aggregate function
@@ -25,22 +25,19 @@ type OrderSetAggregateFunc struct {
 }
 
 func newOrderSetAggregateFunction(name string, fraction FloatExpression) *OrderSetAggregateFunc {
-	return &OrderSetAggregateFunc{
-		name:     name,
-		fraction: fraction,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // WITHIN_GROUP_ORDER_BY specifies ordered set of aggregated argument values
 func (p *OrderSetAggregateFunc) WITHIN_GROUP_ORDER_BY(orderBy OrderByClause) Expression {
-	p.orderBy = ORDER_BY(orderBy)
-	return newOrderSetAggregateFuncExpression(p)
+	_ = "STUB: not implemented"
+	return *new(Expression)
 }
 
 func newOrderSetAggregateFuncExpression(aggFunc *OrderSetAggregateFunc) Expression {
-	return newExpression(&orderSetAggregateFuncSerializer{
-		OrderSetAggregateFunc: aggFunc,
-	})
+	_ = "STUB: not implemented"
+	return *new(Expression)
 }
 
 type orderSetAggregateFuncSerializer struct {
@@ -48,13 +45,6 @@ type orderSetAggregateFuncSerializer struct {
 }
 
 func (p *orderSetAggregateFuncSerializer) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-	out.WriteString(p.name)
-
-	if p.fraction != nil {
-		wrap(p.fraction).serialize(statement, out, FallTrough(options)...)
-	} else {
-		wrap().serialize(statement, out, FallTrough(options)...)
-	}
-	out.WriteString("WITHIN GROUP")
-	p.orderBy.serialize(statement, out)
+	_ = "STUB: not implemented"
+	return
 }

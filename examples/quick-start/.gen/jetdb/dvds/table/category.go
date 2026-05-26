@@ -33,52 +33,34 @@ type CategoryTable struct {
 }
 
 // AS creates new CategoryTable with assigned alias
-func (a CategoryTable) AS(alias string) *CategoryTable {
-	return newCategoryTable(a.SchemaName(), a.TableName(), alias)
-}
+func (a CategoryTable) AS(alias string) *CategoryTable { _ = "STUB: not implemented"; return nil }
 
 // Schema creates new CategoryTable with assigned schema name
 func (a CategoryTable) FromSchema(schemaName string) *CategoryTable {
-	return newCategoryTable(schemaName, a.TableName(), a.Alias())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // WithPrefix creates new CategoryTable with assigned table prefix
 func (a CategoryTable) WithPrefix(prefix string) *CategoryTable {
-	return newCategoryTable(a.SchemaName(), prefix+a.TableName(), a.TableName())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // WithSuffix creates new CategoryTable with assigned table suffix
 func (a CategoryTable) WithSuffix(suffix string) *CategoryTable {
-	return newCategoryTable(a.SchemaName(), a.TableName()+suffix, a.TableName())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func newCategoryTable(schemaName, tableName, alias string) *CategoryTable {
-	return &CategoryTable{
-		categoryTable: newCategoryTableImpl(schemaName, tableName, alias),
-		EXCLUDED:      newCategoryTableImpl("", "excluded", ""),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func newCategoryTableImpl(schemaName, tableName, alias string) categoryTable {
-	var (
-		CategoryIDColumn = postgres.IntegerColumn("category_id")
-		NameColumn       = postgres.StringColumn("name")
-		LastUpdateColumn = postgres.TimestampColumn("last_update")
-		allColumns       = postgres.ColumnList{CategoryIDColumn, NameColumn, LastUpdateColumn}
-		mutableColumns   = postgres.ColumnList{NameColumn, LastUpdateColumn}
-		defaultColumns   = postgres.ColumnList{CategoryIDColumn, LastUpdateColumn}
-	)
-
-	return categoryTable{
-		Table: postgres.NewTable(schemaName, tableName, alias, allColumns...),
-
-		//Columns
-		CategoryID: CategoryIDColumn,
-		Name:       NameColumn,
-		LastUpdate: LastUpdateColumn,
-
-		AllColumns:     allColumns,
-		MutableColumns: mutableColumns,
-		DefaultColumns: defaultColumns,
-	}
+	_ = "STUB: not implemented"
+	return *new(categoryTable)
 }
+
+//Columns

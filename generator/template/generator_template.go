@@ -12,17 +12,12 @@ type Template struct {
 }
 
 // Default is default generator template implementation
-func Default(dialect jet.Dialect) Template {
-	return Template{
-		Dialect: dialect,
-		Schema:  DefaultSchema,
-	}
-}
+func Default(dialect jet.Dialect) Template { _ = "STUB: not implemented"; return *new(Template) }
 
 // UseSchema replaces current schema generate function with a new implementation and returns new generator template
 func (t Template) UseSchema(schemaFunc func(schemaMetaData metadata.Schema) Schema) Template {
-	t.Schema = schemaFunc
-	return t
+	_ = "STUB: not implemented"
+	return *new(Template)
 }
 
 // Schema is schema generator template used to generate schema(model and sql builder) files
@@ -34,27 +29,28 @@ type Schema struct {
 
 // UsePath replaces path and returns new schema template
 func (s Schema) UsePath(path string) Schema {
-	s.Path = path
-	return s
+	_ = "STUB: not implemented"
+	return *
+
+	// UseModel returns new schema template with replaced template for model files generation
+	new(Schema)
 }
 
-// UseModel returns new schema template with replaced template for model files generation
 func (s Schema) UseModel(model Model) Schema {
-	s.Model = model
-	return s
+	_ = "STUB: not implemented"
+	return *
+
+	// UseSQLBuilder returns new schema with replaced template for sql builder files generation
+	new(Schema)
 }
 
-// UseSQLBuilder returns new schema with replaced template for sql builder files generation
 func (s Schema) UseSQLBuilder(sqlBuilder SQLBuilder) Schema {
-	s.SQLBuilder = sqlBuilder
-	return s
+	_ = "STUB: not implemented"
+	return *new(Schema)
 }
 
 // DefaultSchema returns default schema template implementation
 func DefaultSchema(schemaMetaData metadata.Schema) Schema {
-	return Schema{
-		Path:       schemaMetaData.Name,
-		Model:      DefaultModel(),
-		SQLBuilder: DefaultSQLBuilder(),
-	}
+	_ = "STUB: not implemented"
+	return *new(Schema)
 }

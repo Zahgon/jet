@@ -15,12 +15,8 @@ type values struct {
 //		ROW(Int32(204), Float32(1.21)),
 //		ROW(Int32(207), Float32(1.02)),
 //	)
-func VALUES(rows ...RowExpression) values {
-	return values{Values: jet.Values(rows)}
-}
+func VALUES(rows ...RowExpression) values { _ = "STUB: not implemented"; return *new(values) }
 
 // AS assigns an alias to the temporary VALUES table, allowing it to be referenced
 // within SQL FROM clauses, just like a regular table.
-func (v values) AS(alias string) SelectTable {
-	return newSelectTable(v, alias, nil)
-}
+func (v values) AS(alias string) SelectTable { _ = "STUB: not implemented"; return *new(SelectTable) }

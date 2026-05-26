@@ -1,9 +1,5 @@
 package jet
 
-import (
-	"strings"
-)
-
 // Dialect interface
 type Dialect interface {
 	Name() string
@@ -46,22 +42,7 @@ type DialectParams struct {
 }
 
 // NewDialect creates new dialect with params
-func NewDialect(params DialectParams) Dialect {
-	return &dialectImpl{
-		name:                       params.Name,
-		packageName:                params.PackageName,
-		operatorSerializeOverrides: params.OperatorSerializeOverrides,
-		aliasQuoteChar:             params.AliasQuoteChar,
-		identifierQuoteChar:        params.IdentifierQuoteChar,
-		argumentPlaceholder:        params.ArgumentPlaceholder,
-		argumentToString:           params.ArgumentToString,
-		reservedWords:              arrayOfStringsToMapOfStrings(params.ReservedWords),
-		serializeOrderBy:           params.SerializeOrderBy,
-		valuesDefaultColumnName:    params.ValuesDefaultColumnName,
-		jsonValueEncode:            params.JsonValueEncode,
-		regexpLike:                 params.RegexpLike,
-	}
-}
+func NewDialect(params DialectParams) Dialect { _ = "STUB: not implemented"; return *new(Dialect) }
 
 type dialectImpl struct {
 	name                       string
@@ -78,74 +59,52 @@ type dialectImpl struct {
 	regexpLike                 func(str StringExpression, not bool, pattern StringExpression, caseSensitive bool) SerializerFunc
 }
 
-func (d *dialectImpl) Name() string {
-	return d.name
-}
+func (d *dialectImpl) Name() string { _ = "STUB: not implemented"; return "" }
 
-func (d *dialectImpl) PackageName() string {
-	return d.packageName
-}
+func (d *dialectImpl) PackageName() string { _ = "STUB: not implemented"; return "" }
 
 func (d *dialectImpl) OperatorSerializeOverride(operator string) SerializeOverride {
-	if d.operatorSerializeOverrides == nil {
-		return nil
-	}
-	return d.operatorSerializeOverrides[operator]
+	_ = "STUB: not implemented"
+	return *new(SerializeOverride)
 }
 
-func (d *dialectImpl) AliasQuoteChar() byte {
-	return d.aliasQuoteChar
-}
+func (d *dialectImpl) AliasQuoteChar() byte { _ = "STUB: not implemented"; return 0 }
 
-func (d *dialectImpl) IdentifierQuoteChar() byte {
-	return d.identifierQuoteChar
-}
+func (d *dialectImpl) IdentifierQuoteChar() byte { _ = "STUB: not implemented"; return 0 }
 
 func (d *dialectImpl) ArgumentPlaceholder() QueryPlaceholderFunc {
-	return d.argumentPlaceholder
+	_ = "STUB: not implemented"
+	return *new(QueryPlaceholderFunc)
 }
 
 func (d *dialectImpl) ArgumentToString(value any) (string, bool) {
-	return d.argumentToString(value)
+	_ = "STUB: not implemented"
+	return "", false
 }
 
-func (d *dialectImpl) IsReservedWord(name string) bool {
-	_, isReservedWord := d.reservedWords[strings.ToLower(name)]
-	return isReservedWord
-}
+func (d *dialectImpl) IsReservedWord(name string) bool { _ = "STUB: not implemented"; return false }
 
 func (d *dialectImpl) SerializeOrderBy() func(expression Expression, ascending, nullsFirst *bool) SerializerFunc {
-	return d.serializeOrderBy
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (d *dialectImpl) ValuesDefaultColumnName(index int) string {
-	return d.valuesDefaultColumnName(index)
+	_ = "STUB: not implemented"
+	return ""
 }
 
 func (d *dialectImpl) JsonValueEncode(expr Expression) Expression {
-	return d.jsonValueEncode(expr)
+	_ = "STUB: not implemented"
+	return *new(Expression)
 }
 
 func (d *dialectImpl) RegexpLike(str StringExpression, not bool, pattern StringExpression, caseSensitive bool) SerializerFunc {
-	if d.regexpLike != nil {
-		return d.regexpLike(str, not, pattern, caseSensitive)
-	}
-
-	return func(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-		str.serialize(statement, out, FallTrough(options)...)
-		if not {
-			out.WriteString("NOT")
-		}
-		out.WriteString("REGEXP")
-		pattern.serialize(statement, out, FallTrough(options)...)
-	}
+	_ = "STUB: not implemented"
+	return *new(SerializerFunc)
 }
 
 func arrayOfStringsToMapOfStrings(arr []string) map[string]bool {
-	ret := map[string]bool{}
-	for _, elem := range arr {
-		ret[strings.ToLower(elem)] = true
-	}
-
-	return ret
+	_ = "STUB: not implemented"
+	return nil
 }

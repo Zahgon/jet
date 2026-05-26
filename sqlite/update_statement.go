@@ -26,53 +26,31 @@ type updateStatementImpl struct {
 }
 
 func newUpdateStatement(table Table, columns []jet.Column) UpdateStatement {
-	update := &updateStatementImpl{}
-	update.SerializerStatement = jet.NewStatementImpl(Dialect, jet.UpdateStatementType, update,
-		&update.Update,
-		&update.Set,
-		&update.SetNew,
-		&update.From,
-		&update.Where,
-		&update.Returning)
-
-	update.Update.Table = table
-	update.Set.Columns = columns
-	update.Where.Mandatory = true
-
-	return update
+	_ = "STUB: not implemented"
+	return *new(UpdateStatement)
 }
 
 func (u *updateStatementImpl) SET(value interface{}, values ...interface{}) UpdateStatement {
-	columnAssigment, isColumnAssigment := value.(ColumnAssigment)
-
-	if isColumnAssigment {
-		u.SetNew = []ColumnAssigment{columnAssigment}
-		for _, value := range values {
-			u.SetNew = append(u.SetNew, value.(ColumnAssigment))
-		}
-	} else {
-		u.Set.Values = jet.UnwindRowFromValues(value, values)
-	}
-
-	return u
+	_ = "STUB: not implemented"
+	return *new(UpdateStatement)
 }
 
 func (u *updateStatementImpl) MODEL(data interface{}) UpdateStatement {
-	u.Set.Values = jet.UnwindRowFromModel(u.Set.Columns, data)
-	return u
+	_ = "STUB: not implemented"
+	return *new(UpdateStatement)
 }
 
 func (u *updateStatementImpl) FROM(tables ...ReadableTable) UpdateStatement {
-	u.From.Tables = readableTablesToSerializerList(tables)
-	return u
+	_ = "STUB: not implemented"
+	return *new(UpdateStatement)
 }
 
 func (u *updateStatementImpl) WHERE(expression BoolExpression) UpdateStatement {
-	u.Where.Condition = expression
-	return u
+	_ = "STUB: not implemented"
+	return *new(UpdateStatement)
 }
 
 func (u *updateStatementImpl) RETURNING(projections ...Projection) UpdateStatement {
-	u.Returning.ProjectionList = projections
-	return u
+	_ = "STUB: not implemented"
+	return *new(UpdateStatement)
 }

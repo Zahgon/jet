@@ -33,52 +33,34 @@ type LanguageTable struct {
 }
 
 // AS creates new LanguageTable with assigned alias
-func (a LanguageTable) AS(alias string) *LanguageTable {
-	return newLanguageTable(a.SchemaName(), a.TableName(), alias)
-}
+func (a LanguageTable) AS(alias string) *LanguageTable { _ = "STUB: not implemented"; return nil }
 
 // Schema creates new LanguageTable with assigned schema name
 func (a LanguageTable) FromSchema(schemaName string) *LanguageTable {
-	return newLanguageTable(schemaName, a.TableName(), a.Alias())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // WithPrefix creates new LanguageTable with assigned table prefix
 func (a LanguageTable) WithPrefix(prefix string) *LanguageTable {
-	return newLanguageTable(a.SchemaName(), prefix+a.TableName(), a.TableName())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // WithSuffix creates new LanguageTable with assigned table suffix
 func (a LanguageTable) WithSuffix(suffix string) *LanguageTable {
-	return newLanguageTable(a.SchemaName(), a.TableName()+suffix, a.TableName())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func newLanguageTable(schemaName, tableName, alias string) *LanguageTable {
-	return &LanguageTable{
-		languageTable: newLanguageTableImpl(schemaName, tableName, alias),
-		EXCLUDED:      newLanguageTableImpl("", "excluded", ""),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func newLanguageTableImpl(schemaName, tableName, alias string) languageTable {
-	var (
-		LanguageIDColumn = postgres.IntegerColumn("language_id")
-		NameColumn       = postgres.StringColumn("name")
-		LastUpdateColumn = postgres.TimestampColumn("last_update")
-		allColumns       = postgres.ColumnList{LanguageIDColumn, NameColumn, LastUpdateColumn}
-		mutableColumns   = postgres.ColumnList{NameColumn, LastUpdateColumn}
-		defaultColumns   = postgres.ColumnList{LanguageIDColumn, LastUpdateColumn}
-	)
-
-	return languageTable{
-		Table: postgres.NewTable(schemaName, tableName, alias, allColumns...),
-
-		//Columns
-		LanguageID: LanguageIDColumn,
-		Name:       NameColumn,
-		LastUpdate: LastUpdateColumn,
-
-		AllColumns:     allColumns,
-		MutableColumns: mutableColumns,
-		DefaultColumns: defaultColumns,
-	}
+	_ = "STUB: not implemented"
+	return *new(languageTable)
 }
+
+//Columns

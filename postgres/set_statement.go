@@ -5,37 +5,43 @@ import "github.com/go-jet/jet/v2/internal/jet"
 // UNION effectively appends the result of sub-queries(select statements) into single query.
 // It eliminates duplicate rows from its result.
 func UNION(lhs, rhs jet.SerializerStatement, selects ...jet.SerializerStatement) setStatement {
-	return newSetStatementImpl(union, false, toSelectList(lhs, rhs, selects...))
+	_ = "STUB: not implemented"
+	return *new(setStatement)
 }
 
 // UNION_ALL effectively appends the result of sub-queries(select statements) into single query.
 // It does not eliminates duplicate rows from its result.
 func UNION_ALL(lhs, rhs jet.SerializerStatement, selects ...jet.SerializerStatement) setStatement {
-	return newSetStatementImpl(union, true, toSelectList(lhs, rhs, selects...))
+	_ = "STUB: not implemented"
+	return *new(setStatement)
 }
 
 // INTERSECT returns all rows that are in query results.
 // It eliminates duplicate rows from its result.
 func INTERSECT(lhs, rhs jet.SerializerStatement, selects ...jet.SerializerStatement) setStatement {
-	return newSetStatementImpl(intersect, false, toSelectList(lhs, rhs, selects...))
+	_ = "STUB: not implemented"
+	return *new(setStatement)
 }
 
 // INTERSECT_ALL returns all rows that are in query results.
 // It does not eliminates duplicate rows from its result.
 func INTERSECT_ALL(lhs, rhs jet.SerializerStatement, selects ...jet.SerializerStatement) setStatement {
-	return newSetStatementImpl(intersect, true, toSelectList(lhs, rhs, selects...))
+	_ = "STUB: not implemented"
+	return *new(setStatement)
 }
 
 // EXCEPT returns all rows that are in the result of query lhs but not in the result of query rhs.
 // It eliminates duplicate rows from its result.
 func EXCEPT(lhs, rhs jet.SerializerStatement) setStatement {
-	return newSetStatementImpl(except, false, toSelectList(lhs, rhs))
+	_ = "STUB: not implemented"
+	return *new(setStatement)
 }
 
 // EXCEPT_ALL returns all rows that are in the result of query lhs but not in the result of query rhs.
 // It does not eliminates duplicate rows from its result.
 func EXCEPT_ALL(lhs, rhs jet.SerializerStatement) setStatement {
-	return newSetStatementImpl(except, true, toSelectList(lhs, rhs))
+	_ = "STUB: not implemented"
+	return *new(setStatement)
 }
 
 type setStatement interface {
@@ -69,27 +75,33 @@ type setOperatorsImpl struct {
 }
 
 func (s *setOperatorsImpl) UNION(rhs SelectStatement) setStatement {
-	return UNION(s.stmtRoot, rhs)
+	_ = "STUB: not implemented"
+	return *new(setStatement)
 }
 
 func (s *setOperatorsImpl) UNION_ALL(rhs SelectStatement) setStatement {
-	return UNION_ALL(s.stmtRoot, rhs)
+	_ = "STUB: not implemented"
+	return *new(setStatement)
 }
 
 func (s *setOperatorsImpl) INTERSECT(rhs SelectStatement) setStatement {
-	return INTERSECT(s.stmtRoot, rhs)
+	_ = "STUB: not implemented"
+	return *new(setStatement)
 }
 
 func (s *setOperatorsImpl) INTERSECT_ALL(rhs SelectStatement) setStatement {
-	return INTERSECT_ALL(s.stmtRoot, rhs)
+	_ = "STUB: not implemented"
+	return *new(setStatement)
 }
 
 func (s *setOperatorsImpl) EXCEPT(rhs SelectStatement) setStatement {
-	return EXCEPT(s.stmtRoot, rhs)
+	_ = "STUB: not implemented"
+	return *new(setStatement)
 }
 
 func (s *setOperatorsImpl) EXCEPT_ALL(rhs SelectStatement) setStatement {
-	return EXCEPT_ALL(s.stmtRoot, rhs)
+	_ = "STUB: not implemented"
+	return *new(setStatement)
 }
 
 type setStatementImpl struct {
@@ -101,42 +113,33 @@ type setStatementImpl struct {
 }
 
 func newSetStatementImpl(operator string, all bool, selects []jet.SerializerStatement) setStatement {
-	newSetStatement := &setStatementImpl{}
-	newSetStatement.ExpressionStatement = jet.NewExpressionStatementImpl(Dialect, jet.SetStatementType, newSetStatement,
-		&newSetStatement.setOperator)
-
-	newSetStatement.setOperator.Operator = operator
-	newSetStatement.setOperator.All = all
-	newSetStatement.setOperator.Selects = selects
-	newSetStatement.setOperator.Limit.Count = -1
-
-	newSetStatement.setOperatorsImpl.stmtRoot = newSetStatement
-
-	return newSetStatement
+	_ = "STUB: not implemented"
+	return *new(setStatement)
 }
 
 func (s *setStatementImpl) ORDER_BY(orderByClauses ...OrderByClause) setStatement {
-	s.setOperator.OrderBy.List = orderByClauses
-	return s
+	_ = "STUB: not implemented"
+	return *new(setStatement)
 }
 
 func (s *setStatementImpl) LIMIT(limit int64) setStatement {
-	s.setOperator.Limit.Count = limit
-	return s
+	_ = "STUB: not implemented"
+	return *new(setStatement)
 }
 
 func (s *setStatementImpl) OFFSET(offset int64) setStatement {
-	s.setOperator.Offset.Count = Int(offset)
-	return s
+	_ = "STUB: not implemented"
+	return *new(setStatement)
 }
 
 func (s *setStatementImpl) OFFSET_e(offset IntegerExpression) setStatement {
-	s.setOperator.Offset.Count = offset
-	return s
+	_ = "STUB: not implemented"
+	return *new(setStatement)
 }
 
 func (s *setStatementImpl) AsTable(alias string) SelectTable {
-	return newSelectTable(s, alias, nil)
+	_ = "STUB: not implemented"
+	return *new(SelectTable)
 }
 
 const (
@@ -146,5 +149,6 @@ const (
 )
 
 func toSelectList(lhs, rhs jet.SerializerStatement, selects ...jet.SerializerStatement) []jet.SerializerStatement {
-	return append([]jet.SerializerStatement{lhs, rhs}, selects...)
+	_ = "STUB: not implemented"
+	return nil
 }

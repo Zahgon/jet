@@ -25,51 +25,63 @@ type timestampzInterfaceImpl struct {
 }
 
 func (t *timestampzInterfaceImpl) EQ(rhs TimestampzExpression) BoolExpression {
-	return Eq(t.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (t *timestampzInterfaceImpl) NOT_EQ(rhs TimestampzExpression) BoolExpression {
-	return NotEq(t.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (t *timestampzInterfaceImpl) IS_DISTINCT_FROM(rhs TimestampzExpression) BoolExpression {
-	return IsDistinctFrom(t.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (t *timestampzInterfaceImpl) IS_NOT_DISTINCT_FROM(rhs TimestampzExpression) BoolExpression {
-	return IsNotDistinctFrom(t.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (t *timestampzInterfaceImpl) LT(rhs TimestampzExpression) BoolExpression {
-	return Lt(t.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (t *timestampzInterfaceImpl) LT_EQ(rhs TimestampzExpression) BoolExpression {
-	return LtEq(t.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (t *timestampzInterfaceImpl) GT(rhs TimestampzExpression) BoolExpression {
-	return Gt(t.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (t *timestampzInterfaceImpl) GT_EQ(rhs TimestampzExpression) BoolExpression {
-	return GtEq(t.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (t *timestampzInterfaceImpl) BETWEEN(min, max TimestampzExpression) BoolExpression {
-	return NewBetweenOperatorExpression(t.root, min, max, false)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (t *timestampzInterfaceImpl) NOT_BETWEEN(min, max TimestampzExpression) BoolExpression {
-	return NewBetweenOperatorExpression(t.root, min, max, true)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (t *timestampzInterfaceImpl) ADD(rhs Interval) TimestampzExpression {
-	return TimestampzExp(Add(t.root, rhs))
+	_ = "STUB: not implemented"
+	return *new(TimestampzExpression)
 }
 
 func (t *timestampzInterfaceImpl) SUB(rhs Interval) TimestampzExpression {
-	return TimestampzExp(Sub(t.root, rhs))
+	_ = "STUB: not implemented"
+	return *new(TimestampzExpression)
 }
 
 //-------------------------------------------------
@@ -80,15 +92,14 @@ type timestampzExpressionWrapper struct {
 }
 
 func newTimestampzExpressionWrap(expression Expression) TimestampzExpression {
-	timestampzExpressionWrap := &timestampzExpressionWrapper{Expression: expression}
-	timestampzExpressionWrap.timestampzInterfaceImpl.root = timestampzExpressionWrap
-	expression.setRoot(timestampzExpressionWrap)
-	return timestampzExpressionWrap
+	_ = "STUB: not implemented"
+	return *new(TimestampzExpression)
 }
 
 // TimestampzExp is timestamp with time zone expression wrapper around arbitrary expression.
 // Allows go compiler to see any expression as timestamp with time zone expression.
 // Does not add sql cast to generated sql builder output.
 func TimestampzExp(expression Expression) TimestampzExpression {
-	return newTimestampzExpressionWrap(expression)
+	_ = "STUB: not implemented"
+	return *new(TimestampzExpression)
 }

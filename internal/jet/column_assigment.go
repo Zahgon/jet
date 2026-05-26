@@ -11,10 +11,9 @@ type columnAssigmentImpl struct {
 	toAssign Serializer
 }
 
-func (a columnAssigmentImpl) isColumnAssignment() {}
+func (a columnAssigmentImpl) isColumnAssignment() { _ = "STUB: not implemented"; return }
 
 func (a columnAssigmentImpl) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-	a.column.serialize(statement, out, ShortName.WithFallTrough(options)...)
-	out.WriteString("=")
-	a.toAssign.serialize(statement, out, FallTrough(options)...)
+	_ = "STUB: not implemented"
+	return
 }

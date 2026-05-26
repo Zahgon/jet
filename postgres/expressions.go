@@ -186,6 +186,4 @@ type Array[T Expression] jet.Array[T]
 // ArrayExp serves as a wrapper for an arbitrary expression, treating it as an array expression of type T.
 // This enables the Go compiler to interpret any expression as an array expression of type T.
 // Note: This does not modify the generated SQL builder output by adding an SQL CAST operation.
-func ArrayExp[T Expression](exp Expression) Array[T] {
-	return jet.ArrayExp[T](exp)
-}
+func ArrayExp[T Expression](exp Expression) Array[T] { _ = "STUB: not implemented"; return nil }

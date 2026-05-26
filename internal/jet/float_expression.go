@@ -31,70 +31,87 @@ type floatInterfaceImpl struct {
 }
 
 func (n *floatInterfaceImpl) EQ(rhs FloatExpression) BoolExpression {
-	return Eq(n.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (n *floatInterfaceImpl) NOT_EQ(rhs FloatExpression) BoolExpression {
-	return NotEq(n.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (n *floatInterfaceImpl) IS_DISTINCT_FROM(rhs FloatExpression) BoolExpression {
-	return IsDistinctFrom(n.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (n *floatInterfaceImpl) IS_NOT_DISTINCT_FROM(rhs FloatExpression) BoolExpression {
-	return IsNotDistinctFrom(n.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (n *floatInterfaceImpl) GT(rhs FloatExpression) BoolExpression {
-	return Gt(n.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (n *floatInterfaceImpl) GT_EQ(rhs FloatExpression) BoolExpression {
-	return GtEq(n.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (n *floatInterfaceImpl) LT(rhs FloatExpression) BoolExpression {
-	return Lt(n.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (n *floatInterfaceImpl) LT_EQ(rhs FloatExpression) BoolExpression {
-	return LtEq(n.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (n *floatInterfaceImpl) BETWEEN(min, max FloatExpression) BoolExpression {
-	return NewBetweenOperatorExpression(n.root, min, max, false)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (n *floatInterfaceImpl) NOT_BETWEEN(min, max FloatExpression) BoolExpression {
-	return NewBetweenOperatorExpression(n.root, min, max, true)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (n *floatInterfaceImpl) ADD(rhs NumericExpression) FloatExpression {
-	return FloatExp(Add(n.root, rhs))
+	_ = "STUB: not implemented"
+	return *new(FloatExpression)
 }
 
 func (n *floatInterfaceImpl) SUB(rhs NumericExpression) FloatExpression {
-	return FloatExp(Sub(n.root, rhs))
+	_ = "STUB: not implemented"
+	return *new(FloatExpression)
 }
 
 func (n *floatInterfaceImpl) MUL(rhs NumericExpression) FloatExpression {
-	return FloatExp(Mul(n.root, rhs))
+	_ = "STUB: not implemented"
+	return *new(FloatExpression)
 }
 
 func (n *floatInterfaceImpl) DIV(rhs NumericExpression) FloatExpression {
-	return FloatExp(Div(n.root, rhs))
+	_ = "STUB: not implemented"
+	return *new(FloatExpression)
 }
 
 func (n *floatInterfaceImpl) MOD(rhs NumericExpression) FloatExpression {
-	return FloatExp(Mod(n.root, rhs))
+	_ = "STUB: not implemented"
+	return *new(FloatExpression)
 }
 
 func (n *floatInterfaceImpl) POW(rhs NumericExpression) FloatExpression {
-	return POW(n.root, rhs)
-}
+	_ = "STUB: not implemented"
+	return *
 
-//---------------------------------------------------//
+	//---------------------------------------------------//
+	new(FloatExpression)
+}
 
 type floatExpressionWrapper struct {
 	floatInterfaceImpl
@@ -102,15 +119,14 @@ type floatExpressionWrapper struct {
 }
 
 func newFloatExpressionWrap(expression Expression) FloatExpression {
-	floatExpressionWrap := &floatExpressionWrapper{Expression: expression}
-	floatExpressionWrap.floatInterfaceImpl.root = floatExpressionWrap
-	expression.setRoot(floatExpressionWrap)
-	return floatExpressionWrap
+	_ = "STUB: not implemented"
+	return *new(FloatExpression)
 }
 
 // FloatExp is date expression wrapper around arbitrary expression.
 // Allows go compiler to see any expression as float expression.
 // Does not add sql cast to generated sql builder output.
 func FloatExp(expression Expression) FloatExpression {
-	return newFloatExpressionWrap(expression)
+	_ = "STUB: not implemented"
+	return *new(FloatExpression)
 }

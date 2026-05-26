@@ -27,50 +27,36 @@ type deleteStatementImpl struct {
 }
 
 func newDeleteStatement(table Table) DeleteStatement {
-	newDelete := &deleteStatementImpl{}
-	newDelete.SerializerStatement = jet.NewStatementImpl(Dialect, jet.DeleteStatementType, newDelete,
-		&newDelete.Delete,
-		&newDelete.Using,
-		&newDelete.Where,
-		&newDelete.OrderBy,
-		&newDelete.Limit,
-		&newDelete.Returning,
-	)
-
-	newDelete.Delete.Table = table
-	newDelete.Using.Name = "USING"
-	newDelete.Where.Mandatory = true
-	newDelete.Limit.Count = -1
-
-	return newDelete
+	_ = "STUB: not implemented"
+	return *new(DeleteStatement)
 }
 
 func (d *deleteStatementImpl) OPTIMIZER_HINTS(hints ...OptimizerHint) DeleteStatement {
-	d.Delete.OptimizerHints = hints
-	return d
+	_ = "STUB: not implemented"
+	return *new(DeleteStatement)
 }
 
 func (d *deleteStatementImpl) USING(tables ...ReadableTable) DeleteStatement {
-	d.Using.Tables = readableTablesToSerializerList(tables)
-	return d
+	_ = "STUB: not implemented"
+	return *new(DeleteStatement)
 }
 
 func (d *deleteStatementImpl) WHERE(expression BoolExpression) DeleteStatement {
-	d.Where.Condition = expression
-	return d
+	_ = "STUB: not implemented"
+	return *new(DeleteStatement)
 }
 
 func (d *deleteStatementImpl) ORDER_BY(orderByClauses ...OrderByClause) DeleteStatement {
-	d.OrderBy.List = orderByClauses
-	return d
+	_ = "STUB: not implemented"
+	return *new(DeleteStatement)
 }
 
 func (d *deleteStatementImpl) LIMIT(limit int64) DeleteStatement {
-	d.Limit.Count = limit
-	return d
+	_ = "STUB: not implemented"
+	return *new(DeleteStatement)
 }
 
 func (d *deleteStatementImpl) RETURNING(projections ...jet.Projection) DeleteStatement {
-	d.Returning.ProjectionList = projections
-	return d
+	_ = "STUB: not implemented"
+	return *new(DeleteStatement)
 }

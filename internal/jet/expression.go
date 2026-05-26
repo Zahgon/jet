@@ -1,7 +1,5 @@
 package jet
 
-import "fmt"
-
 // Expression is a common interface for all expressions.
 // Can be Bool, Int, Float, String, Date, Time, Timez, Timestamp or Timestampz expressions.
 type Expression interface {
@@ -38,84 +36,97 @@ type ExpressionInterfaceImpl struct {
 	Root Expression
 }
 
-func (e *ExpressionInterfaceImpl) isExpressionOrColumnList() {}
+func (e *ExpressionInterfaceImpl) isExpressionOrColumnList() { _ = "STUB: not implemented"; return }
 
-func (e *ExpressionInterfaceImpl) setRoot(root Expression) {
-	e.Root = root
-}
+func (e *ExpressionInterfaceImpl) setRoot(root Expression) { _ = "STUB: not implemented"; return }
 
 func (e *ExpressionInterfaceImpl) fromImpl(subQuery SelectTable) Projection {
-	panic(fmt.Sprintf("jet: can't export unaliased expression subQuery: %s, expression: %s",
-		subQuery.Alias(), serializeToDefaultDebugString(e.Root)))
+	_ = "STUB: not implemented"
+	return *new(Projection)
 }
 
 // IS_NULL tests expression whether it is a NULL value.
 func (e *ExpressionInterfaceImpl) IS_NULL() BoolExpression {
-	return newPostfixBoolOperatorExpression(e.Root, "IS NULL")
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 // IS_NOT_NULL tests expression whether it is a non-NULL value.
 func (e *ExpressionInterfaceImpl) IS_NOT_NULL() BoolExpression {
-	return newPostfixBoolOperatorExpression(e.Root, "IS NOT NULL")
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 // IN checks if this expressions matches any in expressions list
 func (e *ExpressionInterfaceImpl) IN(expressions ...Expression) BoolExpression {
-	return newBinaryBoolOperatorExpression(e.Root, wrap(expressions...), "IN")
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 // NOT_IN checks if this expressions is different of all expressions in expressions list
 func (e *ExpressionInterfaceImpl) NOT_IN(expressions ...Expression) BoolExpression {
-	return newBinaryBoolOperatorExpression(e.Root, wrap(expressions...), "NOT IN")
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 // AS the temporary alias name to assign to the expression
 func (e *ExpressionInterfaceImpl) AS(alias string) Projection {
-	return newAlias(e.Root, alias)
+	_ = "STUB: not implemented"
+	return *new(Projection)
 }
 
 // ASC expression will be used to sort a query result in ascending order
 func (e *ExpressionInterfaceImpl) ASC() OrderByClause {
-	return newOrderByAscending(e.Root, true)
+	_ = "STUB: not implemented"
+	return *new(OrderByClause)
 }
 
 // DESC expression will be used to sort a query result in descending order
 func (e *ExpressionInterfaceImpl) DESC() OrderByClause {
-	return newOrderByAscending(e.Root, false)
+	_ = "STUB: not implemented"
+	return *new(OrderByClause)
 }
 
 // NULLS_FIRST specifies sort where null values appear before all non-null values
 func (e *ExpressionInterfaceImpl) NULLS_FIRST() OrderByClause {
-	return newOrderByNullsFirst(e.Root, true)
+	_ = "STUB: not implemented"
+	return *new(OrderByClause)
 }
 
 // NULLS_LAST specifies sort where null values appear after all non-null values
 func (e *ExpressionInterfaceImpl) NULLS_LAST() OrderByClause {
-	return newOrderByNullsFirst(e.Root, false)
+	_ = "STUB: not implemented"
+	return *new(OrderByClause)
 }
 
 func (e *ExpressionInterfaceImpl) serializeForGroupBy(statement StatementType, out *SQLBuilder) {
-	e.Root.serialize(statement, out, NoWrap)
+	_ = "STUB: not implemented"
+	return
 }
 
 func (e *ExpressionInterfaceImpl) serializeForProjection(statement StatementType, out *SQLBuilder) {
-	e.Root.serialize(statement, out, NoWrap)
+	_ = "STUB: not implemented"
+	return
 }
 
 func (e *ExpressionInterfaceImpl) serializeForJsonObjEntry(statement StatementType, out *SQLBuilder) {
-	panic("jet: expression need to be aliased when used as SELECT JSON projection.")
+	_ = "STUB: not implemented"
+	return
 }
 
 func (e *ExpressionInterfaceImpl) serializeForRowToJsonProjection(statement StatementType, out *SQLBuilder) {
-	panic("jet: expression need to be aliased when used as SELECT JSON projection.")
+	_ = "STUB: not implemented"
+	return
 }
 
 func (e *ExpressionInterfaceImpl) serializeForJsonValue(statement StatementType, out *SQLBuilder) {
-	out.Dialect.JsonValueEncode(e.Root).serialize(statement, out)
+	_ = "STUB: not implemented"
+	return
 }
 
 func (e *ExpressionInterfaceImpl) serializeForOrderBy(statement StatementType, out *SQLBuilder) {
-	e.Root.serialize(statement, out, NoWrap)
+	_ = "STUB: not implemented"
+	return
 }
 
 type expression struct {
@@ -124,13 +135,8 @@ type expression struct {
 }
 
 func newExpression(serializer Serializer) Expression {
-	expr := &expression{
-		Serializer: serializer,
-	}
-
-	expr.ExpressionInterfaceImpl.Root = expr
-
-	return expr
+	_ = "STUB: not implemented"
+	return *new(Expression)
 }
 
 // Representation of binary operations (e.g. comparisons, arithmetic)
@@ -141,27 +147,14 @@ type binaryOperatorSerializer struct {
 }
 
 func (c *binaryOperatorSerializer) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-	optionalWrap(out, options, func(out *SQLBuilder, options []SerializeOption) {
-		if serializeOverride := out.Dialect.OperatorSerializeOverride(c.operator); serializeOverride != nil {
-			serializeOverrideFunc := serializeOverride(c.lhs, c.rhs, c.additionalParam)
-			serializeOverrideFunc(statement, out, FallTrough(options)...)
-		} else {
-			c.lhs.serialize(statement, out, FallTrough(options)...)
-			out.WriteString(c.operator)
-			c.rhs.serialize(statement, out, FallTrough(options)...)
-		}
-	})
-
+	_ = "STUB: not implemented"
+	return
 }
 
 // NewBinaryOperatorExpression creates new binaryOperatorExpression
 func NewBinaryOperatorExpression(lhs, rhs Serializer, operator string, additionalParam ...Expression) Expression {
-	return newExpression(&binaryOperatorSerializer{
-		lhs:             lhs,
-		rhs:             rhs,
-		additionalParam: OptionalOrDefault(additionalParam, nil),
-		operator:        operator,
-	})
+	_ = "STUB: not implemented"
+	return *new(Expression)
 }
 
 type serializersWithOperator struct {
@@ -170,55 +163,23 @@ type serializersWithOperator struct {
 }
 
 func (s *serializersWithOperator) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-	if len(s.serializers) == 0 {
-		panic("jet: syntax error, expression list empty")
-	}
-
-	shouldWrap := len(s.serializers) > 1
-	if shouldWrap {
-		out.WriteByte('(')
-		out.IncreaseIdent(tabSize)
-		out.NewLine()
-	}
-
-	for i, expression := range s.serializers {
-		if i == 1 {
-			out.IncreaseIdent(tabSize)
-		}
-		if i > 0 {
-			out.NewLine()
-			out.WriteString(s.operator)
-		}
-
-		out.IncreaseIdent(len(s.operator) + 1)
-		expression.serialize(statement, out, FallTrough(options)...)
-		out.DecreaseIdent(len(s.operator) + 1)
-	}
-
-	if len(s.serializers) > 1 {
-		out.DecreaseIdent(tabSize)
-	}
-
-	if shouldWrap {
-		out.DecreaseIdent(tabSize)
-		out.NewLine()
-		out.WriteByte(')')
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newBoolExpressionListOperator(operator string, expressions []BoolExpression) BoolExpression {
-	return BoolExp(newExpression(&serializersWithOperator{
-		operator:    operator,
-		serializers: ToSerializerList(expressions),
-	}))
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func newPrefixOperatorExpression(expression Expression, operator string) Expression {
-	return CustomExpression(Token(operator), expression)
+	_ = "STUB: not implemented"
+	return *new(Expression)
 }
 
 func newPostfixOperatorExpression(expression Expression, operator string) Expression {
-	return CustomExpression(expression, Token(operator))
+	_ = "STUB: not implemented"
+	return *new(Expression)
 }
 
 type betweenOperatorSerializer struct {
@@ -229,24 +190,12 @@ type betweenOperatorSerializer struct {
 }
 
 func (b *betweenOperatorSerializer) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-	optionalWrap(out, options, func(out *SQLBuilder, options []SerializeOption) {
-		b.expression.serialize(statement, out, FallTrough(options)...)
-		if b.notBetween {
-			out.WriteString("NOT")
-		}
-		out.WriteString("BETWEEN")
-		b.min.serialize(statement, out, FallTrough(options)...)
-		out.WriteString("AND")
-		b.max.serialize(statement, out, FallTrough(options)...)
-	})
+	_ = "STUB: not implemented"
+	return
 }
 
 // NewBetweenOperatorExpression creates new BETWEEN operator expression
 func NewBetweenOperatorExpression(expression, min, max Expression, notBetween bool) BoolExpression {
-	return BoolExp(newExpression(&betweenOperatorSerializer{
-		expression: expression,
-		notBetween: notBetween,
-		min:        min,
-		max:        max,
-	}))
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }

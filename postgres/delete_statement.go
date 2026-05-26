@@ -21,31 +21,21 @@ type deleteStatementImpl struct {
 }
 
 func newDeleteStatement(table WritableTable) DeleteStatement {
-	newDelete := &deleteStatementImpl{}
-	newDelete.SerializerStatement = jet.NewStatementImpl(Dialect, jet.DeleteStatementType, newDelete,
-		&newDelete.Delete,
-		&newDelete.Using,
-		&newDelete.Where,
-		&newDelete.Returning)
-
-	newDelete.Delete.Table = table
-	newDelete.Using.Name = "USING"
-	newDelete.Where.Mandatory = true
-
-	return newDelete
+	_ = "STUB: not implemented"
+	return *new(DeleteStatement)
 }
 
 func (d *deleteStatementImpl) USING(tables ...ReadableTable) DeleteStatement {
-	d.Using.Tables = readableTablesToSerializerList(tables)
-	return d
+	_ = "STUB: not implemented"
+	return *new(DeleteStatement)
 }
 
 func (d *deleteStatementImpl) WHERE(expression BoolExpression) DeleteStatement {
-	d.Where.Condition = expression
-	return d
+	_ = "STUB: not implemented"
+	return *new(DeleteStatement)
 }
 
 func (d *deleteStatementImpl) RETURNING(projections ...jet.Projection) DeleteStatement {
-	d.Returning.ProjectionList = projections
-	return d
+	_ = "STUB: not implemented"
+	return *new(DeleteStatement)
 }

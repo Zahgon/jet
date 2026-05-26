@@ -20,12 +20,14 @@ type SelectJsonStatement interface {
 
 // SELECT_JSON_ARR creates a new SelectJsonStatement with a list of projections.
 func SELECT_JSON_ARR(projections ...Projection) SelectJsonStatement {
-	return newSelectStatementJson(projections, jet.SelectJsonArrStatementType)
+	_ = "STUB: not implemented"
+	return *new(SelectJsonStatement)
 }
 
 // SELECT_JSON_OBJ creates a new SelectJsonStatement with a list of projections.
 func SELECT_JSON_OBJ(projections ...Projection) SelectJsonStatement {
-	return newSelectStatementJson(projections, jet.SelectJsonObjStatementType)
+	_ = "STUB: not implemented"
+	return *new(SelectJsonStatement)
 }
 
 type selectJsonStatement struct {
@@ -41,74 +43,33 @@ type selectJsonStatement struct {
 }
 
 func newSelectStatementJson(projections []Projection, statementType jet.StatementType) SelectJsonStatement {
-	newSelectJson := &selectJsonStatement{
-		selectStatementImpl: newSelectStatement(statementType, nil, nil),
-
-		projections:   projections,
-		statementType: statementType,
-
-		arrOrderBy: &jet.ClauseOrderBy{},
-		arrLimit:   &jet.ClauseLimit{Count: -1},
-		arrOffset:  &jet.ClauseOffset{},
-	}
-
-	newSelectJson.constructProjectionList()
-
-	return newSelectJson
+	_ = "STUB: not implemented"
+	return *new(SelectJsonStatement)
 }
 
-func (s *selectJsonStatement) constructProjectionList() {
-	jsonProjection := Func("JSON_OBJECT", CustomExpression(jet.JsonObjProjectionList(s.projections)))
-
-	if s.statementType == jet.SelectJsonArrStatementType {
-		jsonProjection = Func("JSON_ARRAYAGG", CustomExpression(
-			jsonProjection,
-			s.arrOrderBy,
-			s.arrLimit,
-			s.arrOffset,
-		))
-	}
-
-	s.Select.ProjectionList = ProjectionList{jsonProjection.AS("json")}
-}
+func (s *selectJsonStatement) constructProjectionList() { _ = "STUB: not implemented"; return }
 
 func (s *selectJsonStatement) FROM(table ReadableTable) SelectJsonStatement {
-	s.From.Tables = []jet.Serializer{table}
-
-	return s
+	_ = "STUB: not implemented"
+	return *new(SelectJsonStatement)
 }
 
 func (s *selectJsonStatement) WHERE(condition BoolExpression) SelectJsonStatement {
-	s.Where.Condition = condition
-	return s
+	_ = "STUB: not implemented"
+	return *new(SelectJsonStatement)
 }
 
 func (s *selectJsonStatement) ORDER_BY(orderBy ...OrderByClause) SelectJsonStatement {
-	if s.statementType == jet.SelectJsonArrStatementType {
-		s.arrOrderBy.List = orderBy
-	} else {
-		s.OrderBy.List = orderBy
-	}
-
-	return s
+	_ = "STUB: not implemented"
+	return *new(SelectJsonStatement)
 }
 
 func (s *selectJsonStatement) LIMIT(limit int64) SelectJsonStatement {
-	if s.statementType == jet.SelectJsonArrStatementType {
-		s.arrLimit.Count = limit
-	} else {
-		s.Limit.Count = limit
-	}
-
-	return s
+	_ = "STUB: not implemented"
+	return *new(SelectJsonStatement)
 }
 
 func (s *selectJsonStatement) OFFSET(offset int64) SelectJsonStatement {
-	if s.statementType == jet.SelectJsonArrStatementType {
-		s.arrOffset.Count = Int(offset)
-	} else {
-		s.Offset.Count = Int(offset)
-	}
-
-	return s
+	_ = "STUB: not implemented"
+	return *new(SelectJsonStatement)
 }

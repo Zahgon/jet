@@ -1,12 +1,9 @@
 package postgres
 
-import "github.com/go-jet/jet/v2/internal/jet"
-
 // LATERAL derived tables constructor from select statement
 func LATERAL(selectStmt SelectStatement) lateralImpl {
-	return lateralImpl{
-		selectStmt: selectStmt,
-	}
+	_ = "STUB: not implemented"
+	return *new(lateralImpl)
 }
 
 type lateralImpl struct {
@@ -14,11 +11,6 @@ type lateralImpl struct {
 }
 
 func (l lateralImpl) AS(alias string) SelectTable {
-	subQuery := &selectTableImpl{
-		SelectTable: jet.NewLateral(l.selectStmt, alias),
-	}
-
-	subQuery.readableTableInterfaceImpl.root = subQuery
-
-	return subQuery
+	_ = "STUB: not implemented"
+	return *new(SelectTable)
 }

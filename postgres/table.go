@@ -55,30 +55,36 @@ type readableTableInterfaceImpl struct {
 
 // Generates a select query on the current tableName.
 func (r readableTableInterfaceImpl) SELECT(projection1 Projection, projections ...Projection) SelectStatement {
-	return newSelectStatement(jet.SelectStatementType, r.root, append([]Projection{projection1}, projections...))
+	_ = "STUB: not implemented"
+	return *new(SelectStatement)
 }
 
 // Creates a inner join tableName Expression using onCondition.
 func (r readableTableInterfaceImpl) INNER_JOIN(table ReadableTable, onCondition BoolExpression) ReadableTable {
-	return newJoinTable(r.root, table, jet.InnerJoin, onCondition)
+	_ = "STUB: not implemented"
+	return *new(ReadableTable)
 }
 
 // Creates a left join tableName Expression using onCondition.
 func (r readableTableInterfaceImpl) LEFT_JOIN(table ReadableTable, onCondition BoolExpression) ReadableTable {
-	return newJoinTable(r.root, table, jet.LeftJoin, onCondition)
+	_ = "STUB: not implemented"
+	return *new(ReadableTable)
 }
 
 // Creates a right join tableName Expression using onCondition.
 func (r readableTableInterfaceImpl) RIGHT_JOIN(table ReadableTable, onCondition BoolExpression) ReadableTable {
-	return newJoinTable(r.root, table, jet.RightJoin, onCondition)
+	_ = "STUB: not implemented"
+	return *new(ReadableTable)
 }
 
 func (r readableTableInterfaceImpl) FULL_JOIN(table ReadableTable, onCondition BoolExpression) ReadableTable {
-	return newJoinTable(r.root, table, jet.FullJoin, onCondition)
+	_ = "STUB: not implemented"
+	return *new(ReadableTable)
 }
 
 func (r readableTableInterfaceImpl) CROSS_JOIN(table ReadableTable) ReadableTable {
-	return newJoinTable(r.root, table, jet.CrossJoin, nil)
+	_ = "STUB: not implemented"
+	return *new(ReadableTable)
 }
 
 type writableTableInterfaceImpl struct {
@@ -86,19 +92,23 @@ type writableTableInterfaceImpl struct {
 }
 
 func (w *writableTableInterfaceImpl) INSERT(columns ...jet.Column) InsertStatement {
-	return newInsertStatement(w.root, jet.UnwidColumnList(columns))
+	_ = "STUB: not implemented"
+	return *new(InsertStatement)
 }
 
 func (w *writableTableInterfaceImpl) UPDATE(columns ...jet.Column) UpdateStatement {
-	return newUpdateStatement(w.root, jet.UnwidColumnList(columns))
+	_ = "STUB: not implemented"
+	return *new(UpdateStatement)
 }
 
 func (w *writableTableInterfaceImpl) DELETE() DeleteStatement {
-	return newDeleteStatement(w.root)
+	_ = "STUB: not implemented"
+	return *new(DeleteStatement)
 }
 
 func (w *writableTableInterfaceImpl) LOCK() LockStatement {
-	return LOCK(w.root)
+	_ = "STUB: not implemented"
+	return *new(LockStatement)
 }
 
 type tableImpl struct {
@@ -110,15 +120,8 @@ type tableImpl struct {
 
 // NewTable creates new table with schema Name, table Name and list of columns
 func NewTable(schemaName, name, alias string, columns ...jet.ColumnExpression) Table {
-
-	t := &tableImpl{
-		SerializerTable: jet.NewTable(schemaName, name, alias, columns...),
-	}
-
-	t.readableTableInterfaceImpl.root = t
-	t.writableTableInterfaceImpl.root = t
-
-	return t
+	_ = "STUB: not implemented"
+	return *new(Table)
 }
 
 type joinTable struct {
@@ -127,11 +130,6 @@ type joinTable struct {
 }
 
 func newJoinTable(lhs jet.Serializer, rhs jet.Serializer, joinType jet.JoinType, onCondition BoolExpression) ReadableTable {
-	newJoinTable := &joinTable{
-		JoinTable: jet.NewJoinTable(lhs, rhs, joinType, onCondition),
-	}
-
-	newJoinTable.readableTableInterfaceImpl.root = newJoinTable
-
-	return newJoinTable
+	_ = "STUB: not implemented"
+	return *new(ReadableTable)
 }

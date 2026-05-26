@@ -28,58 +28,71 @@ type blobInterfaceImpl struct {
 	root BlobExpression
 }
 
-func (b *blobInterfaceImpl) isStringOrBlob() {}
+func (b *blobInterfaceImpl) isStringOrBlob() { _ = "STUB: not implemented"; return }
 
 func (b *blobInterfaceImpl) EQ(rhs BlobExpression) BoolExpression {
-	return Eq(b.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (b *blobInterfaceImpl) NOT_EQ(rhs BlobExpression) BoolExpression {
-	return NotEq(b.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (b *blobInterfaceImpl) IS_DISTINCT_FROM(rhs BlobExpression) BoolExpression {
-	return IsDistinctFrom(b.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (b *blobInterfaceImpl) IS_NOT_DISTINCT_FROM(rhs BlobExpression) BoolExpression {
-	return IsNotDistinctFrom(b.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (b *blobInterfaceImpl) GT(rhs BlobExpression) BoolExpression {
-	return Gt(b.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (b *blobInterfaceImpl) GT_EQ(rhs BlobExpression) BoolExpression {
-	return GtEq(b.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (b *blobInterfaceImpl) LT(rhs BlobExpression) BoolExpression {
-	return Lt(b.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (b *blobInterfaceImpl) LT_EQ(rhs BlobExpression) BoolExpression {
-	return LtEq(b.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (b *blobInterfaceImpl) BETWEEN(min, max BlobExpression) BoolExpression {
-	return NewBetweenOperatorExpression(b.root, min, max, false)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (b *blobInterfaceImpl) NOT_BETWEEN(min, max BlobExpression) BoolExpression {
-	return NewBetweenOperatorExpression(b.root, min, max, true)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (b *blobInterfaceImpl) CONCAT(rhs BlobExpression) BlobExpression {
-	return BlobExp(newBinaryStringOperatorExpression(b.root, rhs, StringConcatOperator))
+	_ = "STUB: not implemented"
+	return *new(BlobExpression)
 }
 
 func (b *blobInterfaceImpl) LIKE(pattern BlobExpression) BoolExpression {
-	return newBinaryBoolOperatorExpression(b.root, pattern, "LIKE")
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (b *blobInterfaceImpl) NOT_LIKE(pattern BlobExpression) BoolExpression {
-	return newBinaryBoolOperatorExpression(b.root, pattern, "NOT LIKE")
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 //---------------------------------------------------//
@@ -90,15 +103,14 @@ type blobExpressionWrapper struct {
 }
 
 func newBlobExpressionWrap(expression Expression) BlobExpression {
-	blobExpressionWrap := &blobExpressionWrapper{Expression: expression}
-	blobExpressionWrap.blobInterfaceImpl.root = blobExpressionWrap
-	expression.setRoot(blobExpressionWrap)
-	return blobExpressionWrap
+	_ = "STUB: not implemented"
+	return *new(BlobExpression)
 }
 
 // BlobExp is blob expression wrapper around arbitrary expression.
 // Allows go compiler to see any expression as blob expression.
 // Does not add sql cast to generated sql builder output.
 func BlobExp(expression Expression) BlobExpression {
-	return newBlobExpressionWrap(expression)
+	_ = "STUB: not implemented"
+	return *new(BlobExpression)
 }

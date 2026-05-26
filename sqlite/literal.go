@@ -1,8 +1,9 @@
 package sqlite
 
 import (
-	"github.com/go-jet/jet/v2/internal/jet"
 	"time"
+
+	"github.com/go-jet/jet/v2/internal/jet"
 )
 
 // Keywords
@@ -51,9 +52,7 @@ var Decimal = jet.Decimal
 var String = jet.String
 
 // Blob creates new blob literal expression
-func Blob(data []byte) BlobExpression {
-	return BlobExp(jet.Literal(data))
-}
+func Blob(data []byte) BlobExpression { _ = "STUB: not implemented"; return *new(BlobExpression) }
 
 // UUID is a helper function to create string literal expression from uuid object
 // value can be any uuid type with a String method
@@ -61,15 +60,18 @@ var UUID = jet.UUID
 
 // Date creates new date literal expression
 func Date(year int, month time.Month, day int) DateExpression {
-	return DATE(jet.Date(year, month, day))
+	_ = "STUB: not implemented"
+	return *new(DateExpression)
 }
 
 // Time creates new time literal expression
 func Time(hour, minute, second int, nanoseconds ...time.Duration) TimeExpression {
-	return TIME(jet.Time(hour, minute, second, nanoseconds...))
+	_ = "STUB: not implemented"
+	return *new(TimeExpression)
 }
 
 // DateTime creates new datetime(timestamp) literal expression
 func DateTime(year int, month time.Month, day, hour, minute, second int, nanoseconds ...time.Duration) DateTimeExpression {
-	return DATETIME(jet.Timestamp(year, month, day, hour, minute, second, nanoseconds...))
+	_ = "STUB: not implemented"
+	return *new(DateTimeExpression)
 }

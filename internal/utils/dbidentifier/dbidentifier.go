@@ -1,75 +1,16 @@
 package dbidentifier
 
-import (
-	"github.com/go-jet/jet/v2/internal/3rdparty/snaker"
-	"strings"
-	"unicode"
-)
-
 // ToGoIdentifier converts database identifier to Go identifier.
-func ToGoIdentifier(databaseIdentifier string) string {
-	return snaker.SnakeToCamel(replaceInvalidChars(databaseIdentifier))
-}
+func ToGoIdentifier(databaseIdentifier string) string { _ = "STUB: not implemented"; return "" }
 
 // ToGoFileName converts database identifier to Go file name.
-func ToGoFileName(databaseIdentifier string) string {
-	return strings.ToLower(replaceInvalidChars(databaseIdentifier))
-}
+func ToGoFileName(databaseIdentifier string) string { _ = "STUB: not implemented"; return "" }
 
-func replaceInvalidChars(identifier string) string {
-	increase, needs := needsCharReplacement(identifier)
-
-	if !needs {
-		return identifier
-	}
-
-	var b strings.Builder
-
-	b.Grow(len(identifier) + increase)
-
-	for _, c := range identifier {
-		switch {
-		case unicode.IsSpace(c):
-			b.WriteByte('_')
-		case unicode.IsControl(c):
-			continue
-		default:
-			replacement, ok := asciiCharacterReplacement[c]
-
-			if ok {
-				b.WriteByte('_')
-				b.WriteString(replacement)
-				b.WriteByte('_')
-			} else {
-				b.WriteRune(c)
-			}
-		}
-
-	}
-
-	return b.String()
-}
+func replaceInvalidChars(identifier string) string { _ = "STUB: not implemented"; return "" }
 
 func needsCharReplacement(identifier string) (increase int, needs bool) {
-	for _, c := range identifier {
-		switch {
-		case unicode.IsSpace(c):
-			needs = true
-		case unicode.IsControl(c):
-			increase += -1
-			needs = true
-			continue
-		default:
-			replacement, ok := asciiCharacterReplacement[c]
-
-			if ok {
-				increase += len(replacement) + 1
-				needs = true
-			}
-		}
-	}
-
-	return increase, needs
+	_ = "STUB: not implemented"
+	return 0, false
 }
 
 var asciiCharacterReplacement = map[rune]string{

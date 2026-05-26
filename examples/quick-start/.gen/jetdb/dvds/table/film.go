@@ -43,72 +43,25 @@ type FilmTable struct {
 }
 
 // AS creates new FilmTable with assigned alias
-func (a FilmTable) AS(alias string) *FilmTable {
-	return newFilmTable(a.SchemaName(), a.TableName(), alias)
-}
+func (a FilmTable) AS(alias string) *FilmTable { _ = "STUB: not implemented"; return nil }
 
 // Schema creates new FilmTable with assigned schema name
-func (a FilmTable) FromSchema(schemaName string) *FilmTable {
-	return newFilmTable(schemaName, a.TableName(), a.Alias())
-}
+func (a FilmTable) FromSchema(schemaName string) *FilmTable { _ = "STUB: not implemented"; return nil }
 
 // WithPrefix creates new FilmTable with assigned table prefix
-func (a FilmTable) WithPrefix(prefix string) *FilmTable {
-	return newFilmTable(a.SchemaName(), prefix+a.TableName(), a.TableName())
-}
+func (a FilmTable) WithPrefix(prefix string) *FilmTable { _ = "STUB: not implemented"; return nil }
 
 // WithSuffix creates new FilmTable with assigned table suffix
-func (a FilmTable) WithSuffix(suffix string) *FilmTable {
-	return newFilmTable(a.SchemaName(), a.TableName()+suffix, a.TableName())
-}
+func (a FilmTable) WithSuffix(suffix string) *FilmTable { _ = "STUB: not implemented"; return nil }
 
 func newFilmTable(schemaName, tableName, alias string) *FilmTable {
-	return &FilmTable{
-		filmTable: newFilmTableImpl(schemaName, tableName, alias),
-		EXCLUDED:  newFilmTableImpl("", "excluded", ""),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func newFilmTableImpl(schemaName, tableName, alias string) filmTable {
-	var (
-		FilmIDColumn          = postgres.IntegerColumn("film_id")
-		TitleColumn           = postgres.StringColumn("title")
-		DescriptionColumn     = postgres.StringColumn("description")
-		ReleaseYearColumn     = postgres.IntegerColumn("release_year")
-		LanguageIDColumn      = postgres.IntegerColumn("language_id")
-		RentalDurationColumn  = postgres.IntegerColumn("rental_duration")
-		RentalRateColumn      = postgres.FloatColumn("rental_rate")
-		LengthColumn          = postgres.IntegerColumn("length")
-		ReplacementCostColumn = postgres.FloatColumn("replacement_cost")
-		RatingColumn          = postgres.StringColumn("rating")
-		LastUpdateColumn      = postgres.TimestampColumn("last_update")
-		SpecialFeaturesColumn = postgres.StringArrayColumn("special_features")
-		FulltextColumn        = postgres.StringColumn("fulltext")
-		allColumns            = postgres.ColumnList{FilmIDColumn, TitleColumn, DescriptionColumn, ReleaseYearColumn, LanguageIDColumn, RentalDurationColumn, RentalRateColumn, LengthColumn, ReplacementCostColumn, RatingColumn, LastUpdateColumn, SpecialFeaturesColumn, FulltextColumn}
-		mutableColumns        = postgres.ColumnList{TitleColumn, DescriptionColumn, ReleaseYearColumn, LanguageIDColumn, RentalDurationColumn, RentalRateColumn, LengthColumn, ReplacementCostColumn, RatingColumn, LastUpdateColumn, SpecialFeaturesColumn, FulltextColumn}
-		defaultColumns        = postgres.ColumnList{FilmIDColumn, RentalDurationColumn, RentalRateColumn, ReplacementCostColumn, RatingColumn, LastUpdateColumn}
-	)
-
-	return filmTable{
-		Table: postgres.NewTable(schemaName, tableName, alias, allColumns...),
-
-		//Columns
-		FilmID:          FilmIDColumn,
-		Title:           TitleColumn,
-		Description:     DescriptionColumn,
-		ReleaseYear:     ReleaseYearColumn,
-		LanguageID:      LanguageIDColumn,
-		RentalDuration:  RentalDurationColumn,
-		RentalRate:      RentalRateColumn,
-		Length:          LengthColumn,
-		ReplacementCost: ReplacementCostColumn,
-		Rating:          RatingColumn,
-		LastUpdate:      LastUpdateColumn,
-		SpecialFeatures: SpecialFeaturesColumn,
-		Fulltext:        FulltextColumn,
-
-		AllColumns:     allColumns,
-		MutableColumns: mutableColumns,
-		DefaultColumns: defaultColumns,
-	}
+	_ = "STUB: not implemented"
+	return *new(filmTable)
 }
+
+//Columns

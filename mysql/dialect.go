@@ -1,212 +1,54 @@
 package mysql
 
 import (
-	"encoding/hex"
-	"fmt"
-
 	"github.com/go-jet/jet/v2/internal/jet"
 )
 
 // Dialect is implementation of MySQL dialect for SQL Builder serialization.
 var Dialect = newDialect()
 
-func newDialect() jet.Dialect {
-	operatorSerializeOverrides := map[string]jet.SerializeOverride{}
-	operatorSerializeOverrides["IS DISTINCT FROM"] = mysqlISDISTINCTFROM
-	operatorSerializeOverrides["IS NOT DISTINCT FROM"] = mysqlISNOTDISTINCTFROM
-	operatorSerializeOverrides["/"] = mysqlDivision
-	operatorSerializeOverrides["#"] = mysqlBitXor
-	operatorSerializeOverrides[jet.StringConcatOperator] = mysqlCONCAToperator
+func newDialect() jet.Dialect { _ = "STUB: not implemented"; return *new(jet.Dialect) }
 
-	mySQLDialectParams := jet.DialectParams{
-		Name:                       "MySQL",
-		PackageName:                "mysql",
-		OperatorSerializeOverrides: operatorSerializeOverrides,
-		AliasQuoteChar:             '"',
-		IdentifierQuoteChar:        '`',
-		ArgumentPlaceholder: func(int) string {
-			return "?"
-		},
-		ArgumentToString: argumentToString,
-		ReservedWords:    reservedWords,
-		SerializeOrderBy: serializeOrderBy,
-		ValuesDefaultColumnName: func(index int) string {
-			return fmt.Sprintf("column_%d", index)
-		},
-		JsonValueEncode: func(expr Expression) Expression {
-			switch e := expr.(type) {
-			case BlobExpression:
-				return TO_BASE64(e)
+// CustomExpression used bellow (instead DATE_FORMAT function) so that only expr is parametrized
 
-			// CustomExpression used bellow (instead DATE_FORMAT function) so that only expr is parametrized
-			case TimestampExpression:
-				return jet.AtomicCustomExpression(Token("DATE_FORMAT("), e, Token(",'%Y-%m-%dT%H:%i:%s.%fZ')"))
-			case TimeExpression:
-				return jet.AtomicCustomExpression(Token("CONCAT('0000-01-01T', DATE_FORMAT("), e, Token(",'%H:%i:%s.%fZ'))"))
-			case DateExpression:
-				return jet.AtomicCustomExpression(Token("CONCAT(DATE_FORMAT("), e, Token(",'%Y-%m-%d')"), Token(", 'T00:00:00Z')"))
-			case BoolExpression:
-				return CustomExpression(e, Token(" = 1"))
-			}
-			return expr
-		},
-		RegexpLike: regexpLikeOperator,
-	}
-
-	return jet.NewDialect(mySQLDialectParams)
-}
-
-func argumentToString(value any) (string, bool) {
-	switch bindVal := value.(type) {
-	case []byte:
-		return fmt.Sprintf("X'%s'", hex.EncodeToString(bindVal)), true
-	}
-
-	return "", false
-}
+func argumentToString(value any) (string, bool) { _ = "STUB: not implemented"; return "", false }
 
 func mysqlBitXor(expressions ...jet.Serializer) jet.SerializerFunc {
-	return func(statement jet.StatementType, out *jet.SQLBuilder, options ...jet.SerializeOption) {
-		if len(expressions) < 2 {
-			panic("jet: invalid number of expressions for operator XOR")
-		}
-
-		lhs := expressions[0]
-		rhs := expressions[1]
-
-		jet.Serialize(lhs, statement, out, options...)
-
-		out.WriteString("^")
-
-		jet.Serialize(rhs, statement, out, options...)
-	}
+	_ = "STUB: not implemented"
+	return *new(jet.SerializerFunc)
 }
 
 func mysqlCONCAToperator(expressions ...jet.Serializer) jet.SerializerFunc {
-	return func(statement jet.StatementType, out *jet.SQLBuilder, options ...jet.SerializeOption) {
-		if len(expressions) < 2 {
-			panic("jet: invalid number of expressions for operator CONCAT")
-		}
-		out.WriteString("CONCAT(")
-
-		jet.Serialize(expressions[0], statement, out, options...)
-
-		out.WriteString(", ")
-
-		jet.Serialize(expressions[1], statement, out, options...)
-
-		out.WriteString(")")
-	}
+	_ = "STUB: not implemented"
+	return *new(jet.SerializerFunc)
 }
 
 func mysqlDivision(expressions ...jet.Serializer) jet.SerializerFunc {
-	return func(statement jet.StatementType, out *jet.SQLBuilder, options ...jet.SerializeOption) {
-		if len(expressions) < 2 {
-			panic("jet: invalid number of expressions for operator DIV")
-		}
-
-		lhs := expressions[0]
-		rhs := expressions[1]
-
-		jet.Serialize(lhs, statement, out, options...)
-
-		_, isLhsInt := lhs.(IntegerExpression)
-		_, isRhsInt := rhs.(IntegerExpression)
-
-		if isLhsInt && isRhsInt {
-			out.WriteString("DIV")
-		} else {
-			out.WriteString("/")
-		}
-
-		jet.Serialize(rhs, statement, out, options...)
-	}
+	_ = "STUB: not implemented"
+	return *new(jet.SerializerFunc)
 }
 
 func mysqlISNOTDISTINCTFROM(expressions ...jet.Serializer) jet.SerializerFunc {
-	return func(statement jet.StatementType, out *jet.SQLBuilder, options ...jet.SerializeOption) {
-		if len(expressions) < 2 {
-			panic("jet: invalid number of expressions for operator")
-		}
-
-		jet.Serialize(expressions[0], statement, out)
-		out.WriteString("<=>")
-		jet.Serialize(expressions[1], statement, out)
-	}
+	_ = "STUB: not implemented"
+	return *new(jet.SerializerFunc)
 }
 
 func mysqlISDISTINCTFROM(expressions ...jet.Serializer) jet.SerializerFunc {
-	return func(statement jet.StatementType, out *jet.SQLBuilder, options ...jet.SerializeOption) {
-		out.WriteString("NOT(")
-		mysqlISNOTDISTINCTFROM(expressions...)(statement, out, options...)
-		out.WriteString(")")
-	}
+	_ = "STUB: not implemented"
+	return *new(jet.SerializerFunc)
 }
 
 func regexpLikeOperator(str StringExpression, not bool, pattern StringExpression, caseSensitive bool) jet.SerializerFunc {
-	return func(statement jet.StatementType, out *jet.SQLBuilder, options ...jet.SerializeOption) {
-		jet.Serialize(str, statement, out, options...)
-
-		if not {
-			out.WriteString("NOT")
-		}
-
-		out.WriteString("REGEXP")
-
-		if caseSensitive {
-			out.WriteString("BINARY")
-		}
-
-		jet.Serialize(pattern, statement, out, options...)
-	}
+	_ = "STUB: not implemented"
+	return *new(jet.SerializerFunc)
 }
 
 func serializeOrderBy(expression Expression, ascending, nullsFirst *bool) jet.SerializerFunc {
-	return func(statement jet.StatementType, out *jet.SQLBuilder, options ...jet.SerializeOption) {
-
-		if nullsFirst == nil {
-			jet.SerializeForOrderBy(expression, statement, out)
-
-			if ascending != nil {
-				serializeAscending(*ascending, out)
-			}
-			return
-		}
-
-		asc := true
-
-		if ascending != nil {
-			asc = *ascending
-		}
-
-		if asc {
-			if !*nullsFirst {
-				jet.SerializeForOrderBy(expression.IS_NULL(), statement, out)
-				out.WriteString(", ")
-			}
-			jet.SerializeForOrderBy(expression, statement, out)
-			if ascending != nil {
-				serializeAscending(asc, out)
-			}
-		} else {
-			if *nullsFirst {
-				jet.SerializeForOrderBy(expression.IS_NOT_NULL(), statement, out)
-				out.WriteString(", ")
-			}
-
-			jet.SerializeForOrderBy(expression, statement, out)
-			serializeAscending(asc, out)
-		}
-	}
+	_ = "STUB: not implemented"
+	return *new(jet.SerializerFunc)
 }
 
-func serializeAscending(ascending bool, out *jet.SQLBuilder) {
-	if ascending {
-		out.WriteString("ASC")
-	} else {
-		out.WriteString("DESC")
-	}
-}
+func serializeAscending(ascending bool, out *jet.SQLBuilder) { _ = "STUB: not implemented"; return }
 
 var reservedWords = []string{
 	"ACCESSIBLE",

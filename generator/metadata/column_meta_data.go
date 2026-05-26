@@ -31,6 +31,4 @@ type DataType struct {
 	SourceDialect string
 }
 
-func (d DataType) IsArray() bool {
-	return d.Dimensions > 0
-}
+func (d DataType) IsArray() bool { _ = "STUB: not implemented"; return false }

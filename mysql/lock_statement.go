@@ -11,15 +11,8 @@ type LockStatement interface {
 
 // LOCK creates LockStatement from list of tables
 func LOCK(tables ...jet.SerializerTable) LockStatement {
-	newLock := &lockStatementImpl{
-		Lock:  jet.ClauseStatementBegin{Name: "LOCK TABLES", Tables: tables},
-		Read:  jet.ClauseOptional{Name: "READ"},
-		Write: jet.ClauseOptional{Name: "WRITE"},
-	}
-
-	newLock.SerializerStatement = jet.NewStatementImpl(Dialect, jet.LockStatementType, newLock, &newLock.Lock, &newLock.Read, &newLock.Write)
-
-	return newLock
+	_ = "STUB: not implemented"
+	return *new(LockStatement)
 }
 
 type lockStatementImpl struct {
@@ -30,26 +23,12 @@ type lockStatementImpl struct {
 	Write jet.ClauseOptional
 }
 
-func (l *lockStatementImpl) READ() Statement {
-	l.Read.Show = true
-	return l
-}
+func (l *lockStatementImpl) READ() Statement { _ = "STUB: not implemented"; return *new(Statement) }
 
-func (l *lockStatementImpl) WRITE() Statement {
-	l.Write.Show = true
-	return l
-}
+func (l *lockStatementImpl) WRITE() Statement { _ = "STUB: not implemented"; return *new(Statement) }
 
 // UNLOCK_TABLES explicitly releases any table locks held by the current session
-func UNLOCK_TABLES() Statement {
-	newUnlock := &unlockStatementImpl{
-		Unlock: jet.ClauseStatementBegin{Name: "UNLOCK TABLES"},
-	}
-
-	newUnlock.SerializerStatement = jet.NewStatementImpl(Dialect, jet.UnLockStatementType, newUnlock, &newUnlock.Unlock)
-
-	return newUnlock
-}
+func UNLOCK_TABLES() Statement { _ = "STUB: not implemented"; return *new(Statement) }
 
 type unlockStatementImpl struct {
 	jet.SerializerStatement

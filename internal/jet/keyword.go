@@ -9,5 +9,6 @@ const (
 type Keyword string
 
 func (k Keyword) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-	out.WriteString(string(k))
+	_ = "STUB: not implemented"
+	return
 }

@@ -14,11 +14,6 @@ type selectTableImpl struct {
 }
 
 func newSelectTable(serializerWithProjections jet.SerializerHasProjections, alias string, columnAliases []jet.ColumnExpression) SelectTable {
-	subQuery := &selectTableImpl{
-		SelectTable: jet.NewSelectTable(serializerWithProjections, alias, columnAliases),
-	}
-
-	subQuery.readableTableInterfaceImpl.root = subQuery
-
-	return subQuery
+	_ = "STUB: not implemented"
+	return *new(SelectTable)
 }

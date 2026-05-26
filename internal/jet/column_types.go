@@ -15,32 +15,22 @@ type boolColumnImpl struct {
 }
 
 func (i *boolColumnImpl) fromImpl(subQuery SelectTable) Projection {
-	return i.From(subQuery)
+	_ = "STUB: not implemented"
+	return *new(Projection)
 }
 
 func (i *boolColumnImpl) From(subQuery SelectTable) ColumnBool {
-	newBoolColumn := BoolColumn(i.name)
-	newBoolColumn.setTableName(i.tableName)
-	newBoolColumn.setSubQuery(subQuery)
-
-	return newBoolColumn
+	_ = "STUB: not implemented"
+	return *new(ColumnBool)
 }
 
 func (i *boolColumnImpl) SET(boolExp BoolExpression) ColumnAssigment {
-	return columnAssigmentImpl{
-		column:   i,
-		toAssign: boolExp,
-	}
+	_ = "STUB: not implemented"
+	return *new(ColumnAssigment)
 }
 
 // BoolColumn creates named bool column.
-func BoolColumn(name string) ColumnBool {
-	boolColumn := &boolColumnImpl{}
-	boolColumn.ColumnExpressionImpl = NewColumnImpl(name, "", boolColumn)
-	boolColumn.boolInterfaceImpl.root = boolColumn
-
-	return boolColumn
-}
+func BoolColumn(name string) ColumnBool { _ = "STUB: not implemented"; return *new(ColumnBool) }
 
 //------------------------------------------------------//
 
@@ -59,32 +49,22 @@ type floatColumnImpl struct {
 }
 
 func (i *floatColumnImpl) fromImpl(subQuery SelectTable) Projection {
-	return i.From(subQuery)
+	_ = "STUB: not implemented"
+	return *new(Projection)
 }
 
 func (i *floatColumnImpl) From(subQuery SelectTable) ColumnFloat {
-	newFloatColumn := FloatColumn(i.name)
-	newFloatColumn.setTableName(i.tableName)
-	newFloatColumn.setSubQuery(subQuery)
-
-	return newFloatColumn
+	_ = "STUB: not implemented"
+	return *new(ColumnFloat)
 }
 
 func (i *floatColumnImpl) SET(floatExp FloatExpression) ColumnAssigment {
-	return columnAssigmentImpl{
-		column:   i,
-		toAssign: floatExp,
-	}
+	_ = "STUB: not implemented"
+	return *new(ColumnAssigment)
 }
 
 // FloatColumn creates named float column.
-func FloatColumn(name string) ColumnFloat {
-	floatColumn := &floatColumnImpl{}
-	floatColumn.floatInterfaceImpl.root = floatColumn
-	floatColumn.ColumnExpressionImpl = NewColumnImpl(name, "", floatColumn)
-
-	return floatColumn
-}
+func FloatColumn(name string) ColumnFloat { _ = "STUB: not implemented"; return *new(ColumnFloat) }
 
 //------------------------------------------------------//
 
@@ -104,31 +84,24 @@ type integerColumnImpl struct {
 }
 
 func (i *integerColumnImpl) fromImpl(subQuery SelectTable) Projection {
-	return i.From(subQuery)
+	_ = "STUB: not implemented"
+	return *new(Projection)
 }
 
 func (i *integerColumnImpl) From(subQuery SelectTable) ColumnInteger {
-	newIntColumn := IntegerColumn(i.name)
-	newIntColumn.setTableName(i.tableName)
-	newIntColumn.setSubQuery(subQuery)
-
-	return newIntColumn
+	_ = "STUB: not implemented"
+	return *new(ColumnInteger)
 }
 
 func (i *integerColumnImpl) SET(intExp IntegerExpression) ColumnAssigment {
-	return columnAssigmentImpl{
-		column:   i,
-		toAssign: intExp,
-	}
+	_ = "STUB: not implemented"
+	return *new(ColumnAssigment)
 }
 
 // IntegerColumn creates named integer column.
 func IntegerColumn(name string) ColumnInteger {
-	integerColumn := &integerColumnImpl{}
-	integerColumn.integerInterfaceImpl.root = integerColumn
-	integerColumn.ColumnExpressionImpl = NewColumnImpl(name, "", integerColumn)
-
-	return integerColumn
+	_ = "STUB: not implemented"
+	return *new(ColumnInteger)
 }
 
 //------------------------------------------------------//
@@ -148,32 +121,22 @@ type arrayColumnImpl[E Expression] struct {
 }
 
 func (a arrayColumnImpl[E]) fromImpl(subQuery SelectTable) Projection {
-	return a.From(subQuery)
+	_ = "STUB: not implemented"
+	return *new(Projection)
 }
 
 func (a arrayColumnImpl[E]) From(subQuery SelectTable) ColumnArray[E] {
-	newArrayColumn := ArrayColumn[E](a.name)
-	newArrayColumn.setTableName(a.tableName)
-	newArrayColumn.setSubQuery(subQuery)
-
-	return newArrayColumn
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (a *arrayColumnImpl[E]) SET(stringExp Array[E]) ColumnAssigment {
-	return columnAssigmentImpl{
-		column:   a,
-		toAssign: stringExp,
-	}
+	_ = "STUB: not implemented"
+	return *new(ColumnAssigment)
 }
 
 // StringColumn creates named string column.
-func ArrayColumn[E Expression](name string) ColumnArray[E] {
-	arrayColumn := &arrayColumnImpl[E]{}
-	arrayColumn.arrayInterfaceImpl.parent = arrayColumn
-	arrayColumn.ColumnExpressionImpl = NewColumnImpl(name, "", arrayColumn)
-
-	return arrayColumn
-}
+func ArrayColumn[E Expression](name string) ColumnArray[E] { _ = "STUB: not implemented"; return nil }
 
 //------------------------------------------------------//
 
@@ -194,32 +157,22 @@ type stringColumnImpl struct {
 }
 
 func (i *stringColumnImpl) fromImpl(subQuery SelectTable) Projection {
-	return i.From(subQuery)
+	_ = "STUB: not implemented"
+	return *new(Projection)
 }
 
 func (i *stringColumnImpl) From(subQuery SelectTable) ColumnString {
-	newStrColumn := StringColumn(i.name)
-	newStrColumn.setTableName(i.tableName)
-	newStrColumn.setSubQuery(subQuery)
-
-	return newStrColumn
+	_ = "STUB: not implemented"
+	return *new(ColumnString)
 }
 
 func (i *stringColumnImpl) SET(stringExp StringExpression) ColumnAssigment {
-	return columnAssigmentImpl{
-		column:   i,
-		toAssign: stringExp,
-	}
+	_ = "STUB: not implemented"
+	return *new(ColumnAssigment)
 }
 
 // StringColumn creates named string column.
-func StringColumn(name string) ColumnString {
-	stringColumn := &stringColumnImpl{}
-	stringColumn.stringInterfaceImpl.root = stringColumn
-	stringColumn.ColumnExpressionImpl = NewColumnImpl(name, "", stringColumn)
-
-	return stringColumn
-}
+func StringColumn(name string) ColumnString { _ = "STUB: not implemented"; return *new(ColumnString) }
 
 //------------------------------------------------------//
 
@@ -239,32 +192,22 @@ type blobColumnImpl struct {
 }
 
 func (i *blobColumnImpl) fromImpl(subQuery SelectTable) Projection {
-	return i.From(subQuery)
+	_ = "STUB: not implemented"
+	return *new(Projection)
 }
 
 func (i *blobColumnImpl) From(subQuery SelectTable) ColumnBlob {
-	newBlobColumn := BlobColumn(i.name)
-	newBlobColumn.setTableName(i.tableName)
-	newBlobColumn.setSubQuery(subQuery)
-
-	return newBlobColumn
+	_ = "STUB: not implemented"
+	return *new(ColumnBlob)
 }
 
 func (i *blobColumnImpl) SET(blobExp BlobExpression) ColumnAssigment {
-	return columnAssigmentImpl{
-		column:   i,
-		toAssign: blobExp,
-	}
+	_ = "STUB: not implemented"
+	return *new(ColumnAssigment)
 }
 
 // BlobColumn creates named blob column.
-func BlobColumn(name string) ColumnBlob {
-	blobColumn := &blobColumnImpl{}
-	blobColumn.blobInterfaceImpl.root = blobColumn
-	blobColumn.ColumnExpressionImpl = NewColumnImpl(name, "", blobColumn)
-
-	return blobColumn
-}
+func BlobColumn(name string) ColumnBlob { _ = "STUB: not implemented"; return *new(ColumnBlob) }
 
 //------------------------------------------------------//
 
@@ -283,31 +226,22 @@ type timeColumnImpl struct {
 }
 
 func (i *timeColumnImpl) fromImpl(subQuery SelectTable) Projection {
-	return i.From(subQuery)
+	_ = "STUB: not implemented"
+	return *new(Projection)
 }
 
 func (i *timeColumnImpl) From(subQuery SelectTable) ColumnTime {
-	newTimeColumn := TimeColumn(i.name)
-	newTimeColumn.setTableName(i.tableName)
-	newTimeColumn.setSubQuery(subQuery)
-
-	return newTimeColumn
+	_ = "STUB: not implemented"
+	return *new(ColumnTime)
 }
 
 func (i *timeColumnImpl) SET(timeExp TimeExpression) ColumnAssigment {
-	return columnAssigmentImpl{
-		column:   i,
-		toAssign: timeExp,
-	}
+	_ = "STUB: not implemented"
+	return *new(ColumnAssigment)
 }
 
 // TimeColumn creates named time column
-func TimeColumn(name string) ColumnTime {
-	timeColumn := &timeColumnImpl{}
-	timeColumn.timeInterfaceImpl.root = timeColumn
-	timeColumn.ColumnExpressionImpl = NewColumnImpl(name, "", timeColumn)
-	return timeColumn
-}
+func TimeColumn(name string) ColumnTime { _ = "STUB: not implemented"; return *new(ColumnTime) }
 
 //------------------------------------------------------//
 
@@ -326,32 +260,22 @@ type timezColumnImpl struct {
 }
 
 func (i *timezColumnImpl) fromImpl(subQuery SelectTable) Projection {
-	return i.From(subQuery)
+	_ = "STUB: not implemented"
+	return *new(Projection)
 }
 
 func (i *timezColumnImpl) From(subQuery SelectTable) ColumnTimez {
-	newTimezColumn := TimezColumn(i.name)
-	newTimezColumn.setTableName(i.tableName)
-	newTimezColumn.setSubQuery(subQuery)
-
-	return newTimezColumn
+	_ = "STUB: not implemented"
+	return *new(ColumnTimez)
 }
 
 func (i *timezColumnImpl) SET(timezExp TimezExpression) ColumnAssigment {
-	return columnAssigmentImpl{
-		column:   i,
-		toAssign: timezExp,
-	}
+	_ = "STUB: not implemented"
+	return *new(ColumnAssigment)
 }
 
 // TimezColumn creates named time with time zone column.
-func TimezColumn(name string) ColumnTimez {
-	timezColumn := &timezColumnImpl{}
-	timezColumn.timezInterfaceImpl.root = timezColumn
-	timezColumn.ColumnExpressionImpl = NewColumnImpl(name, "", timezColumn)
-
-	return timezColumn
-}
+func TimezColumn(name string) ColumnTimez { _ = "STUB: not implemented"; return *new(ColumnTimez) }
 
 //------------------------------------------------------//
 
@@ -370,31 +294,24 @@ type timestampColumnImpl struct {
 }
 
 func (i *timestampColumnImpl) fromImpl(subQuery SelectTable) Projection {
-	return i.From(subQuery)
+	_ = "STUB: not implemented"
+	return *new(Projection)
 }
 
 func (i *timestampColumnImpl) From(subQuery SelectTable) ColumnTimestamp {
-	newTimestampColumn := TimestampColumn(i.name)
-	newTimestampColumn.setTableName(i.tableName)
-	newTimestampColumn.setSubQuery(subQuery)
-
-	return newTimestampColumn
+	_ = "STUB: not implemented"
+	return *new(ColumnTimestamp)
 }
 
 func (i *timestampColumnImpl) SET(timestampExp TimestampExpression) ColumnAssigment {
-	return columnAssigmentImpl{
-		column:   i,
-		toAssign: timestampExp,
-	}
+	_ = "STUB: not implemented"
+	return *new(ColumnAssigment)
 }
 
 // TimestampColumn creates named timestamp column
 func TimestampColumn(name string) ColumnTimestamp {
-	timestampColumn := &timestampColumnImpl{}
-	timestampColumn.timestampInterfaceImpl.root = timestampColumn
-	timestampColumn.ColumnExpressionImpl = NewColumnImpl(name, "", timestampColumn)
-
-	return timestampColumn
+	_ = "STUB: not implemented"
+	return *new(ColumnTimestamp)
 }
 
 //------------------------------------------------------//
@@ -414,31 +331,24 @@ type timestampzColumnImpl struct {
 }
 
 func (i *timestampzColumnImpl) fromImpl(subQuery SelectTable) Projection {
-	return i.From(subQuery)
+	_ = "STUB: not implemented"
+	return *new(Projection)
 }
 
 func (i *timestampzColumnImpl) From(subQuery SelectTable) ColumnTimestampz {
-	newTimestampzColumn := TimestampzColumn(i.name)
-	newTimestampzColumn.setTableName(i.tableName)
-	newTimestampzColumn.setSubQuery(subQuery)
-
-	return newTimestampzColumn
+	_ = "STUB: not implemented"
+	return *new(ColumnTimestampz)
 }
 
 func (i *timestampzColumnImpl) SET(timestampzExp TimestampzExpression) ColumnAssigment {
-	return columnAssigmentImpl{
-		column:   i,
-		toAssign: timestampzExp,
-	}
+	_ = "STUB: not implemented"
+	return *new(ColumnAssigment)
 }
 
 // TimestampzColumn creates named timestamp with time zone column.
 func TimestampzColumn(name string) ColumnTimestampz {
-	timestampzColumn := &timestampzColumnImpl{}
-	timestampzColumn.timestampzInterfaceImpl.root = timestampzColumn
-	timestampzColumn.ColumnExpressionImpl = NewColumnImpl(name, "", timestampzColumn)
-
-	return timestampzColumn
+	_ = "STUB: not implemented"
+	return *new(ColumnTimestampz)
 }
 
 //------------------------------------------------------//
@@ -458,31 +368,22 @@ type dateColumnImpl struct {
 }
 
 func (i *dateColumnImpl) fromImpl(subQuery SelectTable) Projection {
-	return i.From(subQuery)
+	_ = "STUB: not implemented"
+	return *new(Projection)
 }
 
 func (i *dateColumnImpl) From(subQuery SelectTable) ColumnDate {
-	newDateColumn := DateColumn(i.name)
-	newDateColumn.setTableName(i.tableName)
-	newDateColumn.setSubQuery(subQuery)
-
-	return newDateColumn
+	_ = "STUB: not implemented"
+	return *new(ColumnDate)
 }
 
 func (i *dateColumnImpl) SET(dateExp DateExpression) ColumnAssigment {
-	return columnAssigmentImpl{
-		column:   i,
-		toAssign: dateExp,
-	}
+	_ = "STUB: not implemented"
+	return *new(ColumnAssigment)
 }
 
 // DateColumn creates named date column.
-func DateColumn(name string) ColumnDate {
-	dateColumn := &dateColumnImpl{}
-	dateColumn.dateInterfaceImpl.root = dateColumn
-	dateColumn.ColumnExpressionImpl = NewColumnImpl(name, "", dateColumn)
-	return dateColumn
-}
+func DateColumn(name string) ColumnDate { _ = "STUB: not implemented"; return *new(ColumnDate) }
 
 //------------------------------------------------------//
 
@@ -503,30 +404,24 @@ type intervalColumnImpl struct {
 }
 
 func (i *intervalColumnImpl) SET(intervalExp IntervalExpression) ColumnAssigment {
-	return columnAssigmentImpl{
-		column:   i,
-		toAssign: intervalExp,
-	}
+	_ = "STUB: not implemented"
+	return *new(ColumnAssigment)
 }
 
 func (i *intervalColumnImpl) fromImpl(subQuery SelectTable) Projection {
-	return i.From(subQuery)
+	_ = "STUB: not implemented"
+	return *new(Projection)
 }
 
 func (i *intervalColumnImpl) From(subQuery SelectTable) ColumnInterval {
-	newIntervalColumn := IntervalColumn(i.name)
-	newIntervalColumn.setTableName(i.tableName)
-	newIntervalColumn.setSubQuery(subQuery)
-
-	return newIntervalColumn
+	_ = "STUB: not implemented"
+	return *new(ColumnInterval)
 }
 
 // IntervalColumn creates named interval column.
 func IntervalColumn(name string) ColumnInterval {
-	intervalColumn := &intervalColumnImpl{}
-	intervalColumn.ColumnExpressionImpl = NewColumnImpl(name, "", intervalColumn)
-	intervalColumn.intervalInterfaceImpl.root = intervalColumn
-	return intervalColumn
+	_ = "STUB: not implemented"
+	return *new(ColumnInterval)
 }
 
 //------------------------------------------------------//
@@ -547,29 +442,19 @@ type rangeColumnImpl[T Expression] struct {
 }
 
 func (i *rangeColumnImpl[T]) fromImpl(subQuery SelectTable) Projection {
-	return i.From(subQuery)
+	_ = "STUB: not implemented"
+	return *new(Projection)
 }
 
 func (i *rangeColumnImpl[T]) From(subQuery SelectTable) ColumnRange[T] {
-	newRangeColumn := RangeColumn[T](i.name)
-	newRangeColumn.setTableName(i.tableName)
-	newRangeColumn.setSubQuery(subQuery)
-
-	return newRangeColumn
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (i *rangeColumnImpl[T]) SET(rangeExp Range[T]) ColumnAssigment {
-	return columnAssigmentImpl{
-		column:   i,
-		toAssign: rangeExp,
-	}
+	_ = "STUB: not implemented"
+	return *new(ColumnAssigment)
 }
 
 // RangeColumn creates named range column.
-func RangeColumn[T Expression](name string) ColumnRange[T] {
-	rangeColumn := &rangeColumnImpl[T]{}
-	rangeColumn.rangeInterfaceImpl.root = rangeColumn
-	rangeColumn.ColumnExpressionImpl = NewColumnImpl(name, "", rangeColumn)
-
-	return rangeColumn
-}
+func RangeColumn[T Expression](name string) ColumnRange[T] { _ = "STUB: not implemented"; return nil }

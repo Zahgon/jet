@@ -28,62 +28,76 @@ type intervalInterfaceImpl struct {
 	root IntervalExpression
 }
 
-func (i *intervalInterfaceImpl) isInterval() {}
+func (i *intervalInterfaceImpl) isInterval() { _ = "STUB: not implemented"; return }
 
 func (i *intervalInterfaceImpl) EQ(rhs IntervalExpression) BoolExpression {
-	return Eq(i.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (i *intervalInterfaceImpl) NOT_EQ(rhs IntervalExpression) BoolExpression {
-	return NotEq(i.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (i *intervalInterfaceImpl) IS_DISTINCT_FROM(rhs IntervalExpression) BoolExpression {
-	return IsDistinctFrom(i.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (i *intervalInterfaceImpl) IS_NOT_DISTINCT_FROM(rhs IntervalExpression) BoolExpression {
-	return IsNotDistinctFrom(i.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (i *intervalInterfaceImpl) LT(rhs IntervalExpression) BoolExpression {
-	return Lt(i.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (i *intervalInterfaceImpl) LT_EQ(rhs IntervalExpression) BoolExpression {
-	return LtEq(i.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (i *intervalInterfaceImpl) GT(rhs IntervalExpression) BoolExpression {
-	return Gt(i.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (i *intervalInterfaceImpl) GT_EQ(rhs IntervalExpression) BoolExpression {
-	return GtEq(i.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (i *intervalInterfaceImpl) BETWEEN(min, max IntervalExpression) BoolExpression {
-	return NewBetweenOperatorExpression(i.root, min, max, false)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (i *intervalInterfaceImpl) NOT_BETWEEN(min, max IntervalExpression) BoolExpression {
-	return NewBetweenOperatorExpression(i.root, min, max, true)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (i *intervalInterfaceImpl) ADD(rhs IntervalExpression) IntervalExpression {
-	return IntervalExp(Add(i.root, rhs))
+	_ = "STUB: not implemented"
+	return *new(IntervalExpression)
 }
 
 func (i *intervalInterfaceImpl) SUB(rhs IntervalExpression) IntervalExpression {
-	return IntervalExp(Sub(i.root, rhs))
+	_ = "STUB: not implemented"
+	return *new(IntervalExpression)
 }
 
 func (i *intervalInterfaceImpl) MUL(rhs NumericExpression) IntervalExpression {
-	return IntervalExp(Mul(i.root, rhs))
+	_ = "STUB: not implemented"
+	return *new(IntervalExpression)
 }
 
 func (i *intervalInterfaceImpl) DIV(rhs NumericExpression) IntervalExpression {
-	return IntervalExp(Div(i.root, rhs))
+	_ = "STUB: not implemented"
+	return *new(IntervalExpression)
 }
 
 type intervalWrapper struct {
@@ -92,17 +106,16 @@ type intervalWrapper struct {
 }
 
 func newIntervalExpressionWrap(expression Expression) IntervalExpression {
-	intervalWrap := &intervalWrapper{Expression: expression}
-	intervalWrap.intervalInterfaceImpl.root = intervalWrap
-	expression.setRoot(intervalWrap)
-	return intervalWrap
+	_ = "STUB: not implemented"
+	return *new(IntervalExpression)
 }
 
 // IntervalExp is interval expression wrapper around arbitrary expression.
 // Allows go compiler to see any expression as interval expression.
 // Does not add sql cast to generated sql builder output.
 func IntervalExp(expression Expression) IntervalExpression {
-	return newIntervalExpressionWrap(expression)
+	_ = "STUB: not implemented"
+	return *new(IntervalExpression)
 }
 
 // Interval interface

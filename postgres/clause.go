@@ -2,7 +2,6 @@ package postgres
 
 import (
 	"github.com/go-jet/jet/v2/internal/jet"
-	"github.com/go-jet/jet/v2/internal/utils/is"
 )
 
 type onConflict interface {
@@ -25,46 +24,26 @@ type onConflictClause struct {
 }
 
 func (o *onConflictClause) ON_CONSTRAINT(name string) conflictTarget {
-	o.constraint = name
-	return o
+	_ = "STUB: not implemented"
+	return *new(conflictTarget)
 }
 
 func (o *onConflictClause) WHERE(indexPredicate BoolExpression) conflictTarget {
-	o.whereClause.Condition = indexPredicate
-	return o
+	_ = "STUB: not implemented"
+	return *new(conflictTarget)
 }
 
 func (o *onConflictClause) DO_NOTHING() InsertStatement {
-	o.do = jet.Keyword("DO NOTHING")
-	return o.insertStatement
+	_ = "STUB: not implemented"
+	return *new(InsertStatement)
 }
 
 func (o *onConflictClause) DO_UPDATE(action conflictAction) InsertStatement {
-	o.do = action
-	return o.insertStatement
+	_ = "STUB: not implemented"
+	return *new(InsertStatement)
 }
 
 func (o *onConflictClause) Serialize(statementType jet.StatementType, out *jet.SQLBuilder, options ...jet.SerializeOption) {
-	if is.Nil(o.do) {
-		return
-	}
-
-	out.NewLine()
-	out.WriteString("ON CONFLICT")
-	if len(o.indexExpressions) > 0 {
-		out.WriteString("(")
-		jet.SerializeColumnExpressions(o.indexExpressions, statementType, out, jet.ShortName)
-		out.WriteString(")")
-	}
-
-	if o.constraint != "" {
-		out.WriteString("ON CONSTRAINT")
-		out.WriteString(o.constraint)
-	}
-
-	o.whereClause.Serialize(statementType, out, jet.SkipNewLine, jet.ShortName)
-
-	out.IncreaseIdent(7)
-	jet.Serialize(o.do, statementType, out)
-	out.DecreaseIdent(7)
+	_ = "STUB: not implemented"
+	return
 }

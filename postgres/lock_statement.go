@@ -27,14 +27,8 @@ type LockStatement interface {
 
 // LOCK creates LockStatement from list of tables
 func LOCK(tables ...jet.SerializerTable) LockStatement {
-	newLock := &lockStatementImpl{}
-	newLock.SerializerStatement = jet.NewStatementImpl(Dialect, jet.LockStatementType, newLock,
-		&newLock.StatementBegin, &newLock.In, &newLock.NoWait)
-
-	newLock.StatementBegin.Name = "LOCK TABLE"
-	newLock.StatementBegin.Tables = tables
-	newLock.NoWait.Name = "NOWAIT"
-	return newLock
+	_ = "STUB: not implemented"
+	return *new(LockStatement)
 }
 
 type lockStatementImpl struct {
@@ -46,11 +40,11 @@ type lockStatementImpl struct {
 }
 
 func (l *lockStatementImpl) IN(lockMode TableLockMode) LockStatement {
-	l.In.LockMode = string(lockMode)
-	return l
+	_ = "STUB: not implemented"
+	return *new(LockStatement)
 }
 
 func (l *lockStatementImpl) NOWAIT() LockStatement {
-	l.NoWait.Show = true
-	return l
+	_ = "STUB: not implemented"
+	return *new(LockStatement)
 }

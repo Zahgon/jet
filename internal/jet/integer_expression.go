@@ -43,95 +43,118 @@ type integerInterfaceImpl struct {
 }
 
 func (i *integerInterfaceImpl) EQ(rhs IntegerExpression) BoolExpression {
-	return Eq(i.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (i *integerInterfaceImpl) NOT_EQ(rhs IntegerExpression) BoolExpression {
-	return NotEq(i.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (i *integerInterfaceImpl) IS_DISTINCT_FROM(rhs IntegerExpression) BoolExpression {
-	return IsDistinctFrom(i.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (i *integerInterfaceImpl) IS_NOT_DISTINCT_FROM(rhs IntegerExpression) BoolExpression {
-	return IsNotDistinctFrom(i.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (i *integerInterfaceImpl) GT(rhs IntegerExpression) BoolExpression {
-	return Gt(i.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (i *integerInterfaceImpl) GT_EQ(rhs IntegerExpression) BoolExpression {
-	return GtEq(i.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (i *integerInterfaceImpl) LT(rhs IntegerExpression) BoolExpression {
-	return Lt(i.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (i *integerInterfaceImpl) LT_EQ(rhs IntegerExpression) BoolExpression {
-	return LtEq(i.root, rhs)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (i *integerInterfaceImpl) BETWEEN(min, max IntegerExpression) BoolExpression {
-	return NewBetweenOperatorExpression(i.root, min, max, false)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (i *integerInterfaceImpl) NOT_BETWEEN(min, max IntegerExpression) BoolExpression {
-	return NewBetweenOperatorExpression(i.root, min, max, true)
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 func (i *integerInterfaceImpl) ADD(rhs IntegerExpression) IntegerExpression {
-	return IntExp(Add(i.root, rhs))
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }
 
 func (i *integerInterfaceImpl) SUB(rhs IntegerExpression) IntegerExpression {
-	return IntExp(Sub(i.root, rhs))
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }
 
 func (i *integerInterfaceImpl) MUL(rhs IntegerExpression) IntegerExpression {
-	return IntExp(Mul(i.root, rhs))
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }
 
 func (i *integerInterfaceImpl) DIV(rhs IntegerExpression) IntegerExpression {
-	return IntExp(Div(i.root, rhs))
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }
 
 func (i *integerInterfaceImpl) MOD(rhs IntegerExpression) IntegerExpression {
-	return IntExp(Mod(i.root, rhs))
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }
 
 func (i *integerInterfaceImpl) POW(rhs IntegerExpression) IntegerExpression {
-	return IntExp(POW(i.root, rhs))
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }
 
 func (i *integerInterfaceImpl) BIT_AND(rhs IntegerExpression) IntegerExpression {
-	return newBinaryIntegerOperatorExpression(i.root, rhs, "&")
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }
 
 func (i *integerInterfaceImpl) BIT_OR(rhs IntegerExpression) IntegerExpression {
-	return newBinaryIntegerOperatorExpression(i.root, rhs, "|")
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }
 
 func (i *integerInterfaceImpl) BIT_XOR(rhs IntegerExpression) IntegerExpression {
-	return newBinaryIntegerOperatorExpression(i.root, rhs, "#")
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }
 
 func (i *integerInterfaceImpl) BIT_SHIFT_LEFT(intExpression IntegerExpression) IntegerExpression {
-	return newBinaryIntegerOperatorExpression(i.root, intExpression, "<<")
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }
 
 func (i *integerInterfaceImpl) BIT_SHIFT_RIGHT(intExpression IntegerExpression) IntegerExpression {
-	return newBinaryIntegerOperatorExpression(i.root, intExpression, ">>")
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }
 
 func newBinaryIntegerOperatorExpression(lhs, rhs IntegerExpression, operator string) IntegerExpression {
-	return IntExp(NewBinaryOperatorExpression(lhs, rhs, operator))
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }
 
 func newPrefixIntegerOperatorExpression(expression IntegerExpression, operator string) IntegerExpression {
-	return IntExp(newPrefixOperatorExpression(expression, operator))
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }
 
 type integerExpressionWrapper struct {
@@ -141,16 +164,14 @@ type integerExpressionWrapper struct {
 }
 
 func newIntExpressionWrap(expression Expression) IntegerExpression {
-	intExpressionWrap := &integerExpressionWrapper{Expression: expression}
-	intExpressionWrap.integerInterfaceImpl.root = intExpressionWrap
-	expression.setRoot(intExpressionWrap)
-
-	return intExpressionWrap
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }
 
 // IntExp is int expression wrapper around arbitrary expression.
 // Allows go compiler to see any expression as int expression.
 // Does not add sql cast to generated sql builder output.
 func IntExp(expression Expression) IntegerExpression {
-	return newIntExpressionWrap(expression)
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }

@@ -7,15 +7,9 @@ type expressionOrColumnList interface {
 
 type columnListAssigment []ColumnAssigment
 
-func (c columnListAssigment) isColumnAssignment() {}
+func (c columnListAssigment) isColumnAssignment() { _ = "STUB: not implemented"; return }
 
 func (c columnListAssigment) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-	for i, columnAssigment := range c {
-		if i > 0 {
-			out.WriteString(",")
-			out.NewLine()
-		}
-
-		columnAssigment.serialize(statement, out, options...)
-	}
+	_ = "STUB: not implemented"
+	return
 }

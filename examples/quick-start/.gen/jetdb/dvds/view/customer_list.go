@@ -40,63 +40,36 @@ type CustomerListTable struct {
 
 // AS creates new CustomerListTable with assigned alias
 func (a CustomerListTable) AS(alias string) *CustomerListTable {
-	return newCustomerListTable(a.SchemaName(), a.TableName(), alias)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Schema creates new CustomerListTable with assigned schema name
 func (a CustomerListTable) FromSchema(schemaName string) *CustomerListTable {
-	return newCustomerListTable(schemaName, a.TableName(), a.Alias())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // WithPrefix creates new CustomerListTable with assigned table prefix
 func (a CustomerListTable) WithPrefix(prefix string) *CustomerListTable {
-	return newCustomerListTable(a.SchemaName(), prefix+a.TableName(), a.TableName())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // WithSuffix creates new CustomerListTable with assigned table suffix
 func (a CustomerListTable) WithSuffix(suffix string) *CustomerListTable {
-	return newCustomerListTable(a.SchemaName(), a.TableName()+suffix, a.TableName())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func newCustomerListTable(schemaName, tableName, alias string) *CustomerListTable {
-	return &CustomerListTable{
-		customerListTable: newCustomerListTableImpl(schemaName, tableName, alias),
-		EXCLUDED:          newCustomerListTableImpl("", "excluded", ""),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func newCustomerListTableImpl(schemaName, tableName, alias string) customerListTable {
-	var (
-		IDColumn       = postgres.IntegerColumn("id")
-		NameColumn     = postgres.StringColumn("name")
-		AddressColumn  = postgres.StringColumn("address")
-		ZipCodeColumn  = postgres.StringColumn("zip code")
-		PhoneColumn    = postgres.StringColumn("phone")
-		CityColumn     = postgres.StringColumn("city")
-		CountryColumn  = postgres.StringColumn("country")
-		NotesColumn    = postgres.StringColumn("notes")
-		SidColumn      = postgres.IntegerColumn("sid")
-		allColumns     = postgres.ColumnList{IDColumn, NameColumn, AddressColumn, ZipCodeColumn, PhoneColumn, CityColumn, CountryColumn, NotesColumn, SidColumn}
-		mutableColumns = postgres.ColumnList{IDColumn, NameColumn, AddressColumn, ZipCodeColumn, PhoneColumn, CityColumn, CountryColumn, NotesColumn, SidColumn}
-		defaultColumns = postgres.ColumnList{}
-	)
-
-	return customerListTable{
-		Table: postgres.NewTable(schemaName, tableName, alias, allColumns...),
-
-		//Columns
-		ID:      IDColumn,
-		Name:    NameColumn,
-		Address: AddressColumn,
-		ZipCode: ZipCodeColumn,
-		Phone:   PhoneColumn,
-		City:    CityColumn,
-		Country: CountryColumn,
-		Notes:   NotesColumn,
-		Sid:     SidColumn,
-
-		AllColumns:     allColumns,
-		MutableColumns: mutableColumns,
-		DefaultColumns: defaultColumns,
-	}
+	_ = "STUB: not implemented"
+	return *new(customerListTable)
 }
+
+//Columns

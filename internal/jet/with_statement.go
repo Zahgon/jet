@@ -1,27 +1,9 @@
 package jet
 
-import "fmt"
-
 // WITH function creates new with statement from list of common table expressions for specified dialect
 func WITH(dialect Dialect, recursive bool, cte ...*CommonTableExpression) func(statement Statement) Statement {
-	newWithImpl := &withImpl{
-		recursive: recursive,
-		ctes:      cte,
-		statementInterfaceImpl: statementInterfaceImpl{
-			dialect:       dialect,
-			statementType: WithStatementType,
-		},
-	}
-	newWithImpl.root = newWithImpl
-
-	return func(primaryStatement Statement) Statement {
-		serializerStatement, ok := primaryStatement.(SerializerStatement)
-		if !ok {
-			panic("jet: unsupported main WITH statement.")
-		}
-		newWithImpl.primaryStatement = serializerStatement
-		return newWithImpl
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 type withImpl struct {
@@ -32,28 +14,18 @@ type withImpl struct {
 }
 
 func (w withImpl) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-	out.NewLine()
-	out.WriteString("WITH")
-
-	if w.recursive {
-		out.WriteString("RECURSIVE")
-	}
-
-	for i, cte := range w.ctes {
-		if i > 0 {
-			out.WriteString(",")
-		}
-
-		cte.serialize(statement, out, FallTrough(options)...)
-	}
-	w.primaryStatement.serialize(statement, out, NoWrap.WithFallTrough(options)...)
+	_ = "STUB: not implemented"
+	return
 }
 
 func (w withImpl) projections() ProjectionList {
-	return ProjectionList{}
+	_ = "STUB: not implemented"
+	return *
+
+	// CommonTableExpression contains information about a CTE.
+	new(ProjectionList)
 }
 
-// CommonTableExpression contains information about a CTE.
 type CommonTableExpression struct {
 	selectTableImpl
 
@@ -63,39 +35,15 @@ type CommonTableExpression struct {
 
 // CTE creates new named CommonTableExpression
 func CTE(name string, columns ...ColumnExpression) CommonTableExpression {
-	cte := CommonTableExpression{
-		selectTableImpl: NewSelectTable(nil, name, columns),
-		Columns:         columns,
-	}
-
-	for _, column := range cte.Columns {
-		column.setSubQuery(cte)
-	}
-
-	return cte
+	_ = "STUB: not implemented"
+	return *new(CommonTableExpression)
 }
 
 func (c CommonTableExpression) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-	if statement == WithStatementType { // serialize CTE definition
-		out.WriteIdentifier(c.alias)
-		if len(c.Columns) > 0 {
-			out.WriteByte('(')
-			SerializeColumnExpressionNames(c.Columns, out)
-			out.WriteByte(')')
-		}
-		out.WriteString("AS")
-
-		if c.NotMaterialized {
-			out.WriteString("NOT MATERIALIZED")
-		}
-
-		if c.Statement == nil {
-			panic(fmt.Sprintf("jet: '%s' CTE is not defined", c.alias))
-		}
-
-		c.Statement.serialize(statement, out, FallTrough(options)...)
-
-	} else { // serialize CTE in FROM clause
-		out.WriteIdentifier(c.alias)
-	}
+	_ = "STUB: not implemented"
+	return
 }
+
+// serialize CTE definition
+
+// serialize CTE in FROM clause

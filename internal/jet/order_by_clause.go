@@ -30,50 +30,26 @@ type orderByClauseImpl struct {
 }
 
 func (ord *orderByClauseImpl) NULLS_FIRST() OrderByClause {
-	nullsFirst := true
-	ord.nullsFirst = &nullsFirst
-	return ord
+	_ = "STUB: not implemented"
+	return *new(OrderByClause)
 }
+
 func (ord *orderByClauseImpl) NULLS_LAST() OrderByClause {
-	nullsFirst := false
-	ord.nullsFirst = &nullsFirst
-	return ord
+	_ = "STUB: not implemented"
+	return *new(OrderByClause)
 }
 
 func (ord *orderByClauseImpl) serializeForOrderBy(statement StatementType, out *SQLBuilder) {
-	customSerializer := out.Dialect.SerializeOrderBy()
-	if customSerializer != nil {
-		customSerializer(ord.expression, ord.ascending, ord.nullsFirst)(statement, out)
-		return
-	}
-
-	if ord.expression == nil {
-		panic("jet: nil expression in ORDER BY clause")
-	}
-
-	ord.expression.serializeForOrderBy(statement, out)
-
-	if ord.ascending != nil {
-		if *ord.ascending {
-			out.WriteString("ASC")
-		} else {
-			out.WriteString("DESC")
-		}
-	}
-
-	if ord.nullsFirst != nil {
-		if *ord.nullsFirst {
-			out.WriteString("NULLS FIRST")
-		} else {
-			out.WriteString("NULLS LAST")
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newOrderByAscending(expression Expression, ascending bool) OrderByClause {
-	return &orderByClauseImpl{expression: expression, ascending: &ascending}
+	_ = "STUB: not implemented"
+	return *new(OrderByClause)
 }
 
 func newOrderByNullsFirst(expression Expression, nullsFirst bool) OrderByClause {
-	return &orderByClauseImpl{expression: expression, nullsFirst: &nullsFirst}
+	_ = "STUB: not implemented"
+	return *new(OrderByClause)
 }

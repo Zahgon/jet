@@ -9,36 +9,16 @@ type rawStatementImpl struct {
 
 // RawStatement creates new sql statements from raw query and optional map of named arguments
 func RawStatement(dialect Dialect, rawQuery string, namedArgument ...map[string]interface{}) SerializerStatement {
-	newRawStatement := rawStatementImpl{
-		statementInterfaceImpl: statementInterfaceImpl{
-			dialect:       dialect,
-			statementType: "",
-			root:          nil,
-		},
-		RawQuery:       rawQuery,
-		NamedArguments: singleOptional(namedArgument),
-	}
-
-	newRawStatement.root = &newRawStatement
-
-	return &newRawStatement
+	_ = "STUB: not implemented"
+	return *new(SerializerStatement)
 }
 
 func (s *rawStatementImpl) projections() ProjectionList {
-	return nil
+	_ = "STUB: not implemented"
+	return *new(ProjectionList)
 }
 
 func (s *rawStatementImpl) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-	if !contains(options, NoWrap) {
-		out.WriteString("(")
-		out.IncreaseIdent()
-	}
-
-	out.insertRawQuery(s.RawQuery, s.NamedArguments)
-
-	if !contains(options, NoWrap) {
-		out.DecreaseIdent()
-		out.NewLine()
-		out.WriteString(")")
-	}
+	_ = "STUB: not implemented"
+	return
 }

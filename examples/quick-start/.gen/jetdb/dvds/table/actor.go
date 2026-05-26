@@ -34,54 +34,28 @@ type ActorTable struct {
 }
 
 // AS creates new ActorTable with assigned alias
-func (a ActorTable) AS(alias string) *ActorTable {
-	return newActorTable(a.SchemaName(), a.TableName(), alias)
-}
+func (a ActorTable) AS(alias string) *ActorTable { _ = "STUB: not implemented"; return nil }
 
 // Schema creates new ActorTable with assigned schema name
 func (a ActorTable) FromSchema(schemaName string) *ActorTable {
-	return newActorTable(schemaName, a.TableName(), a.Alias())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // WithPrefix creates new ActorTable with assigned table prefix
-func (a ActorTable) WithPrefix(prefix string) *ActorTable {
-	return newActorTable(a.SchemaName(), prefix+a.TableName(), a.TableName())
-}
+func (a ActorTable) WithPrefix(prefix string) *ActorTable { _ = "STUB: not implemented"; return nil }
 
 // WithSuffix creates new ActorTable with assigned table suffix
-func (a ActorTable) WithSuffix(suffix string) *ActorTable {
-	return newActorTable(a.SchemaName(), a.TableName()+suffix, a.TableName())
-}
+func (a ActorTable) WithSuffix(suffix string) *ActorTable { _ = "STUB: not implemented"; return nil }
 
 func newActorTable(schemaName, tableName, alias string) *ActorTable {
-	return &ActorTable{
-		actorTable: newActorTableImpl(schemaName, tableName, alias),
-		EXCLUDED:   newActorTableImpl("", "excluded", ""),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func newActorTableImpl(schemaName, tableName, alias string) actorTable {
-	var (
-		ActorIDColumn    = postgres.IntegerColumn("actor_id")
-		FirstNameColumn  = postgres.StringColumn("first_name")
-		LastNameColumn   = postgres.StringColumn("last_name")
-		LastUpdateColumn = postgres.TimestampColumn("last_update")
-		allColumns       = postgres.ColumnList{ActorIDColumn, FirstNameColumn, LastNameColumn, LastUpdateColumn}
-		mutableColumns   = postgres.ColumnList{FirstNameColumn, LastNameColumn, LastUpdateColumn}
-		defaultColumns   = postgres.ColumnList{ActorIDColumn}
-	)
-
-	return actorTable{
-		Table: postgres.NewTable(schemaName, tableName, alias, allColumns...),
-
-		//Columns
-		ActorID:    ActorIDColumn,
-		FirstName:  FirstNameColumn,
-		LastName:   LastNameColumn,
-		LastUpdate: LastUpdateColumn,
-
-		AllColumns:     allColumns,
-		MutableColumns: mutableColumns,
-		DefaultColumns: defaultColumns,
-	}
+	_ = "STUB: not implemented"
+	return *new(actorTable)
 }
+
+//Columns

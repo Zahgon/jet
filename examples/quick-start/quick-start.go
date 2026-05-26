@@ -2,9 +2,7 @@ package main
 
 import (
 	"database/sql"
-	"encoding/json"
 	"fmt"
-	"os"
 
 	_ "github.com/lib/pq"
 
@@ -92,32 +90,8 @@ func main() {
 	jsonSave("./quick-start/dest2.json", dest2)
 }
 
-func jsonSave(path string, v interface{}) {
-	jsonText, _ := json.MarshalIndent(v, "", "\t")
+func jsonSave(path string, v interface{}) { _ = "STUB: not implemented"; return }
 
-	err := os.WriteFile(path, jsonText, 0600)
+func printStatementInfo(stmt SelectStatement) { _ = "STUB: not implemented"; return }
 
-	panicOnError(err)
-}
-
-func printStatementInfo(stmt SelectStatement) {
-	query, args := stmt.Sql()
-
-	fmt.Println("Parameterized query: ")
-	fmt.Println("==============================")
-	fmt.Println(query)
-	fmt.Println("Arguments: ")
-	fmt.Println(args)
-
-	debugSQL := stmt.DebugSql()
-
-	fmt.Println("\n\nDebug sql: ")
-	fmt.Println("==============================")
-	fmt.Println(debugSQL)
-}
-
-func panicOnError(err error) {
-	if err != nil {
-		panic(err)
-	}
-}
+func panicOnError(err error) { _ = "STUB: not implemented"; return }

@@ -10,101 +10,96 @@ const (
 //----------- Logical operators ---------------//
 
 // NOT returns negation of bool expression result
-func NOT(exp BoolExpression) BoolExpression {
-	return newPrefixBoolOperatorExpression(exp, "NOT")
-}
+func NOT(exp BoolExpression) BoolExpression { _ = "STUB: not implemented"; return *new(BoolExpression) }
 
 // BIT_NOT inverts every bit in integer expression result
 func BIT_NOT(expr IntegerExpression) IntegerExpression {
-	return newPrefixIntegerOperatorExpression(expr, "~")
+	_ = "STUB: not implemented"
+	return *new(IntegerExpression)
 }
 
 //----------- Comparison operators ---------------//
 
 // EXISTS checks for existence of the rows in subQuery
 func EXISTS(subQuery Expression) BoolExpression {
-	return newPrefixBoolOperatorExpression(subQuery, "EXISTS")
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 // Eq returns a representation of "a=b"
-func Eq(lhs, rhs Expression) BoolExpression {
-	return newBinaryBoolOperatorExpression(lhs, rhs, "=")
-}
+func Eq(lhs, rhs Expression) BoolExpression { _ = "STUB: not implemented"; return *new(BoolExpression) }
 
 // NotEq returns a representation of "a!=b"
 func NotEq(lhs, rhs Expression) BoolExpression {
-	return newBinaryBoolOperatorExpression(lhs, rhs, "!=")
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 // IsDistinctFrom returns a representation of "a IS DISTINCT FROM b"
 func IsDistinctFrom(lhs, rhs Expression) BoolExpression {
-	return newBinaryBoolOperatorExpression(lhs, rhs, "IS DISTINCT FROM")
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 // IsNotDistinctFrom returns a representation of "a IS NOT DISTINCT FROM b"
 func IsNotDistinctFrom(lhs, rhs Expression) BoolExpression {
-	return newBinaryBoolOperatorExpression(lhs, rhs, "IS NOT DISTINCT FROM")
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 // Lt returns a representation of "a<b"
 func Lt(lhs Expression, rhs Expression) BoolExpression {
-	return newBinaryBoolOperatorExpression(lhs, rhs, "<")
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 // LtEq returns a representation of "a<=b"
 func LtEq(lhs, rhs Expression) BoolExpression {
-	return newBinaryBoolOperatorExpression(lhs, rhs, "<=")
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 // Gt returns a representation of "a>b"
-func Gt(lhs, rhs Expression) BoolExpression {
-	return newBinaryBoolOperatorExpression(lhs, rhs, ">")
-}
+func Gt(lhs, rhs Expression) BoolExpression { _ = "STUB: not implemented"; return *new(BoolExpression) }
 
 // GtEq returns a representation of "a>=b"
 func GtEq(lhs, rhs Expression) BoolExpression {
-	return newBinaryBoolOperatorExpression(lhs, rhs, ">=")
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 // Contains returns a representation of "a @> b"
 func Contains(lhs Expression, rhs Expression) BoolExpression {
-	return newBinaryBoolOperatorExpression(lhs, rhs, "@>")
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 // IsContainedBy returns a representation of "a <@ b"
 func IsContainedBy(lhs Expression, rhs Expression) BoolExpression {
-	return newBinaryBoolOperatorExpression(lhs, rhs, "<@")
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 // Overlap returns a representation of "a && b"
 func Overlap(lhs, rhs Expression) BoolExpression {
-	return newBinaryBoolOperatorExpression(lhs, rhs, "&&")
+	_ = "STUB: not implemented"
+	return *new(BoolExpression)
 }
 
 // Add notEq returns a representation of "a + b"
-func Add(lhs, rhs Serializer) Expression {
-	return NewBinaryOperatorExpression(lhs, rhs, "+")
-}
+func Add(lhs, rhs Serializer) Expression { _ = "STUB: not implemented"; return *new(Expression) }
 
 // Sub notEq returns a representation of "a - b"
-func Sub(lhs, rhs Serializer) Expression {
-	return NewBinaryOperatorExpression(lhs, rhs, "-")
-}
+func Sub(lhs, rhs Serializer) Expression { _ = "STUB: not implemented"; return *new(Expression) }
 
 // Mul returns a representation of "a * b"
-func Mul(lhs, rhs Serializer) Expression {
-	return NewBinaryOperatorExpression(lhs, rhs, "*")
-}
+func Mul(lhs, rhs Serializer) Expression { _ = "STUB: not implemented"; return *new(Expression) }
 
 // Div returns a representation of "a / b"
-func Div(lhs, rhs Serializer) Expression {
-	return NewBinaryOperatorExpression(lhs, rhs, "/")
-}
+func Div(lhs, rhs Serializer) Expression { _ = "STUB: not implemented"; return *new(Expression) }
 
 // Mod returns a representation of "a % b"
-func Mod(lhs, rhs Serializer) Expression {
-	return NewBinaryOperatorExpression(lhs, rhs, "%")
-}
+func Mod(lhs, rhs Serializer) Expression { _ = "STUB: not implemented"; return *new(Expression) }
 
 // --------------- CASE operator -------------------//
 
@@ -128,67 +123,34 @@ type caseOperatorImpl struct {
 
 // CASE create CASE operator with optional list of expressions
 func CASE(expression ...Expression) CaseOperator {
-	caseExp := &caseOperatorImpl{
-		expression: singleOptional(expression),
-	}
-
-	caseExp.ExpressionInterfaceImpl.Root = caseExp
-
-	return caseExp
+	_ = "STUB: not implemented"
+	return *new(CaseOperator)
 }
 
 func (c *caseOperatorImpl) WHEN(when Expression) CaseOperator {
-	c.when = append(c.when, when)
-	return c
+	_ = "STUB: not implemented"
+	return *new(CaseOperator)
 }
 
 func (c *caseOperatorImpl) THEN(then Expression) CaseOperator {
-	c.then = append(c.then, then)
-	return c
+	_ = "STUB: not implemented"
+	return *new(CaseOperator)
 }
 
 func (c *caseOperatorImpl) ELSE(els Expression) CaseOperator {
-	c.els = els
-
-	return c
+	_ = "STUB: not implemented"
+	return *new(CaseOperator)
 }
 
 func (c *caseOperatorImpl) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
-	out.WriteString("(CASE")
-
-	if c.expression != nil {
-		c.expression.serialize(statement, out, FallTrough(options)...)
-	}
-
-	if len(c.when) == 0 || len(c.then) == 0 {
-		panic("jet: invalid case Statement. There should be at least one WHEN/THEN pair. ")
-	}
-
-	if len(c.when) != len(c.then) {
-		panic("jet: WHEN and THEN expression count mismatch. ")
-	}
-
-	for i, when := range c.when {
-		out.WriteString("WHEN")
-		when.serialize(statement, out, NoWrap)
-
-		out.WriteString("THEN")
-		c.then[i].serialize(statement, out, NoWrap)
-	}
-
-	if c.els != nil {
-		out.WriteString("ELSE")
-		c.els.serialize(statement, out, NoWrap)
-	}
-
-	out.WriteString("END)")
+	_ = "STUB: not implemented"
+	return
 }
 
 // DISTINCT operator can be used to return distinct values of expr
-func DISTINCT(expr Expression) Expression {
-	return newPrefixOperatorExpression(expr, "DISTINCT")
-}
+func DISTINCT(expr Expression) Expression { _ = "STUB: not implemented"; return *new(Expression) }
 
 func BinaryOperator(lhs Expression, rhs Expression, operator string) Expression {
-	return NewBinaryOperatorExpression(lhs, rhs, operator)
+	_ = "STUB: not implemented"
+	return *new(Expression)
 }
